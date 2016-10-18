@@ -3,7 +3,7 @@
 /**
  * Write a description of class NFLTeam here.
  * 
- * @author (your name) 
+ * @author Joe Dunne, Joe Dementri, Michael Matthews
  * @version (a version number or a date)
  */
 public class NFLTeam {
@@ -28,6 +28,14 @@ public class NFLTeam {
     public NFLTeam(String team) {
         this.team = team;
         this.players = new ArrayList<NFLPlayer>();
+        offense = new ArrayList<NFLPlayer>();
+        defense = new ArrayList<NFLPlayer>();
+    }
+    
+    
+    //Implement
+    public void act() {
+    
     }
 
     /**
@@ -117,6 +125,23 @@ public class NFLTeam {
     public ArrayList<NFLPlayer> getPlayers() {
         return players;
     }
+    /**
+     * Gets all of the players on the team
+     * 
+     * @return     the list of players
+     */    
+    public ArrayList<NFLPlayer> getOffense() {
+        return offense;
+    }
+    /**
+     * Gets all of the players on the team
+     * 
+     * @return     the list of players
+     */    
+    public ArrayList<NFLPlayer> getDefense() {
+        return defense;
+    }
+    
     
     /**
      * Gets the team name

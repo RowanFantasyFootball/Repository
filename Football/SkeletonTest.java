@@ -30,8 +30,8 @@ public class SkeletonTest
         daFortyNiners.add(fortyNiners.getPlayerByPos("QB"));
         daFortyNiners.add(fortyNiners.getPlayerByPos("HB"));
         daFortyNiners.add(fortyNiners.getPlayerByPos("WR"));
-        daFortyNiners.add(fortyNiners.getPlayer("Eddie Royal"));
-        daFortyNiners.add(fortyNiners.getPlayer("Kevin White"));
+        daFortyNiners.add(fortyNiners.getPlayer("Torrey Smith"));
+        daFortyNiners.add(fortyNiners.getPlayer("Jerome Simpson"));
         daFortyNiners.add(fortyNiners.getPlayerByPos("TE"));
         daFortyNiners.add(fortyNiners.getPlayerByPos("K"));
         daFortyNiners.add(fortyNiners.getPlayerByPos("P"));
@@ -94,10 +94,10 @@ public class SkeletonTest
             //if inside opponents 35 (roughly max kick distance)
             if (LOS >= 65) {
                 //Take and make the field goal
-                System.out.println(daBears.get(5) + " is taking the field goal.\nField Goal Good!");
+                System.out.println(daBears.get(6) + " is taking the field goal.\nField Goal Good!");
             } else {    //anywhere else on the field
                 //Punt the ball
-                System.out.println(daBears.get(6) + " is punting the ball to the other team");
+                System.out.println(daBears.get(7) + " is punting the ball to the other team");
             }
             //Either way, end of drive so end the program
             System.exit(0);
@@ -346,11 +346,11 @@ public class SkeletonTest
             } else {    //50% chance at a large gain
                 //Yardage between 11-30
                 if (offEndzone - LOS < 30 && offEndzone - LOS > 11) {   //If within 30 yards but not inside the 10
-                    yardGainage = (int)(Math.random()*(offEndzone-LOS)+11);  //Random between 11-distance to goal
+                    yardGainage = (int)(Math.random()*(offEndzone-LOS))+11;  //Random between 11-distance to goal
                 } else if (offEndzone - LOS < 11) { //if within the 10
                     yardGainage = (offEndzone - LOS);   //Distance to goal because its a TD if a big run happens here
                 } else { //otherwise
-                    yardGainage = (int)(Math.random()*(30-11)+1)+11;    //11-30 yard gain
+                    yardGainage = (int)(Math.random()*(30-11))+10;    //11-30 yard gain
                 }
             }
             //Notify user what happened and how many yards were gained

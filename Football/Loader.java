@@ -12,7 +12,7 @@ import jxl.read.biff.BiffException;
 /**
  * Write a description of class Loader here.
  * 
- * @author (your name) 
+ * @author Joe Dunne
  * @version (a version number or a date)
  */
 public class Loader {

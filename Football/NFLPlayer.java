@@ -20,6 +20,7 @@ public class NFLPlayer {
      * 
      * @param data - the data line for the player
      */
+    //Add clock, Stat, Both teams?, 
     public NFLPlayer(String[] data) { 
         this.data = data;
     }
