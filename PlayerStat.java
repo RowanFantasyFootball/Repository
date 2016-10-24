@@ -1,167 +1,162 @@
  
 
- import java.io.File; 
- import java.io.Serializable; 
- import java.util.ArrayList; 
- 
- 
- public class PlayerStat extends Statistic implements Serializable  
- { 
- 	private static final long serialVersionUID = 1L; 
-	private ArrayList<String> messages; 
- 	private int touchdown = 0; 
- 	private int interception= 0; 
- 	private int pass = 0; 
- 	private int fumble = 0; 
- 	private int penalty = 0; 
- 	private int firstDown = 0; 
- 	private int turnover = 0; 
- 	private int receiving = 0; 
- 	private int point = 0; 
- 	private int fieldGoal = 0; 
- 	private int quarter = 1; 
- 	 
- 	public PlayerStat()  
- 	{ 
- 		super(); 
-		messages = new ArrayList<String>(); 
- 		addMessages(); 
- 	} 
- 	 
- 	private int getQuarter() 
- 	{ 
- 		return quarter; 
- 	} 
- 	 
- 	private int getTouchdown() 
- 	{ 
- 		return touchdown; 
- 	} 
- 	 
- 	public int getInterception() 
- 	{ 
- 		return interception; 
- 	} 
- 	 
- 	public int getPass() 
- 	{ 
- 		return pass; 
- 	} 
- 	 
- 	public int getFieldGoal() 
- 	{ 
- 		return fieldGoal; 
- 	} 
- 	 
- 	public int getFumble() 
- 	{ 
- 		return fumble; 
- 	} 
- 	 
- 	public int getPenalty() 
- 	{ 
- 		return penalty; 
- 	} 
- 	 
- 	public int getFirstDown() 
- 	{ 
- 		return firstDown; 
- 	} 
- 	 
- 	public int getTurnover() 
- 	{ 
- 		return turnover; 
- 	} 
- 	 
- 	public int getRecieving() 
- 	{ 
- 		return receiving; 
- 	} 
- 	 
- 	public int getPoint() 
- 	{ 
- 		return point; 
- 	} 
- 	 
- 	public void increaseScore() 
- 	{ 
- 		int score = 6; 
- 		point = point + score; 
- 	} 
- 	 
- 	public void fieldGoal() 
- 	{ 
- 		int goal = 1; 
- 		point = point + goal; 
-	} 
- 
- 
- 	public void readData(String fl) throws Exception  
- 	{ 
- 		super.readData(fl); 
- 	} 
- 
- 
- 	public void findMessage(int messageNumber, String name, String time) 
- 	{ 
- 		//Will switch name and time to something other then String just place holder till we know the object type 
- 		String messageGot = null; 
- 		switch (messageNumber) { 
- 		case 1 : messageGot = messages.get(1); 
- 		touchdown++; 
- 		increaseScore(); 
- 				break; 
- 		case 2 : messageGot = messages.get(2); 
- 		interception++; 
- 				break; 
- 		case 3 : messageGot = messages.get(3); 
-		pass++; 
- 				break; 
- 		case 4 : messageGot = messages.get(4); 
-		fieldGoal(); 
- 		fieldGoal++; 
- 				break; 
- 		case 5 : messageGot = messages.get(5); 
- 		fumble++; 
- 				break; 
- 		case 6 : messageGot = messages.get(6); 
- 		firstDown++; 
- 				break; 
- 		case 7 : messageGot = messages.get(7); 
- 		turnover++; 
- 		break; 
- 		case 8 : messageGot = messages.get(8); 
- 		penalty++; 
-				break; 
- 		} 
- 		//When the Player calls on message we need you to pass the parrameter for name and time. 
- 		System.out.println(Player.getName() + ": " + messageGot + ": at " + Interface.getTime()); 
- 	} 
- 	 
- 	public void addMessages() 
-	{ 
- 		//Messages that are displayed they are in the order that they need to be called eg. Touchdown is 1 
- 		messages.add("TOUCHDOWN!"); 
- 		messages.add("INTERCEPTION!"); 
- 		messages.add("PASS COMPLETE!"); 
- 		messages.add("FIELD GOAL!"); 		messages.add("FUMBLE!"); 
- 		messages.add("FIRST DOWN!"); 
- 		messages.add("TURNOVER!"); 
- 		messages.add("PENALTY!"); 
-	} 
- 	 
- 	public void overviewQuarter() 
- 	{ 
- 		//This is the overview that can be displayed at the end of each quarter that the interface can call to display the overview 
- 		System.out.println("Overview for the " + getQuarter() + " Quarter:"); 
- 		System.out.println("Touchdowns: " + getTouchdown()); 
- 		System.out.println("Interceptions: " + getInterception()); 
- 		System.out.println("Pass Completions: " + getPass()); 
- 		System.out.println("Field Goals: " + getFieldGoal()); 
- 		System.out.println("Fumbles: " + getFumble()); 
- 		System.out.println("First Downs: " + getFirstDown()); 
- 		System.out.println("Turnovers: " + getTurnover()); 
- 		System.out.println("Penalties: " + getPenalty()); 
- 		System.out.println("Points Scored: " + getPoint()); 
-	} 
+import java.util.Iterator;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class PlayerStat implements Serializable 
+{
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Message> messages;
+	private static HashMap ov;
+	
+	public PlayerStat() 
+	{
+		messages = new ArrayList<Message>();
+		ov = new HashMap<Integer, String>();
+		ov.put(1, "Successful play");
+		ov.put(2, "First Down");
+		ov.put(3, "Touchdown");
+		ov.put(4, "Turn over");
+		ov.put(5, "Injury");
+		ov.put(6, "Incomplete Pass");
+	}
+	
+	/**
+	 * @return the messages
+	 */
+	public ArrayList<Message> getMessages() 
+	{
+		return messages;
+	}
+
+	/**
+	 * @param messages the messages to set
+	 */
+	public void setMessages(ArrayList<Message> messages) 
+	{
+		this.messages = messages;
+	}
+	
+	public static HashMap<Integer, String> getOV()
+	{
+		return ov;
+	}
+	
+	/**
+	 * @param messageNumber What message number are you looking more there are 8 variables right now
+	 * @param name The name of the player that performed the action
+	 * @param time What time the action happened at
+	 * @param goodKick Only used if calling message 4 (Field Goal) used to see if the kick was good
+	 * 
+	 * This is a method where the Player class can pass the name of the player the message number that they need and 
+	 * also the time that the action happened at. The method will go through the int message that they passed to us 
+	 * and we will decide if it will turn display a message to the screen or not, but every call will update the spread
+	 * sheet and our personal record with how many times the action was called
+	 */
+	public void updateMessage(int messageCode, int tick, int yardage, int ballPosition, Player player) throws Exception
+	{
+		if(messageCode > getOV().size())
+		{
+			System.out.println("Invalid message code. Must be less then 6.");
+		}
+		else
+		{
+			Message updatedMessage = new Message(messageCode, player, tick, yardage, ballPosition);
+			messages.add(updatedMessage);
+			updatedMessage.showMessage();
+		}
+	}
+	
+	public void getTouchdownOverview()
+	{
+		Iterator<Message> it = messages.iterator();
+		int td = 0;
+		while(it.hasNext())
+		{
+			Message msg = it.next();
+			if(msg.getMessageCode() == 3)
+			{
+				td++;
+			}
+		}
+		System.out.println(td + " : total touchdowns scored.");
+	}
+	
+	public void getFirstDownOverview()
+	{
+		Iterator<Message> it = messages.iterator();
+		int fd = 0;
+		while(it.hasNext())
+		{
+			Message msg = it.next();
+			if(msg.getMessageCode() == 2)
+			{
+				fd++;
+			}
+		}
+		System.out.println(fd + " : total first downs");
+	}
+	
+	public void getTurnOverOverview()
+	{
+		Iterator<Message> it = messages.iterator();
+		int to = 0;
+		while(it.hasNext())
+		{
+			Message msg = it.next();
+			if(msg.getMessageCode() == 4)
+			{
+				to++;
+			}
+		}
+		System.out.println(to + " : total turn overs");
+	}
+	
+	public void getInjuryOverview()
+	{
+		Iterator<Message> it = messages.iterator();
+		int inj = 0;
+		while(it.hasNext())
+		{
+			Message msg = it.next();
+			if(msg.getMessageCode() == 5)
+			{
+				inj++;
+			}
+		}
+		System.out.println(inj + " : total injuries");
+	}
+		
+	public void getIncomepletePassOverview()
+	{
+			Iterator<Message> it = messages.iterator();
+			int ip = 0;
+			while(it.hasNext())
+		{
+			Message msg = it.next();
+			if(msg.getMessageCode() == 6)
+			{
+				ip++;
+			}
+		}
+		System.out.println(ip + " : total incomeplete passes");
+	}
+	
+	public void getSuccessfulPlayOverview()
+	{
+			Iterator<Message> it = messages.iterator();
+			int sp = 0;
+			while(it.hasNext())
+		{
+			Message msg = it.next();
+			if(msg.getMessageCode() == 1)
+			{
+				sp++;
+			}
+		}
+		System.out.println(sp + " : total successful plays ");
+	}
 }
+

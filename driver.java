@@ -1,4 +1,5 @@
-
+//sbw:  ALL this got moved to Controller::teamSetUP()
+//        
 /**
  * Write a description of class driver here.
  * 

@@ -7,23 +7,87 @@ import java.util.LinkedList; // Not sure the use of this or if it is needed. LOO
  * @version (a version number or a date)
  */
 public class Controller
-{
-    // POSSIBLE manual/auto options for running program
-    // User chooses whether or not to continue to next quarter
-    // Or user chooses to have game run by itself
-    private int stepCount;
+{                //sbw: huh??  :=)
+                    // POSSIBLE manual/auto options for running program
+                    // User chooses whether or not to continue to next quarter
+                    // Or user chooses to have game run by itself
+    
+    private Randomizer rand; 
+    private Statistics stats; // = new Statistics();
+    private Clock clock;  // = new Clock();
+    private int stepCount;  //sbw: does this need to be an instance var??
+    
     private List<Actor> actors;
     public Controller()
     {
-        Randomizer randomizer = new Randomizer();
+        //sbw made instance variables private
+        //  many will be passed as parameters to other methods
+        rand = new Randomizer();
+        stats = new Statistics();
+        clock = new Clock();
 
-        Statistics stats = new Statistics();
-
-        Clock clock = new Clock();
+       
+        //2016 10 22 13:12 sbw-- changed NFLTeam to Team, moved player-load to a method
             
         //"" way of Hard Coding Players and Teams
-        NFLTeam eagles = new Team("Eagles");
-        NFLTeam cowboys = new Team("Cowboys");
+        private Team eagles;  //sbw: maybe "team1" and "team2"??
+        private Team cowboys; 
+        
+        teamSetUp();  //spin off into sub-method
+        
+        
+        
+        actors.add(randomizer);
+        actors.add(stats);
+        actors.add(eagles.getPlayers());
+        actors.add(bears.getPlayers());
+        actors.add(eagles); //team
+        actors.add(bears); //team
+
+    }
+
+    public void run()
+    {
+        for(int i = 0; i < 500; i++) // Runs for 50 seconds  
+        {
+            stepCount++;
+            step();
+            wait(100);
+            if (stepCount == 10) // One second has passed   
+            {
+                clock.tick(); // Increment Clock    //sbw - bump tick   AFTER EVERY step()  -- move!!
+                stepCount = 0;
+            }
+        }
+    }
+
+    public void step()
+    {
+        for(Actor actor : actors) 
+        {
+            actor.act();
+        }
+    }
+
+    private void wait(int millisec)
+    {
+        try
+        {
+            Thread.sleep(millisec);
+        } 
+        catch (InterruptedException e)
+        {
+            // no exception
+        }
+    }
+    
+    public teamSetUp()
+    {
+        //NFLTeam eagles = new Team("Eagles");
+        //NFLTeam cowboys = new Team("Cowboys");
+        
+        Team eagles = new Team("Eagles");
+        Team cowboys = new Team("Cowboys");
 
         Player carsonWentz = new Player(new String [] {"Eagles", "Carson", "Wentz", "QB", " ", "84", "82", "86", "72"});            eagles.addPlayerToOffense(carsonWentz);
         Player ryanMathews = new Player(new String [] {"Eagles", "Ryan", "Mathews", "HB", " ", "82", "89", "91", "73"});            eagles.addPlayerToOffense(ryanMathews);
@@ -92,52 +156,7 @@ public class Controller
         for (NFLPlayer p : cowboys.getDefense()) {
             System.out.println(p + " - " + p.getPosition() + "\n\tOverall: " + p.getOverall() + "\n\tSpeed: " + p.getSpeed() + "\n\tStrength: " + p.getStrength());
         }
-
-        
-        
-        actors.add(randomizer);
-        actors.add(stats);
-        actors.add(eagles.getPlayers());
-        actors.add(bears.getPlayers());
-        actors.add(eagles); //team
-        actors.add(bears); //team
-
-    }
-
-    public void run()
-    {
-        for(int i = 0; i < 500; i++) // Runs for 50 seconds
-        {
-            stepCount++;
-            step();
-            wait(100);
-            if (stepCount == 10) // One second has passed
-            {
-                clock.tick(); // Increment Clock
-                stepCount = 0;
-            }
-        }
-    }
-
-    public void step()
-    {
-        for(Actor actor : actors) 
-        {
-            actor.act();
-        }
-    }
-
-    private void wait(int millisec)
-    {
-        try
-        {
-            Thread.sleep(millisec);
-        } 
-        catch (InterruptedException e)
-        {
-            // no exception
-        }
-    }
+    }//end teamSetUp()
 
     /**
      * Make sure that the "main loop" is stopped.

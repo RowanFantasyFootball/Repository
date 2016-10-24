@@ -6,6 +6,13 @@
  * @author Joe Dunne, Joe Dementri, Michael Matthews
  * @version (a version number or a date)
  */
+
+//2016 10 22 1329 sbw: started to change Team from NFLTeam
+//      but noted many inconsistencies from current Controller Team setup
+//      most of the code here can be eliminated!!
+//  TO fix:
+//    note conflict between current Player and NFLPlayer here
+//    Controller builds Teams and loads players 
 public class NFLTeam {
     
     /**

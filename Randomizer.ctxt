@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Randomizer()
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Randomizer\r\n
+comment1.params=upperBoundExclusive
+comment1.target=int\ getRand(int)
+comment1.text=\r\n\ \ \ sbw\:\ not\ sure\ what\ we\ call\ the\ method\r\n
+numComments=2
