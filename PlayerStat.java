@@ -55,7 +55,7 @@ public class PlayerStat implements Serializable
 	 * and we will decide if it will turn display a message to the screen or not, but every call will update the spread
 	 * sheet and our personal record with how many times the action was called
 	 */
-	public void updateMessage(this, int messageCode, int tick, int yardage, int ballPosition, Player player) throws Exception
+	public void updateMessage(int messageCode, int tick, int yardage, int ballPosition, Player player) throws Exception
 	{
 		if(messageCode > getOV().size())
 		{
@@ -63,7 +63,7 @@ public class PlayerStat implements Serializable
 		}
 		else
 		{
-			Message updatedMessage = new Message(messageCode, player, tick, yardage, ballPosition);
+			Message updatedMessage = new Message(this, messageCode, player, tick, yardage, ballPosition);
 			messages.add(updatedMessage);
 			updatedMessage.showMessage();
 		}
