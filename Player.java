@@ -1,4 +1,4 @@
-import java.util.*;
+ import java.util.*;
 
 /**
  * Write a description of class NFLPlayer here.
@@ -35,6 +35,7 @@ public class Player {
     boolean kickBall = false;
     boolean puntBall = false;
     boolean fieldGoal = false;
+    boolean hasBall = false;
     
     int score = 0;
     int yardage = 0;
@@ -434,6 +435,14 @@ public class Player {
         }
     }
     
+    /**
+     * flips input and returns flipped input. So if doesn't have ball, will have ball and return true
+     * If has ball, will no longer have ball and return false
+     */
+    public boolean setBall() {
+        hasBall = !hasBall;
+        return hasBall;
+    }
     
     /**
      * START OF ACCESSORS STATS ALL DONE, HAVE FUN SCROLLING
