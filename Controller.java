@@ -95,8 +95,6 @@ public class Controller
      */
     public void teamSetUp()
     {        
-        NFLTeam team1 = new NFLTeam("Eagles");
-        NFLTeam team2 = new NFLTeam("Cowboys");
 
         // Each "new String []..." is the stats for each player. TEAM NAME SHOULDN'T BE INCLUDED
         // Player parameters include... Team, Clock, Randomizer, Individual Player Statistics
