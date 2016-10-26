@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Clock()
+comment0.text=\r\n\ Clock\ constructor\ that\ iniliazes\ ticks\ and\ newQuarter\ to\ 0.\ \ \ \ \r\n
+comment1.params=
+comment1.target=void\ tick()
+comment1.text=\r\n\ Increments\ ticks\ by\ one\ everytime\ this\ method\ is\ called\ \r\n\ \r\n
+comment2.params=
+comment2.target=int\ getTicks()
+comment2.text=\r\n\ Returns\ the\ current\ int\ for\ ticks\r\n\ \r\n\ @return\ ticks\ returns\ ticks.\r\n
+comment3.params=
+comment3.target=int\ initializeQuarter()
+comment3.text=\r\n\ Inintializes\ the\ quarter\ for\ a\ new\ game,\ so\ that\ the\ game\ starts\ at\ quarter\ one\ (Q1)\r\n\ \r\n\ @return\ NewQuarter\ returns\ the\ newQuarter\ after\ it\ is\ set\ to\ 1.\r\n
+comment4.params=
+comment4.target=int\ changeQuarter()
+comment4.text=\r\n\ Changes\ the\ quarter\ by\ incrementing\ newQuarter\r\n\ \r\n\ @return\ newQuarter\ an\ int\ that\ determines\ what\ quarter\ that\ game\ is\ currently\ at.\r\n
+comment5.params=
+comment5.target=java.lang.String\ getQuarter()
+comment5.text=\r\n\ Will\ return\ the\ current\ quarter\ based\ on\ the\ field\ newQuarter.\r\n\ \r\n\ @return\ quarter\ the\ current\ quarter.\r\n
+numComments=6
