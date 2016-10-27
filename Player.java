@@ -6,7 +6,7 @@
  * @author Joe Dunne (constructor), Joe Dementri (accessors),
  * @version 0.1
  */
-public class Player {
+public class Player implements Actor {
    
     /**
      * The list of data for the player

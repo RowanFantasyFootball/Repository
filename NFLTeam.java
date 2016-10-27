@@ -13,7 +13,7 @@
 //  TO fix:
 //    note conflict between current Player and NFLPlayer here
 //    Controller builds Teams and loads players 
-public class NFLTeam {
+public class NFLTeam implements Actor {
     
     /**
      * Team name
