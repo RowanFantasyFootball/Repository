@@ -16,8 +16,13 @@ public class Controller
     private ArrayList<Actor> actors;
     private NFLTeam team1;  // Eagles
     private NFLTeam team2;  // Cowboys
-    private ArrayList<Player> team1PlayerList; // Eagles team list
-    private ArrayList<Player> team2PlayerList; // Cowboys team list
+    private ArrayList<Player> team1PlayerList; // All Eagles Players
+    //private ArrayList<Player> team1Offense; // Eagles Offense
+    //private ArrayList<Player> team1Defense; // Eagles Defense
+    
+    private ArrayList<Player> team2PlayerList; // All Cowboys Players
+    //private ArrayList<Player> team2Offense; // Cowboys Offense
+    //private ArrayList<Player> team2Defense; // Cowboys Defense
 
     private Message msg;
     /**
@@ -37,7 +42,7 @@ public class Controller
 
         team1PlayerList = team1.getPlayers();
         team2PlayerList = team2.getPlayers();
-        
+
         // Add each Player from each team to list of Actors
         for (int i = 0; i < team1PlayerList.size(); i++)
         {
@@ -47,10 +52,8 @@ public class Controller
         {
             actors.add((Actor)team2PlayerList.get(j));
         }
-        
+
         //actors.add((Actor)stats);  // Probably an Actor
-        //actors.add((Actor)team1.getPlayers()); // DOES NOT WORK!!!
-        //actors.add((Actor)team2.getPlayers()); // also DOES NOT WORK!!!
         actors.add((Actor)team1); //team    // if update position part of skeleton works
         actors.add((Actor)team2); //team    // if update position part of skeleton works
 
@@ -63,7 +66,8 @@ public class Controller
     public void run()
     {
         for(int i = 0; i < 500; i++) // Runs for 50 seconds  
-        {            step();
+        {            
+            step();
             wait(100);
         }
     }
@@ -73,7 +77,9 @@ public class Controller
      */
     public void step()
     {
-        for(Actor actor : actors)         {            actor.act();
+        for(Actor actor : actors)         
+        {            
+            actor.act();
         }
     }
 
@@ -83,7 +89,8 @@ public class Controller
     private void wait(int millisec)
     {
         try
-        {            Thread.sleep(millisec);
+        {            
+            Thread.sleep(millisec);
         } 
         catch (InterruptedException e)
         {
@@ -102,10 +109,11 @@ public class Controller
         // Each "new String []..." is the stats for each player. TEAM NAME SHOULDN'T BE INCLUDED
         // Player parameters include... Team, Clock, Randomizer, Individual Player Statistics
 
-        // Eagles Offense
+        // // Eagles Offense
         Player carsonWentz = new Player(team1, clock, rand, new String [] {"Eagles", "Carson", "Wentz", "QB", " ", "84", "82", "86", "72"});           
         Player ryanMathews = new Player(team1, clock, rand, new String [] {"Eagles", "Ryan", "Mathews", "HB", " ", "82", "89", "91", "73"});            
-        Player jordanMatthews = new Player(team1, clock, rand, new String [] {"Eagles", "Jordan", "Matthews", "WR", " ", "78", "90", "91", "68"});             Player nelsonAgholor = new Player(team1, clock, rand, new String [] {"Eagles", "Nelson", "Agholor", "WR", " ", "72", "91", "91", "64"});        
+        Player jordanMatthews = new Player(team1, clock, rand, new String [] {"Eagles", "Jordan", "Matthews", "WR", " ", "78", "90", "91", "68"});
+        Player nelsonAgholor = new Player(team1, clock, rand, new String [] {"Eagles", "Nelson", "Agholor", "WR", " ", "72", "91", "91", "64"});        
         Player joshHuff = new Player(team1, clock, rand, new String [] {"Eagles", "Josh", "Huff", "WR", " ", "70", "90", "92", "60"});                  
         Player zachErtz = new Player(team1, clock, rand, new String [] {"Eagles", "Zach", "Ertz", "TE", " ", "87", "80", "87", "73"});                  
         Player jasonKelce = new Player(team1, clock, rand, new String [] {"Eagles", "Jason", "Kelce", "C", " ", "85", "73", "81", "86"});               
@@ -113,7 +121,8 @@ public class Controller
         Player barrettJones = new Player(team1, clock, rand, new String [] {"Eagles", "Barrett", "Jones", "LG", " ", "72", "56", "65", "82"});          
         Player laneJohnson = new Player(team1, clock, rand, new String [] {"Eagles", "Lane", "Johnson", "RT", " ", "86", "80", "87", "86"});            
         Player brandonBrooks = new Player(team1, clock, rand, new String [] {"Eagles", "Brandon", "Brooks", "RG", " ", "80", "70", "81", "95"});       
-    
+
+        // Add Players to Eagles Offense
         team1.addPlayerToOffense(carsonWentz);
         team1.addPlayerToOffense(ryanMathews);
         team1.addPlayerToOffense(jordanMatthews);
@@ -125,8 +134,8 @@ public class Controller
         team1.addPlayerToOffense(barrettJones);
         team1.addPlayerToOffense(laneJohnson);
         team1.addPlayerToOffense(brandonBrooks);
-            
-        // Eagles Defense
+
+        // // Eagles Defense
         Player connorBarwin = new Player(team1, clock, rand, new String [] {"Eagles", "Connor", "Barwin", "LE", " ", "84", "81", "88", "80"});          
         Player bennieLogan = new Player(team1, clock, rand, new String [] {"Eagles", "Bennie", "Logan", "DT", " ", "78", "68", "79", "88"});            
         Player fletcherCox = new Player(team1, clock, rand, new String [] {"Eagles", "Fletcher", "Cox", "DT", " ", "93", "79", "86", "86"});            
@@ -138,7 +147,8 @@ public class Controller
         Player leodisMcKelvin = new Player(team1, clock, rand, new String [] {"Eagles", "Leodis", "McKelvin", "CB", " ", "73", "88", "91", "52"});      
         Player rodneyMcLeod = new Player(team1, clock, rand, new String [] {"Eagles", "Rodney", "McLeod Jr.", "SS", " ", "81", "86", "91", "56"});      
         Player malcolmJenkins = new Player(team1, clock, rand, new String [] {"Eagles", "Malcolm", "Jenkins", "FS", " ", "93", "86", "92", "64"});      
-    
+
+        // Add Players to Eagles Defense
         team1.addPlayerToDefense(connorBarwin);
         team1.addPlayerToDefense(bennieLogan);
         team1.addPlayerToDefense(fletcherCox);
@@ -150,50 +160,77 @@ public class Controller
         team1.addPlayerToDefense(leodisMcKelvin);
         team1.addPlayerToDefense(rodneyMcLeod);
         team1.addPlayerToDefense(malcolmJenkins);
+       
         //Displaying all of the players with the relevant attributes for the skeleton
         System.out.println(team1.getTeamName() + "\n\nOffense:\n");
         for (Player p : team1.getOffense()) {
-            System.out.println(p + " - " + p + "\n\tOverall: " + p + "\n\tSpeed: " + p + "\n\tStrength: " + p);
+            System.out.println(p.getFullName() + " - " + p.getPosition() + "\n\tOverall: " + p.getOverall() + "\n\tSpeed: " + p.getSpeed() + "\n\tStrength: " + p.getStrength());
         }
         System.out.println("\nDefense:\n");
         for (Player p : team1.getDefense()) {
-            System.out.println(p + " - " + p + "\n\tOverall: " + p + "\n\tSpeed: " + p + "\n\tStrength: " + p);
+            System.out.println(p.getFullName() + " - " + p.getPosition() + "\n\tOverall: " + p.getOverall() + "\n\tSpeed: " + p.getSpeed() + "\n\tStrength: " + p.getStrength());
         }
 
-        // Cowboys Offense
-        Player dakPrescott = new Player(team2, clock, rand, new String [] {"Cowboys", "Dak", "Prescott", "QB", " ", "71", "82", "86", "74"});            team2.addPlayerToOffense(dakPrescott);
-        Player ezekielElliot = new Player(team2, clock, rand, new String [] {"Cowboys", "Ezekiel", "Elliot", "HB", " ", "80", "92", "90", "75"});        team2.addPlayerToOffense(ezekielElliot);
-        Player dezBryant = new Player(team2, clock, rand, new String [] {"Cowboys", "Dez", "Bryant", "WR", " ", "90", "90", "91", "74"});                team2.addPlayerToOffense(dezBryant);
-        Player terranceWilliams = new Player(team2, clock, rand, new String [] {"Cowboys", "Terrance", "Williams", "WR", " ", "80", "92", "92", "57"});  team2.addPlayerToOffense(terranceWilliams);
-        Player coleBeasley = new Player(team2, clock, rand, new String [] {"Cowboys", "Cole", "Beasley", "WR", " ", "77", "87", "88", "61"});            team2.addPlayerToOffense(coleBeasley);
-        Player jasonWitten = new Player(team2, clock, rand, new String [] {"Cowboys", "Jason", "Witten", "TE", " ", "87", "77", "81", "75"});            team2.addPlayerToOffense(jasonWitten);
-        Player travisFrederick = new Player(team2, clock, rand, new String [] {"Cowboys", "Travis", "Frederick", "C", " ", "91", "52", "75", "90"});     team2.addPlayerToOffense(travisFrederick);
-        Player tyronSmith = new Player(team2, clock, rand, new String [] {"Cowboys", "Tyron", "Smith", "LT", " ", "97", "72", "82", "88"});              team2.addPlayerToOffense(tyronSmith);
-        Player laelCollins = new Player(team2, clock, rand, new String [] {"Cowboys", "La'el", "Collins", "LG", " ", "78", "72", "75", "88"});           team2.addPlayerToOffense(laelCollins);
-        Player dougFree = new Player(team2, clock, rand, new String [] {"Cowboys", "Doug", "Free", "RT", " ", "80", "60", "76", "81"});                  team2.addPlayerToOffense(dougFree);
-        Player zachMartin = new Player(team2, clock, rand, new String [] {"Cowboys", "Zach", "Martin", "RG", " ", "92", "69", "81", "89"});              team2.addPlayerToOffense(zachMartin);
+        // // Cowboys Offense
+        Player dakPrescott = new Player(team2, clock, rand, new String [] {"Cowboys", "Dak", "Prescott", "QB", " ", "71", "82", "86", "74"});            
+        Player ezekielElliot = new Player(team2, clock, rand, new String [] {"Cowboys", "Ezekiel", "Elliot", "HB", " ", "80", "92", "90", "75"});        
+        Player dezBryant = new Player(team2, clock, rand, new String [] {"Cowboys", "Dez", "Bryant", "WR", " ", "90", "90", "91", "74"});                
+        Player terranceWilliams = new Player(team2, clock, rand, new String [] {"Cowboys", "Terrance", "Williams", "WR", " ", "80", "92", "92", "57"});  
+        Player coleBeasley = new Player(team2, clock, rand, new String [] {"Cowboys", "Cole", "Beasley", "WR", " ", "77", "87", "88", "61"});            
+        Player jasonWitten = new Player(team2, clock, rand, new String [] {"Cowboys", "Jason", "Witten", "TE", " ", "87", "77", "81", "75"});            
+        Player travisFrederick = new Player(team2, clock, rand, new String [] {"Cowboys", "Travis", "Frederick", "C", " ", "91", "52", "75", "90"});     
+        Player tyronSmith = new Player(team2, clock, rand, new String [] {"Cowboys", "Tyron", "Smith", "LT", " ", "97", "72", "82", "88"});              
+        Player laelCollins = new Player(team2, clock, rand, new String [] {"Cowboys", "La'el", "Collins", "LG", " ", "78", "72", "75", "88"});           
+        Player dougFree = new Player(team2, clock, rand, new String [] {"Cowboys", "Doug", "Free", "RT", " ", "80", "60", "76", "81"});                  
+        Player zachMartin = new Player(team2, clock, rand, new String [] {"Cowboys", "Zach", "Martin", "RG", " ", "92", "69", "81", "89"});              
+        
+        // Add Players to Cowboys Offense
+        team2.addPlayerToOffense(dakPrescott);
+        team2.addPlayerToOffense(ezekielElliot);
+        team2.addPlayerToOffense(dezBryant);
+        team2.addPlayerToOffense(terranceWilliams);
+        team2.addPlayerToOffense(coleBeasley);
+        team2.addPlayerToOffense(jasonWitten);
+        team2.addPlayerToOffense(travisFrederick);
+        team2.addPlayerToOffense(tyronSmith);
+        team2.addPlayerToOffense(laelCollins);
+        team2.addPlayerToOffense(dougFree);
+        team2.addPlayerToOffense(zachMartin);
 
-        // Cowboys Defense
-        Player demarcusLawrence = new Player(team2, clock, rand, new String [] {"Cowboys", "Demarcus", "Lawrence", "LE", " ", "81", "78", "87", "76"});  team2.addPlayerToDefense(demarcusLawrence);
-        Player tyroneCrawford = new Player(team2, clock, rand, new String [] {"Cowboys", "Tyrone", "Crawford", "DT", " ", "80", "78", "83", "81"});      team2.addPlayerToDefense(tyroneCrawford);
-        Player cedricThornton = new Player(team2, clock, rand, new String [] {"Cowboys", "Cedric", "Thornton", "DT", " ", "78", "61", "75", "88"});      team2.addPlayerToDefense(cedricThornton);
-        Player randyGregory = new Player(team2, clock, rand, new String [] {"Cowboys", "Randy", "Gregory", "RE", " ", "75", "84", "88", "78"});          team2.addPlayerToDefense(randyGregory);
-        Player rolandoMcClain = new Player(team2, clock, rand, new String [] {"Cowboys", "Rolando", "McClain", "MLB", " ", "81", "80", "85", "77"});     team2.addPlayerToDefense(rolandoMcClain);
-        Player justinDurant = new Player(team2, clock, rand, new String [] {"Cowboys", "Justin", "Durant", "LOLB", " ", "77", "83", "87", "64"});        team2.addPlayerToDefense(justinDurant);
-        Player seanLee = new Player(team2, clock, rand, new String [] {"Cowboys", "Sean", "Lee", "ROLB", " ", "89", "82", "89", "75"});                  team2.addPlayerToDefense(seanLee);
-        Player orlandoScandrick = new Player(team2, clock, rand, new String [] {"Cowboys", "Orlando", "Scandrick", "CB", " ", "87", "90", "91", "52"});  team2.addPlayerToDefense(orlandoScandrick);
-        Player brandonCarr = new Player(team2, clock, rand, new String [] {"Cowboys", "Brandon", "Carr", "CB", " ", "76", "86", "91", "51"});            team2.addPlayerToDefense(brandonCarr);
-        Player barryCrunch = new Player(team2, clock, rand, new String [] {"Cowboys", "Barry", "Crunch", "SS", " ", "82", "86", "88", "65"});            team2.addPlayerToDefense(barryCrunch);
-        Player byronJones = new Player(team2, clock, rand, new String [] {"Cowboys", "Byron", "Jones", "FS", " ", "81", "91", "93", "70"});              team2.addPlayerToDefense(byronJones);
+        // // Cowboys Defense
+        Player demarcusLawrence = new Player(team2, clock, rand, new String [] {"Cowboys", "Demarcus", "Lawrence", "LE", " ", "81", "78", "87", "76"});  
+        Player tyroneCrawford = new Player(team2, clock, rand, new String [] {"Cowboys", "Tyrone", "Crawford", "DT", " ", "80", "78", "83", "81"});      
+        Player cedricThornton = new Player(team2, clock, rand, new String [] {"Cowboys", "Cedric", "Thornton", "DT", " ", "78", "61", "75", "88"});      
+        Player randyGregory = new Player(team2, clock, rand, new String [] {"Cowboys", "Randy", "Gregory", "RE", " ", "75", "84", "88", "78"});          
+        Player rolandoMcClain = new Player(team2, clock, rand, new String [] {"Cowboys", "Rolando", "McClain", "MLB", " ", "81", "80", "85", "77"});     
+        Player justinDurant = new Player(team2, clock, rand, new String [] {"Cowboys", "Justin", "Durant", "LOLB", " ", "77", "83", "87", "64"});        
+        Player seanLee = new Player(team2, clock, rand, new String [] {"Cowboys", "Sean", "Lee", "ROLB", " ", "89", "82", "89", "75"});                  
+        Player orlandoScandrick = new Player(team2, clock, rand, new String [] {"Cowboys", "Orlando", "Scandrick", "CB", " ", "87", "90", "91", "52"});  
+        Player brandonCarr = new Player(team2, clock, rand, new String [] {"Cowboys", "Brandon", "Carr", "CB", " ", "76", "86", "91", "51"});            
+        Player barryCrunch = new Player(team2, clock, rand, new String [] {"Cowboys", "Barry", "Crunch", "SS", " ", "82", "86", "88", "65"});            
+        Player byronJones = new Player(team2, clock, rand, new String [] {"Cowboys", "Byron", "Jones", "FS", " ", "81", "91", "93", "70"});              
 
+        // Add Players to Cowboys Defense
+        team2.addPlayerToDefense(demarcusLawrence);
+        team2.addPlayerToDefense(tyroneCrawford);
+        team2.addPlayerToDefense(cedricThornton);
+        team2.addPlayerToDefense(randyGregory);
+        team2.addPlayerToDefense(rolandoMcClain);
+        team2.addPlayerToDefense(justinDurant);
+        team2.addPlayerToDefense(seanLee);
+        team2.addPlayerToDefense(orlandoScandrick);
+        team2.addPlayerToDefense(brandonCarr);
+        team2.addPlayerToDefense(barryCrunch);
+        team2.addPlayerToDefense(byronJones);
+        
         //Displaying all of the players with the relevant attributes for the skeleton
         System.out.println(team2.getTeamName() + "\n\nOffense:\n");
         for (Player p : team2.getOffense()) {
-            System.out.println(p + " - " + p + "\n\tOverall: " + p + "\n\tSpeed: " + p + "\n\tStrength: " + p);
+            System.out.println(p.getFullName() + " - " + p.getPosition() + "\n\tOverall: " + p.getOverall() + "\n\tSpeed: " + p.getSpeed() + "\n\tStrength: " + p.getStrength());
         }
         System.out.println("\nDefense:\n");
         for (Player p : team2.getDefense()) {
-            System.out.println(p + " - " + p + "\n\tOverall: " + p + "\n\tSpeed: " + p + "\n\tStrength: " + p);
+            System.out.println(p.getFullName() + " - " + p.getPosition() + "\n\tOverall: " + p.getOverall() + "\n\tSpeed: " + p.getSpeed() + "\n\tStrength: " + p.getStrength());
         }
     }
 
