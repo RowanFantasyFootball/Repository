@@ -20,9 +20,9 @@ Improvements include Continuous Integration methods and .git version control ove
 
 Repository: 
 
-  1.) New Project code has been allegedly produced via Data Team: Joe 'Che Nice' Dunne. 
-  2.) Code was briefly explained, however, not deonstrated.
+  1.) New Project code has been allegedly been produced via Data Team: Joe 'Che Nice' Dunne. 
+  2.) Code was briefly explained, however, not demonstrated.
   3.) Code requires regression and JUnit testing, verification, and updating before Repository upload (Although preliminary code uploading       may be necessary to share updates.)
-  4.) Joe Dunne, has sent code to another updated volume.
+  4.) Joe Dunne, has sent 'the code' to another updated volume.
   5.) Branch needs to be made for new code.
   
