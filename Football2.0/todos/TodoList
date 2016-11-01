@@ -1,0 +1,7 @@
+TODO LIST: 
+	
+	
+	STAT TEAM
+  		- Make the PlayerStat & Message classes work with this class.
+  		- (I can help if you give me an overview of what the goal is with its implementation)
+ 		- We need to create methods somewhere that call updateMessage()
