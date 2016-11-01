@@ -42,19 +42,34 @@ public class Clock
         quarter++;
         nextQuarter += maxTicks / 4;
     }
+ 
+    /*
+     * Increments by one tick.
+     */
     public void tick()
     {
-        ticks ++;
+        ticks++;
     }
     
     /**
-     * Returns the current int for ticks
+     * Returns the current amount of game ticks that you have passed.
      * 
-     * @return ticks returns ticks.
+     * @return ticks the current amount of game ticks that have went by in the game.
      */
-    public int getTicks(){
+    public int getTicks()
+    {
         return ticks;
     }
+ 
+    /**
+     * Gets the game duration in terms of a tick.
+     *
+     *@return the amount of ticks the clock is counting to. 
+     */
+     public int getGameDuration()
+     {
+      return maxTicks;
+     }
     
     /**
      * Inintializes the quarter for a new game, so that the game starts at quarter one (Q1)
