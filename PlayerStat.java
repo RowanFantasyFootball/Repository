@@ -1,15 +1,12 @@
  
-
 import java.util.Iterator;
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PlayerStat implements Serializable 
-{
-	private static final long serialVersionUID = 1L;
+public class PlayerStat {
 	private ArrayList<Message> messages;
-	private static HashMap ov;
+	private static HashMap<Integer, String> ov;
 	
 	public PlayerStat() 
 	{
@@ -39,6 +36,10 @@ public class PlayerStat implements Serializable
 		this.messages = messages;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public static HashMap<Integer, String> getOV()
 	{
 		return ov;

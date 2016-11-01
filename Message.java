@@ -1,4 +1,5 @@
 
+
 public class Message {
 
     private int messageCode;
