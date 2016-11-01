@@ -1,296 +1,405 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+
 /**
  * Write a description of class Controller here.
  * 
  * @John (Jack) Donahue
  * @Gerald Miego
  * @Kevin Santana
- * @version (a version number or a date)
+ * @revision By: Joe Dunne & Tim McClintock
  */
-public class Controller
-{                   
-    private Randomizer rand; 
-    private PlayerStat stats;
-    private Clock clock;
-    private ArrayList<Actor> actors;
-    private NFLTeam team1;  // Eagles
-    private NFLTeam team2;  // Cowboys
-    private ArrayList<Player> team1PlayerList; // All Eagles Players
-    //private ArrayList<Player> team1Offense; // Eagles Offense
-    //private ArrayList<Player> team1Defense; // Eagles Defense
-    
-    private ArrayList<Player> team2PlayerList; // All Cowboys Players
-    //private ArrayList<Player> team2Offense; // Cowboys Offense
-    //private ArrayList<Player> team2Defense; // Cowboys Defense
+public class Controller {
 
-    private Message msg;
-    /**
-     * The Constructor for the Controller class.
-     * Initialize each instance variable and fill list of Actors.
-     * Create team1 and team2 (both default teams).
-     */
-    public Controller()
-    {
-        // Instance Variables
-        rand = new Randomizer(); // NOT an Actor
-        stats = new PlayerStat();
-        clock = new Clock();
-        actors = new ArrayList<>();
+	/**
+	 * The randomizer object to randomize the game activity.
+	 */
+	public static final Randomizer randomizer = new Randomizer();
+	
+	/**
+	 * The delay between each game tick in milliseconds
+	 */
+	private static final int TICK_DELAY = 100;
 
-        teamSetUp();  // Create each individual Player object
+	/**
+	 * The max amount of game ticks
+	 */
+	private static final int MAX_GAME_TICKS = 500;
 
-        team1PlayerList = team1.getPlayers();
-        team2PlayerList = team2.getPlayers();
+	/**
+	 * The delay between each quarter
+	 */
+	private static final int QUARTER_CHANGE_DELAY = 5000;
 
-        // Add each Player from each team to list of Actors
-        for (int i = 0; i < team1PlayerList.size(); i++)
-        {
-            actors.add((Actor)team1PlayerList.get(i));
-        }
-        for (int j = 0; j < team2PlayerList.size(); j++)
-        {
-            actors.add((Actor)team2PlayerList.get(j));
-        }
+	/**
+	 * The time clock for the game
+	 */
+	private Clock clock;
 
-        //actors.add((Actor)stats);  // Probably an Actor
-        actors.add((Actor)team1); //team    // if update position part of skeleton works
-        actors.add((Actor)team2); //team    // if update position part of skeleton works
+	/**
+	 * The home team
+	 */
+	private NFLTeam home;
 
-        run();
-    }
+	/**
+	 * The away team
+	 */
+	private NFLTeam away;
 
-    /**
-     * Run the program for 500 ticks at a time (subject to change).
-     */
-    public void run()
-    {
-        for(int i = 0; i < 500; i++) // Runs for 50 seconds  
-        {            
-            step();
-            wait(100);
-        }
-    }
+	/**
+	 * The field for the teams to play on
+	 */
+	private Field field;
 
-    /**
-     * Read through the list of Actors and tell each Actor to act accordingly.
-     */
-    public void step()
-    {
-        for(Actor actor : actors)         
-        {            
-            actor.act();
-        }
-    }
+	/**
+	 * The progress of the current drive
+	 */
+	private DriveProgress driveProgress;
+	
+	/**
+	 * Player stats? Not sure what this is for, it already exists if the name is
+	 * literal
+	 */
+	private PlayerStat stats;
 
-    /**
-     * Allow the user to comprehend program on screen by waiting and alotted time.
-     */
-    private void wait(int millisec)
-    {
-        try
-        {            
-            Thread.sleep(millisec);
-        } 
-        catch (InterruptedException e)
-        {
-            // no exception
-        }
-    }
+	/**
+	 * Someone explain to me what this is used for so we can get it working -
+	 * - Joe D
+	 */
+	private Message msg;
+	
+//Joe D, Create each individual Player object
 
-    /**
-     * Create all player objects for each NFLTeam
-     * NOTE: This does not add each player to their team. It only creates the player objects.
-     */
-    public void teamSetUp()    {               
-        team1 = new NFLTeam("Eagles");
-        team2 = new NFLTeam("Cowboys");
+	/**
+	 * Creates a controller instance which simulates a football game between two
+	 * different teams
+	 */
+	public Controller() 
+	{
+		stats = new PlayerStat();
+		rand  = new Randomizer();
+		clock = new Clock(MAX_GAME_TICKS);
+		loadTeams();
+		start();
+	}
 
-        // Each "new String []..." is the stats for each player. TEAM NAME SHOULDN'T BE INCLUDED
-        // Player parameters include... Team, Clock, Randomizer, Individual Player Statistics
+	/**
+	 * Runs the game!!
+	 * 
+	 * Alter - MAX_GAME_TICKS if you want to have a longer game length, Alter -
+	 * TICK_DELAY field if you want to have a longer time between each game tick
+	 */
+	public void start() 
+	{
+		initialize();
+		
+		while (clock.isRunning()) 
+		{
+			step();
+		}
+	}
 
-        // // Eagles Offense
-        Player carsonWentz = new Player(team1, clock, rand, new String [] {"Eagles", "Carson", "Wentz", "QB", " ", "84", "82", "86", "72"});           
-        Player ryanMathews = new Player(team1, clock, rand, new String [] {"Eagles", "Ryan", "Mathews", "HB", " ", "82", "89", "91", "73"});            
-        Player jordanMatthews = new Player(team1, clock, rand, new String [] {"Eagles", "Jordan", "Matthews", "WR", " ", "78", "90", "91", "68"});
-        Player nelsonAgholor = new Player(team1, clock, rand, new String [] {"Eagles", "Nelson", "Agholor", "WR", " ", "72", "91", "91", "64"});        
-        Player joshHuff = new Player(team1, clock, rand, new String [] {"Eagles", "Josh", "Huff", "WR", " ", "70", "90", "92", "60"});                  
-        Player zachErtz = new Player(team1, clock, rand, new String [] {"Eagles", "Zach", "Ertz", "TE", " ", "87", "80", "87", "73"});                  
-        Player jasonKelce = new Player(team1, clock, rand, new String [] {"Eagles", "Jason", "Kelce", "C", " ", "85", "73", "81", "86"});               
-        Player jasonPeters = new Player(team1, clock, rand, new String [] {"Eagles", "Jason", "Peters", "LT", " ", "87", "67", "73", "96"});            
-        Player barrettJones = new Player(team1, clock, rand, new String [] {"Eagles", "Barrett", "Jones", "LG", " ", "72", "56", "65", "82"});          
-        Player laneJohnson = new Player(team1, clock, rand, new String [] {"Eagles", "Lane", "Johnson", "RT", " ", "86", "80", "87", "86"});            
-        Player brandonBrooks = new Player(team1, clock, rand, new String [] {"Eagles", "Brandon", "Brooks", "RG", " ", "80", "70", "81", "95"});       
+	/**
+	 * Initializes the game 
+	 * 1. Loads the teams 
+	 * 2. Flips the coin to determine who gets the ball first 
+	 * 3. Places the offense
+	 * 4. Places the defense
+	 */
+	private void initialize() 
+	{
+		loadTeams();
+		flipCoin();
+	}
 
-        // Add Players to Eagles Offense
-        team1.addPlayerToOffense(carsonWentz);
-        team1.addPlayerToOffense(ryanMathews);
-        team1.addPlayerToOffense(jordanMatthews);
-        team1.addPlayerToOffense(nelsonAgholor);
-        team1.addPlayerToOffense(joshHuff);
-        team1.addPlayerToOffense(zachErtz);
-        team1.addPlayerToOffense(jasonKelce);
-        team1.addPlayerToOffense(jasonPeters);
-        team1.addPlayerToOffense(barrettJones);
-        team1.addPlayerToOffense(laneJohnson);
-        team1.addPlayerToOffense(brandonBrooks);
+	/**
+	 * Places the defense onto the specified yard line
+	 * 
+	 * @param yardline
+	 *            - the y location (yardline) that the players will line up on
+	 */
+	private void placeDefense(int yardline) 
+	{
+		
+	}
 
-        // // Eagles Defense
-        Player connorBarwin = new Player(team1, clock, rand, new String [] {"Eagles", "Connor", "Barwin", "LE", " ", "84", "81", "88", "80"});          
-        Player bennieLogan = new Player(team1, clock, rand, new String [] {"Eagles", "Bennie", "Logan", "DT", " ", "78", "68", "79", "88"});            
-        Player fletcherCox = new Player(team1, clock, rand, new String [] {"Eagles", "Fletcher", "Cox", "DT", " ", "93", "79", "86", "86"});            
-        Player brandonGraham = new Player(team1, clock, rand, new String [] {"Eagles", "Brandon", "Graham", "RE", " ", "92", "80", "87", "78"});        
-        Player jordanHicks = new Player(team1, clock, rand, new String [] {"Eagles", "Jordan", "Hicks", "MLB", " ", "74", "83", "90", "76"});           
-        Player mychalKendricks = new Player(team1, clock, rand, new String [] {"Eagles", "Mychal", "Kendricks", "LOLB", " ", "85", "88", "88", "74"});  
-        Player nigelBradham = new Player(team1, clock, rand, new String [] {"Eagles", "Nigel", "Bradham", "ROLB", " ", "76", "85", "86", "72"});        
-        Player nolanCarroll = new Player(team1, clock, rand, new String [] {"Eagles", "Nolan", "Carroll III", "CB", " ", "76", "89", "89", "52"});      
-        Player leodisMcKelvin = new Player(team1, clock, rand, new String [] {"Eagles", "Leodis", "McKelvin", "CB", " ", "73", "88", "91", "52"});      
-        Player rodneyMcLeod = new Player(team1, clock, rand, new String [] {"Eagles", "Rodney", "McLeod Jr.", "SS", " ", "81", "86", "91", "56"});      
-        Player malcolmJenkins = new Player(team1, clock, rand, new String [] {"Eagles", "Malcolm", "Jenkins", "FS", " ", "93", "86", "92", "64"});      
+	/**
+	 * Places the offense onto the specified yard line
+	 * 
+	 * @param yardline
+	 *            - the y location (yardline) that the players will line up on
+	 */
+	private void placeOffense(int yardline) 
+	{
+		
+	}
 
-        // Add Players to Eagles Defense
-        team1.addPlayerToDefense(connorBarwin);
-        team1.addPlayerToDefense(bennieLogan);
-        team1.addPlayerToDefense(fletcherCox);
-        team1.addPlayerToDefense(brandonGraham);
-        team1.addPlayerToDefense(jordanHicks);
-        team1.addPlayerToDefense(mychalKendricks);
-        team1.addPlayerToDefense(nigelBradham);
-        team1.addPlayerToDefense(nolanCarroll);
-        team1.addPlayerToDefense(leodisMcKelvin);
-        team1.addPlayerToDefense(rodneyMcLeod);
-        team1.addPlayerToDefense(malcolmJenkins);
-       
-        //Displaying all of the players with the relevant attributes for the skeleton
-        System.out.println(team1.getTeamName() + "\n\nOffense:\n");
-        for (Player p : team1.getOffense()) {
-            System.out.println(p.getFullName() + " - " + p.getPosition() + "\n\tOverall: " + p.getOverall() + "\n\tSpeed: " + p.getSpeed() + "\n\tStrength: " + p.getStrength());
-        }
-        System.out.println("\nDefense:\n");
-        for (Player p : team1.getDefense()) {
-            System.out.println(p.getFullName() + " - " + p.getPosition() + "\n\tOverall: " + p.getOverall() + "\n\tSpeed: " + p.getSpeed() + "\n\tStrength: " + p.getStrength());
-        }
+	private void flipCoin() 
+	{
+		// TODO Auto-generated method stub
 
-        // // Cowboys Offense
-        Player dakPrescott = new Player(team2, clock, rand, new String [] {"Cowboys", "Dak", "Prescott", "QB", " ", "71", "82", "86", "74"});            
-        Player ezekielElliot = new Player(team2, clock, rand, new String [] {"Cowboys", "Ezekiel", "Elliot", "HB", " ", "80", "92", "90", "75"});        
-        Player dezBryant = new Player(team2, clock, rand, new String [] {"Cowboys", "Dez", "Bryant", "WR", " ", "90", "90", "91", "74"});                
-        Player terranceWilliams = new Player(team2, clock, rand, new String [] {"Cowboys", "Terrance", "Williams", "WR", " ", "80", "92", "92", "57"});  
-        Player coleBeasley = new Player(team2, clock, rand, new String [] {"Cowboys", "Cole", "Beasley", "WR", " ", "77", "87", "88", "61"});            
-        Player jasonWitten = new Player(team2, clock, rand, new String [] {"Cowboys", "Jason", "Witten", "TE", " ", "87", "77", "81", "75"});            
-        Player travisFrederick = new Player(team2, clock, rand, new String [] {"Cowboys", "Travis", "Frederick", "C", " ", "91", "52", "75", "90"});     
-        Player tyronSmith = new Player(team2, clock, rand, new String [] {"Cowboys", "Tyron", "Smith", "LT", " ", "97", "72", "82", "88"});              
-        Player laelCollins = new Player(team2, clock, rand, new String [] {"Cowboys", "La'el", "Collins", "LG", " ", "78", "72", "75", "88"});           
-        Player dougFree = new Player(team2, clock, rand, new String [] {"Cowboys", "Doug", "Free", "RT", " ", "80", "60", "76", "81"});                  
-        Player zachMartin = new Player(team2, clock, rand, new String [] {"Cowboys", "Zach", "Martin", "RG", " ", "92", "69", "81", "89"});              
-        
-        // Add Players to Cowboys Offense
-        team2.addPlayerToOffense(dakPrescott);
-        team2.addPlayerToOffense(ezekielElliot);
-        team2.addPlayerToOffense(dezBryant);
-        team2.addPlayerToOffense(terranceWilliams);
-        team2.addPlayerToOffense(coleBeasley);
-        team2.addPlayerToOffense(jasonWitten);
-        team2.addPlayerToOffense(travisFrederick);
-        team2.addPlayerToOffense(tyronSmith);
-        team2.addPlayerToOffense(laelCollins);
-        team2.addPlayerToOffense(dougFree);
-        team2.addPlayerToOffense(zachMartin);
+	}
 
-        // // Cowboys Defense
-        Player demarcusLawrence = new Player(team2, clock, rand, new String [] {"Cowboys", "Demarcus", "Lawrence", "LE", " ", "81", "78", "87", "76"});  
-        Player tyroneCrawford = new Player(team2, clock, rand, new String [] {"Cowboys", "Tyrone", "Crawford", "DT", " ", "80", "78", "83", "81"});      
-        Player cedricThornton = new Player(team2, clock, rand, new String [] {"Cowboys", "Cedric", "Thornton", "DT", " ", "78", "61", "75", "88"});      
-        Player randyGregory = new Player(team2, clock, rand, new String [] {"Cowboys", "Randy", "Gregory", "RE", " ", "75", "84", "88", "78"});          
-        Player rolandoMcClain = new Player(team2, clock, rand, new String [] {"Cowboys", "Rolando", "McClain", "MLB", " ", "81", "80", "85", "77"});     
-        Player justinDurant = new Player(team2, clock, rand, new String [] {"Cowboys", "Justin", "Durant", "LOLB", " ", "77", "83", "87", "64"});        
-        Player seanLee = new Player(team2, clock, rand, new String [] {"Cowboys", "Sean", "Lee", "ROLB", " ", "89", "82", "89", "75"});                  
-        Player orlandoScandrick = new Player(team2, clock, rand, new String [] {"Cowboys", "Orlando", "Scandrick", "CB", " ", "87", "90", "91", "52"});  
-        Player brandonCarr = new Player(team2, clock, rand, new String [] {"Cowboys", "Brandon", "Carr", "CB", " ", "76", "86", "91", "51"});            
-        Player barryCrunch = new Player(team2, clock, rand, new String [] {"Cowboys", "Barry", "Crunch", "SS", " ", "82", "86", "88", "65"});            
-        Player byronJones = new Player(team2, clock, rand, new String [] {"Cowboys", "Byron", "Jones", "FS", " ", "81", "91", "93", "70"});              
+	/**
+	 * Where the game operates....
+	 * 
+	 * TODO: Make sure messages from player stat works Add collision recognition
+	 * (offense.getX() == defense.getX() && offense.getY() == defense.getY())
+	 * Add counter for downs If player is open for pass Keep track of score Keep
+	 * track of yardage Add defensive offense recognition (Make defensive paths
+	 * somewhat mirror offensive paths)
+	 * 
+	 * 
+	 * This is also perfect dont change it - Joe D
+	 * 
+	 * Read through the list of Actors and tell each Actor to act accordingly.
+	 */
+	public void step() 
+	{
+		operateClock();
+		movePlayersToLineOfScrimage();
+		operateOffense();
+		operateDefense();
+		operateDriveProgress();
+		keepScore();
+		
+		// Continue adding game code here
+		
+		
+		runClock(); //This must always be last
+	}
 
-        // Add Players to Cowboys Defense
-        team2.addPlayerToDefense(demarcusLawrence);
-        team2.addPlayerToDefense(tyroneCrawford);
-        team2.addPlayerToDefense(cedricThornton);
-        team2.addPlayerToDefense(randyGregory);
-        team2.addPlayerToDefense(rolandoMcClain);
-        team2.addPlayerToDefense(justinDurant);
-        team2.addPlayerToDefense(seanLee);
-        team2.addPlayerToDefense(orlandoScandrick);
-        team2.addPlayerToDefense(brandonCarr);
-        team2.addPlayerToDefense(barryCrunch);
-        team2.addPlayerToDefense(byronJones);
-        
-        //Displaying all of the players with the relevant attributes for the skeleton
-        System.out.println(team2.getTeamName() + "\n\nOffense:\n");
-        for (Player p : team2.getOffense()) {
-            System.out.println(p.getFullName() + " - " + p.getPosition() + "\n\tOverall: " + p.getOverall() + "\n\tSpeed: " + p.getSpeed() + "\n\tStrength: " + p.getStrength());
-        }
-        System.out.println("\nDefense:\n");
-        for (Player p : team2.getDefense()) {
-            System.out.println(p.getFullName() + " - " + p.getPosition() + "\n\tOverall: " + p.getOverall() + "\n\tSpeed: " + p.getSpeed() + "\n\tStrength: " + p.getStrength());
-        }
-    }
+	/**
+	 * 
+	 */
+	private void operateDriveProgress() 
+	{
+		driveProgress.nextDown();
+		
+		if (driveProgress.isDriveOver()) 
+		{
+			swapOffenseAndDefense();
+		}
+	}
 
-    /**
-     * Make sure that the "main loop" is stopped.
-     * Make sure clock is stopped (just in case)
-     * Display stats of quarter (score & team stats)
-     * If it is the 4th time ending a quarter, end Game (use if statement)
-     * ^^^end game as in show whole game stats and team who won
-     * Add current stats to final game stats
-     * 
-     */
-    public void endQuarter()
-    {
-        System.out.println("\nCurrent Quarter:   " + clock.getQuarter()); // Tell what quarter just ended
-        // PRINT QUARTER STATS
-        startNextQuarter();
-    }
+	/**
+	 * 
+	 */
+	private void swapOffenseAndDefense() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
-    /**
-     * Wait a certain amount of ticks before starting next quarter (final)
-     * Set clock to default start time
-     * Activate run() method to run program all over again
-     * Reset current quarter stats to empty
-     */
-    public void startNextQuarter()
-    {
-        clock.changeQuarter();
-        System.out.println();   // leave space for visual appeal
-        if (clock.getQuarter().equals("End of Game"))
-        {
-            System.out.println(clock.getQuarter());
-            // PRINT GAME STATS
-        }
-        else
-        {
-            System.out.println("Starting New Quarter:   " + clock.getQuarter()); // Tell what quarter will be starting
-            wait(4000); // wait so user can read message (4 seconds real time)
-            run(); // Start up the game again
-        }
-    }
+	/**
+	 * 
+	 */
+	private void movePlayersToLineOfScrimage() 
+	{
+		placeOffense(driveProgress.getLineOfScrimage());
+		placeDefense(driveProgress.getLineOfScrimage() - 1);
+	}
 
-    /**
-     * THIS COIN FLIP METHOD WILL NOT BE PUT TO USE UNTIL FINAL PROJECT IS COMPLETE
-     */
-    public boolean coinFlip(String guess)
-    {
-        boolean correctGuess = false; // True if they guessed right, false if wrong
-        boolean guessBoolean = false; // Guess boolean is default set to Tails
-        boolean answerBoolean = false; // Answer boolean is default set to Tails
-        // Flip the coin
-        if (guess.equalsIgnoreCase("heads"))
-        {
-            guessBoolean = true; // Guess boolean is set to Heads if they choose Heads
-        }
-        if (guessBoolean == answerBoolean) // If the guess matches the actual result
-        {
-            correctGuess = true;
-        }
+	/**
+	 * 
+	 */
+	private void operateOffensiveProgess() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
-        return correctGuess;
-    }
+	/**
+	 * Runs the clock by ticking the clock and waiting the tick delay in milliseconds
+	 */
+	private void runClock() 
+	{
+		clock.tick();
+		wait(TICK_DELAY);
+	}
+
+	/**
+	 * 
+	 */
+	private void keepScore() 
+	{
+		NFLTeam offense;
+	}
+
+	/**
+	 * Operates the clock
+	 */
+	private void operateClock() 
+	{
+		/**
+		 * Checks if the quarter is over, then changes it and waits for the next
+		 * quarter to start
+		 */
+		if (clock.isQuarterOver()) 
+		{
+			clock.changeQuarter();
+			wait(QUARTER_CHANGE_DELAY);
+		}
+	}
+
+	/**
+	 * Operates the offense (Calls act method on offensive players)
+	 */
+	private void operateOffense() 
+	{
+		/**
+		 * Gets a random play object which provides each actor with movements
+		 */
+		OffensivePlay offenseivePlay = OffensivePlaybook.getRandomPlay();
+		/**
+		 * Cycles through each actor on the field and operates them
+		 */
+		for (Actor actor : getOffensiveTeam().getOffense()) {
+			actor.act(offenseivePlay);
+		}
+	}
+
+	/**
+	 * Operates the defense (Calls act method on defensive players)
+	 */
+	private void operateDefense() 
+	{
+		/**
+		 * Gets a random defensive play from the Playbook
+		 */
+		DefensivePlay defensivePlay = DefensivePlaybook.getRandomPlay();
+		/**
+		 * Cycles through each actor on the field and operates them
+		 */
+		for (Actor actor : getDefensiveTeam().getDefense()) 
+		{
+			actor.act(defensivePlay);
+		}
+	}
+
+	/**
+	 * Gets the defensive team based on who has the ball
+	 * 
+	 * @return the team currently on defense (Team without the ball)
+	 */
+	private NFLTeam getDefensiveTeam() 
+	{
+		if (away.hasBall()) 
+		{
+			return home;
+		}
+		return away;
+	}
+
+	/**
+	 * Gets the offensive team based on who has the ball
+	 * 
+	 * @return the team currently on offense (Team with the ball)
+	 */
+	private NFLTeam getOffensiveTeam() 
+	{
+		if (away.hasBall()) 
+		{
+			return away;
+		}
+		return home;
+	}
+
+	/**
+	 * Allow the user to comprehend program on screen by waiting and alotted
+	 * time.
+	 * 
+	 * @param millisec
+	 *            - the amount of time to wait
+	 */
+	private void wait(int millisec)
+	{
+		try 
+		{
+			Thread.sleep(millisec);
+		} 
+		catch (InterruptedException e)
+		{
+			
+		}
+	}
+
+	/**
+	 * Simulates a coin flip
+	 * 
+	 * 0 is heads 1 is tales
+	 * 
+	 * @param guess
+	 *            - input 0 or 1
+	 * 
+	 * @return if the guess was correct
+	 */
+	public boolean simulateCoinFlip(int guess) 
+	{
+		return Integer.valueOf(Randomizer.getRandomNumber(1)) == guess;
+	}
+
+	/**
+	 * Create all player objects for each NFLTeam OLD NOTE: This does not add
+	 * each player to their team. It only creates the player objects. NEW NOTE:
+	 * yes it does add each player to their respective team while also creating
+	 * a player object
+	 */
+	public void loadTeams() 
+	{
+		// home team
+		home = new NFLTeam("Eagles");
+		// defense
+		home.addPlayerToDefense(new DefensiveLineman("Gary", "Shephard", 100, 876));
+		home.addPlayerToDefense(new DefensiveLineman("ggg", "Shephard", 100, 100));
+		home.addPlayerToDefense(new DefensiveLineman("234", "Shephard", 100, 100));
+		home.addPlayerToDefense(new DefensiveLineman("aa", "Shephard", 100, 100));
+		home.addPlayerToDefense(new DefensiveLineman("53", "Shephard", 100, 100));
+		home.addPlayerToDefense(new DefensiveLineman("53", "Shephard", 100, 100));
+		home.addPlayerToDefense(new DefensiveLineman("t3", "Shephard", 100, 100));
+		home.addPlayerToDefense(new DefensiveLineman("Ga4ry", "Shephard", 100, 100));
+		home.addPlayerToDefense(new DefensiveLineman("gss", "Shephard", 100, 100));
+		home.addPlayerToDefense(new DefensiveLineman("Ga5ry", "Shephard", 100, 100));
+		home.addPlayerToDefense(new DefensiveLineman("34", "Shephard", 100, 100));
+		// offense
+		home.addPlayerToOffense(new QuarterBack("Garyf23", "Shephard", 100, 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("G23ary", "Shephard", 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("Gary", "Shephard", 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("Gart3y", "Shephard", 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("Gary2", "Shephard", 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("Ga1ry2", "Shephard", 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("Ga553ry", "Shephard", 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("Gar256 vy", "Shephard", 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("Gary525c", "Shephard", 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("Garc2535y", "Shephard", 100, 100));
+		home.addPlayerToOffense(new OffensiveLineman("Gar5225y", "Shephard", 100, 100));
+
+		// away team
+		away = new NFLTeam("Cowboys");
+		// defense
+		away.addPlayerToDefense(new DefensiveLineman("Gary", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("ggg", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("234", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("aa", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("53", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("53", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("t3", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("Ga4ry", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("gss", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("Ga5ry", "Shephard", 100, 100));
+		away.addPlayerToDefense(new DefensiveLineman("34", "Shephard", 100, 100));
+		// offense
+		away.addPlayerToOffense(new OffensiveLineman("Garyf23", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("G23ary", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("Gary", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("Gart3y", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("Gary2", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("Ga1ry2", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("Ga553ry", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("Gar256 vy", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("Gary525c", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("Garc2535y", "Shephard", 100, 100));
+		away.addPlayerToOffense(new OffensiveLineman("Gar5225y", "Shephard", 100, 100));
+	}
 }
