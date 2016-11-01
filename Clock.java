@@ -34,7 +34,7 @@ public class Clock
     }
     
     /**
-s     * Changes the quarter by incrementing and setting nextQuarter. 
+     * Changes the quarter by incrementing and setting nextQuarter. 
      * Also, may change the quarter length.
      */
     public void changeQuarter()
@@ -73,8 +73,7 @@ s     * Changes the quarter by incrementing and setting nextQuarter.
   
      /*
       * Returns true if the current quarter is over.
-
-*
+      *
       * @return true if the current quarter is over, false if not.
       */
      public boolean isQuarterOver()
