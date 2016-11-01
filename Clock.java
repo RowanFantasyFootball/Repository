@@ -73,7 +73,8 @@ s     * Changes the quarter by incrementing and setting nextQuarter.
   
      /*
       * Returns true if the current quarter is over.
-      *
+
+*
       * @return true if the current quarter is over, false if not.
       */
      public boolean isQuarterOver()
@@ -111,56 +112,6 @@ s     * Changes the quarter by incrementing and setting nextQuarter.
          case 3: 
           return "Q3";
        }
-       
-    /**
-     * Inintializes the quarter for a new game, so that the game starts at quarter one (Q1)
-     * 
-     * @return NewQuarter returns the newQuarter after it is set to 1.
-     */ 
-    public int initializeQuarter()
-    {
-        newQuarter = 1;
-        return newQuarter;
-    }
-    
-    /**
-     * Changes the quarter by incrementing newQuarter
-     * 
-     * @return newQuarter an int that determines what quarter that game is currently at.
-     */
-    public int changeQuarter()
-    {
-        newQuarter ++;
-        return newQuarter;
-    }
-    
-    /**
-     * Will return the current quarter based on the field newQuarter.
-     * 
-     * @return quarter the current quarter.
-     */
-    public String getQuarter()
-    {
-         if(newQuarter == 1)
-         {
-             quarter = "Q1";            
-         }
-         else if(newQuarter == 2)
-         {
-             quarter = "Q2";             
-         }
-         else if(newQuarter == 3)
-         {
-             quarter = "Q3";             
-         }
-         else if(newQuarter == 4)
-         {
-            quarter = "Q4";            
-         }
-         else if(newQuarter > 4)
-         {
-             quarter = "End of Game";
-         }
-         return quarter;
-    }
+        return "End of Game";
+       } 
 }
