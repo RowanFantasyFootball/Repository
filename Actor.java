@@ -8,5 +8,10 @@
  */
 public interface Actor
 {
-    public void act();
+    /**
+     * Acts a player
+     * 
+     * @param play - the play to operate
+     */
+    public void act(Play play);
 }
