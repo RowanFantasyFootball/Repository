@@ -1,22 +1,47 @@
+ /**
+ * Changed the use of the newQuarter variable. Changed quarter to an int.
+ * newQuarter was previously pretty much a duplicate of the quarter variable
+ * Also, all integers are set to 0 by default in Java.
+ *
+ */
 public class Clock
 {
-    private int ticks;
-    private String quarter;
-    private int newQuarter;
-    
     /**
-     * Clock constructor that iniliazes ticks and newQuarter to 0.    
+     * The maximum amount of ticks in the game.
      */
-    public Clock()
+    private int maxTicks;
+    /*
+     * The ticks that have gone by on the clock.
+     */
+    private String ticks;
+    /*
+     * The current quarter.
+     */
+    private int quarter;
+    /*
+     *A counter to recognize when we are in the next quarter.
+     */
+    private int nextQuarter;
+    /**
+     * Creates a game clock for the football simulator.
+     *
+     *@param MAX_TICKS - the maximum amount of ticks you want the game to reach.
+     */
+    public Clock(int MAX_TICKS)
     {
-      ticks = 0;
-      newQuarter = 0;
+        this.maxTicks = MAX_TICKS;
+        changeQuarter();
     }
     
     /**
-     * Increments ticks by one everytime this method is called 
-     * 
+     * Changes the quarter by incrementing and setting nextQuarter. 
+     * Also, may change the quarter length.
      */
+    public void changeQuarter()
+    {
+        quarter++;
+        nextQuarter += maxTicks / 4;
+    }
     public void tick()
     {
         ticks ++;
