@@ -12,7 +12,7 @@ public class Clock
     /**
      * The ticks that have gone by on the clock.
      */
-    private String ticks;
+    private int ticks;
     /**
      * The current quarter.
      */
