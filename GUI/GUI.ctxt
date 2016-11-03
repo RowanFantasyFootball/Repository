@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=
+comment0.target=GUI()
+comment0.text=\r\n\ Set\ up\ GUI\r\n
+comment1.params=
+comment1.target=void\ initComponents()
+comment1.text=\r\n\ Initialize\ Every\ Component\ in\ the\ GUI\r\n
+comment2.params=main
+comment2.target=void\ createMenuBar(javax.swing.JFrame)
+numComments=3
