@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class DefensivePlay extends Play 
 {
 	/**
@@ -11,10 +10,13 @@ public class DefensivePlay extends Play
 	{
 		super(players);
 	}
+	
+	/**
+	 *
+	 */
 	@Override
 	public void assignPlayerMovements() 
 	{
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 }
