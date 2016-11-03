@@ -1,7 +1,6 @@
  /**
   * Changed the use of the newQuarter variable. Changed quarter to an int.
-  * newQuarter was previously pretty much a duplicate of the quarter variable
-  * Also, all integers are set to 0 by default in Java.
+  * newQuarter was previously pretty much a duplicate of the quarter variable.
   */
 public class Clock
 {
