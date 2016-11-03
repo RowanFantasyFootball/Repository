@@ -1,6 +1,10 @@
- 
-
-public enum POSITION {
+/**
+ * 
+ * @author 
+ *
+ */
+public enum POSITION 
+{
 
 	/**
 	 * Offense

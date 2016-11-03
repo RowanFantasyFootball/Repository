@@ -1,10 +1,9 @@
- 
 import java.util.Iterator;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PlayerStat {
+public class PlayerStat 
+{
 	private ArrayList<Message> messages;
 	private static HashMap<Integer, String> ov;
 	
@@ -46,15 +45,26 @@ public class PlayerStat {
 	}
 	
 	/**
-	 * @param messageNumber What message number are you looking more there are 8 variables right now
-	 * @param name The name of the player that performed the action
-	 * @param time What time the action happened at
-	 * @param goodKick Only used if calling message 4 (Field Goal) used to see if the kick was good
+	 * TODO:
+	 * @param messageNumber What message number are you looking for? There are 8 variables right now.
+	 * @param name The name of the player that performed the action.
+	 * @param time What time did the action occur?
+	 * @param goodKick Only used if calling message 4 (Field Goal) used to see if the kick was good.
 	 * 
 	 * This is a method where the Player class can pass the name of the player the message number that they need and 
 	 * also the time that the action happened at. The method will go through the int message that they passed to us 
 	 * and we will decide if it will turn display a message to the screen or not, but every call will update the spread
-	 * sheet and our personal record with how many times the action was called
+	 * sheet and our personal record with how many times the action was called.
+	 */
+	
+	/**
+	 * 
+	 * @param messageCode
+	 * @param tick
+	 * @param yardage
+	 * @param ballPosition
+	 * @param player
+	 * @throws Exception
 	 */
 	public void updateMessage(int messageCode, int tick, int yardage, int ballPosition, Player player) throws Exception
 	{
@@ -70,6 +80,9 @@ public class PlayerStat {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void getTouchdownOverview()
 	{
 		Iterator<Message> it = messages.iterator();
@@ -85,6 +98,9 @@ public class PlayerStat {
 		System.out.println(td + " : total touchdowns scored.");
 	}
 	
+	/**
+	 * 
+	 */
 	public void getFirstDownOverview()
 	{
 		Iterator<Message> it = messages.iterator();
@@ -100,6 +116,9 @@ public class PlayerStat {
 		System.out.println(fd + " : total first downs");
 	}
 	
+	/**
+	 * 
+	 */
 	public void getTurnOverOverview()
 	{
 		Iterator<Message> it = messages.iterator();
@@ -115,6 +134,9 @@ public class PlayerStat {
 		System.out.println(to + " : total turn overs");
 	}
 	
+	/**
+	 * 
+	 */
 	public void getInjuryOverview()
 	{
 		Iterator<Message> it = messages.iterator();
@@ -129,7 +151,10 @@ public class PlayerStat {
 		}
 		System.out.println(inj + " : total injuries");
 	}
-		
+	
+	/**
+	 * 
+	 */
 	public void getIncomepletePassOverview()
 	{
 			Iterator<Message> it = messages.iterator();
@@ -145,6 +170,9 @@ public class PlayerStat {
 		System.out.println(ip + " : total incomeplete passes");
 	}
 	
+	/**
+	 * 
+	 */
 	public void getSuccessfulPlayOverview()
 	{
 			Iterator<Message> it = messages.iterator();
@@ -160,4 +188,3 @@ public class PlayerStat {
 		System.out.println(sp + " : total successful plays ");
 	}
 }
-
