@@ -13,7 +13,7 @@ public class DriveProgress
 	/**
 	 * The current 'y-axis' location of the current line of scrimmage.
 	 */
-	private int lineOfScrimage;
+	private int lineOfScrimmage;
 
 	/**
 	 * The current down of the drive.
@@ -37,7 +37,7 @@ public class DriveProgress
 	 */
 	public int getLineOfScrimage() 
 	{
-		return lineOfScrimage;
+		return lineOfScrimmage;
 	}
 	
 	/**
