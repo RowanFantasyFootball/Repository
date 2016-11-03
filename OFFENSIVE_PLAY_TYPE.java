@@ -19,7 +19,7 @@ public enum OFFENSIVE_PLAY_TYPE {
 
 	/**
 	 * Constructor for creating a new offensive play type enum
-	
+	 */
 	OFFENSIVE_PLAY_TYPE() {
 		yardageGainPotential = Randomizer.getRandomNumber(DefensivePlay.MAX_STOPPING_POTENTIAL);
 	}
