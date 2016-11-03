@@ -5,10 +5,7 @@
  */
 public enum OFFENSIVE_PLAY_TYPE {
 	/**
-	 * Currently we have 3 offensive play types, anyone can add more to create
-	 * more to add more diversity and randomization in the game. To implement a
-	 * new play, think of a name, put a comma next to the last enum and type in
-	 * the name you want. Thats it!
+	 * Currently we have 3 offensive play types
 	 */
 	RUN, PASS, QBSNEAK;
 
