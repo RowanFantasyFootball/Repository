@@ -82,22 +82,27 @@ public class Controller {
 	}
 
 	/**
-	 * Runs the game!!
+	 * Runs the game.
 	 * 
-	 * Alter - MAX_GAME_TICKS if you want to have a longer game length, Alter -
-	 * TICK_DELAY field if you want to have a longer time between each game tick
+	 * MAX_GAME_TICKS longer game length.
+	 * TICK_DELAY field if you want to have a longer time between each game tick.
 	 */
-	public void start() {
+	public void start()
+	{
 		initialize();
 
-		while (clock.isRunning()) {
+		while (clock.isRunning())
+		{
 			step();
 		}
 	}
 
 	/**
-	 * Initializes the game 1. Loads the teams 2. Flips the coin to determine
-	 * who gets the ball first 3. Places the offense 4. Places the defense
+	 * Initializes the game
+	 * 1. Loads the teams
+	 * 2. Flips the coin to determine who gets the ball first
+	 * 3. Places the offense
+	 * 4. Places the defense
 	 */
 	private void initialize() {
 		loadTeams();
@@ -107,11 +112,10 @@ public class Controller {
 	/**
 	 * Places the defense onto the specified yard line
 	 * 
-	 * @param yardline
-	 *            the 'y-axis' location (yardline) that the players will line up
-	 *            on.
+	 * @param yardline the 'y-axis' location (yardline) that the players will line up on.
 	 */
-	private void placeDefense(int yardline) {
+	private void placeDefense(int yardline)
+	{
 		/**
 		 * TODO: Add Body.
 		 */
@@ -120,17 +124,17 @@ public class Controller {
 	/**
 	 * Places the offense onto the specified yard line
 	 * 
-	 * @param yardline
-	 *            the 'y-axis' location (yardline) that the players will line up
-	 *            on.
+	 * @param yardline the 'y-axis' location (yardline) that the players will line up on.
 	 */
-	private void placeOffense(int yardline) {
+	private void placeOffense(int yardline)
+	{
 		/**
 		 * TODO: Add body.
 		 */
 	}
 
-	private void flipCoin() {
+	private void flipCoin()
+	{
 		// TODO: Add body.
 
 	}
@@ -138,15 +142,19 @@ public class Controller {
 	/**
 	 * Where the game operates....
 	 * 
-	 * TODO: 1. ) Make sure messages from player stat works. 2. ) Add collision
-	 * recognition. 3. ) (offense.getX() == defense.getX() && offense.getY() ==
-	 * defense.getY()) 4. ) Add counter for downs. 5. ) If player is open for
-	 * pass. 6. ) Keep track of score. 7. ) Keep track of yardage 8. ) Add
-	 * defensive offense recognition (Make defensive paths somewhat mirror
-	 * offensive paths) 9. ) Read through the list of Actors and tell each Actor
-	 * to act accordingly?
+	 * TODO:
+	 * 1. ) Make sure messages from player stat works.
+	 * 2. ) Add collision recognition.
+	 * 3. ) (offense.getX() == defense.getX() && offense.getY() == defense.getY())
+	 * 4. ) Add counter for downs.
+	 * 5. ) If player is open for pass.
+	 * 6. ) Keep track of score.
+	 * 7. ) Keep track of yardage
+	 * 8. ) Add defensive offense recognition (Make defensive paths somewhat mirror offensive paths)
+	 * 9. ) Read through the list of Actors and tell each Actor to act accordingly?
 	 */
-	public void step() {
+	public void step()
+	{
 		operateClock();
 		movePlayersToLineOfScrimage();
 		operateOffense();
@@ -163,10 +171,12 @@ public class Controller {
 	/**
 	 * 
 	 */
-	private void operateDriveProgress() {
+	private void operateDriveProgress()
+	{
 		driveProgress.nextDown();
 
-		if (driveProgress.isDriveOver()) {
+		if (driveProgress.isDriveOver())
+		{
 			swapOffenseAndDefense();
 		}
 	}
@@ -174,14 +184,16 @@ public class Controller {
 	/**
 	 * 
 	 */
-	private void swapOffenseAndDefense() {
+	private void swapOffenseAndDefense()
+	{
 		// TODO: Add body.
 	}
 
 	/**
 	 * 
 	 */
-	private void movePlayersToLineOfScrimage() {
+	private void movePlayersToLineOfScrimage()
+	{
 		placeOffense(driveProgress.getLineOfScrimage());
 		placeDefense(driveProgress.getLineOfScrimage() - 1);
 	}
@@ -189,7 +201,8 @@ public class Controller {
 	/**
 	 * 
 	 */
-	private void operateOffensiveProgess() {
+	private void operateOffensiveProgess()
+	{
 		// TODO: Add body.
 
 	}
@@ -198,7 +211,8 @@ public class Controller {
 	 * Runs the clock by ticking the clock and waiting the tick delay in
 	 * milliseconds
 	 */
-	private void runClock() {
+	private void runClock()
+	{
 		clock.tick();
 		wait(TICK_DELAY);
 	}
@@ -206,19 +220,22 @@ public class Controller {
 	/**
 	 * 
 	 */
-	private void keepScore() {
+	private void keepScore()
+	{
 		NFLTeam offense;
 	}
 
 	/**
 	 * Operates the clock
 	 */
-	private void operateClock() {
+	private void operateClock()
+	{
 		/**
 		 * Checks if the quarter is over, then changes it and waits for the next
 		 * quarter to start
 		 */
-		if (clock.isQuarterOver()) {
+		if (clock.isQuarterOver())
+		{
 			clock.changeQuarter();
 			wait(QUARTER_CHANGE_DELAY);
 		}
@@ -227,7 +244,8 @@ public class Controller {
 	/**
 	 * Operates the offense (Calls act method on offensive players)
 	 */
-	private void operateOffense() {
+	private void operateOffense()
+	{
 		/**
 		 * Gets a random play object which provides each actor with movements
 		 */
@@ -235,7 +253,8 @@ public class Controller {
 		/**
 		 * Cycles through each actor on the field and operates them
 		 */
-		for (Actor actor : getOffensiveTeam().getOffense()) {
+		for (Actor actor : getOffensiveTeam().getOffense())
+		{
 			actor.act(offenseivePlay);
 		}
 	}
@@ -243,7 +262,8 @@ public class Controller {
 	/**
 	 * Operates the defense (Calls act method on defensive players).
 	 */
-	private void operateDefense() {
+	private void operateDefense()
+	{
 		/**
 		 * Gets a random defensive play from the Playbook.
 		 */
@@ -251,7 +271,8 @@ public class Controller {
 		/**
 		 * Cycles through each actor on the field and operates them.
 		 */
-		for (Actor actor : getDefensiveTeam().getDefense()) {
+		for (Actor actor : getDefensiveTeam().getDefense())
+		{
 			actor.act(defensivePlay);
 		}
 	}
@@ -261,8 +282,10 @@ public class Controller {
 	 * 
 	 * @return the team currently on defense (Team without the ball).
 	 */
-	private NFLTeam getDefensiveTeam() {
-		if (away.hasBall()) {
+	private NFLTeam getDefensiveTeam()
+	{
+		if (away.hasBall())
+		{
 			return home;
 		}
 		return away;
@@ -273,8 +296,10 @@ public class Controller {
 	 * 
 	 * @return the team currently on offense (Team with the ball).
 	 */
-	private NFLTeam getOffensiveTeam() {
-		if (away.hasBall()) {
+	private NFLTeam getOffensiveTeam()
+	{
+		if (away.hasBall())
+		{
 			return away;
 		}
 		return home;
@@ -287,10 +312,14 @@ public class Controller {
 	 * @param millisec
 	 *            the amount of time to wait.
 	 */
-	private void wait(int millisec) {
-		try {
+	private void wait(int millisec)
+	{
+		try
+		{
 			Thread.sleep(millisec);
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e)
+		{
 
 		}
 	}
@@ -302,7 +331,8 @@ public class Controller {
 	 *            input 0 or 1
 	 * @return if the guess was correct
 	 */
-	public boolean simulateCoinFlip(int guess) {
+	public boolean simulateCoinFlip(int guess)
+	{
 		return Integer.valueOf(Randomizer.getRandomNumber(1)) == guess;
 	}
 
@@ -310,75 +340,7 @@ public class Controller {
 	 * Create all player objects for each NFLTeam. Adds each player to their
 	 * respective team while also creating a player object.
 	 */
-	public void loadTeams() {
-		/**
-		 * Home Team
-		 */
-		home = new NFLTeam("Eagles");
-
-		/**
-		 * Defense
-		 */
-		home.addPlayerToDefense(new DefensiveLineman("Gary", "Shephard", 100, 876));
-		home.addPlayerToDefense(new DefensiveLineman("ggg", "Shephard", 100, 100));
-		home.addPlayerToDefense(new DefensiveLineman("234", "Shephard", 100, 100));
-		home.addPlayerToDefense(new DefensiveLineman("aa", "Shephard", 100, 100));
-		home.addPlayerToDefense(new DefensiveLineman("53", "Shephard", 100, 100));
-		home.addPlayerToDefense(new DefensiveLineman("53", "Shephard", 100, 100));
-		home.addPlayerToDefense(new DefensiveLineman("t3", "Shephard", 100, 100));
-		home.addPlayerToDefense(new DefensiveLineman("Ga4ry", "Shephard", 100, 100));
-		home.addPlayerToDefense(new DefensiveLineman("gss", "Shephard", 100, 100));
-		home.addPlayerToDefense(new DefensiveLineman("Ga5ry", "Shephard", 100, 100));
-		home.addPlayerToDefense(new DefensiveLineman("34", "Shephard", 100, 100));
-
-		/**
-		 * Offense.
-		 */
-		home.addPlayerToOffense(new QuarterBack("Garyf23", "Shephard", 100, 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("G23ary", "Shephard", 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("Gary", "Shephard", 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("Gart3y", "Shephard", 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("Gary2", "Shephard", 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("Ga1ry2", "Shephard", 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("Ga553ry", "Shephard", 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("Gar256 vy", "Shephard", 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("Gary525c", "Shephard", 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("Garc2535y", "Shephard", 100, 100));
-		home.addPlayerToOffense(new OffensiveLineman("Gar5225y", "Shephard", 100, 100));
-
-		/**
-		 * Away Team.
-		 */
-		away = new NFLTeam("Cowboys");
-
-		/**
-		 * Defense.
-		 */
-		away.addPlayerToDefense(new DefensiveLineman("Gary", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("ggg", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("234", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("aa", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("53", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("53", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("t3", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("Ga4ry", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("gss", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("Ga5ry", "Shephard", 100, 100));
-		away.addPlayerToDefense(new DefensiveLineman("34", "Shephard", 100, 100));
-
-		/**
-		 * Offensive.
-		 */
-		away.addPlayerToOffense(new OffensiveLineman("Garyf23", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("G23ary", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("Gary", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("Gart3y", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("Gary2", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("Ga1ry2", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("Ga553ry", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("Gar256 vy", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("Gary525c", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("Garc2535y", "Shephard", 100, 100));
-		away.addPlayerToOffense(new OffensiveLineman("Gar5225y", "Shephard", 100, 100));
+	public void loadTeams()
+	{
 	}
 }
