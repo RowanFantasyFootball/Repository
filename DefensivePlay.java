@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 public class DefensivePlay extends Play 
 {
 	/**
@@ -12,7 +13,7 @@ public class DefensivePlay extends Play
 	}
 	
 	/**
-	 *
+	 * Player Movements.
 	 */
 	@Override
 	public void assignPlayerMovements() 
