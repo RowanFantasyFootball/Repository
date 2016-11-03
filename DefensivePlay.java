@@ -11,13 +11,11 @@ public class DefensivePlay extends Play
 	{
 		super(players);
 	}
-	
-	/**
-	 * Player Movements.
-	 */
 	@Override
 	public void assignPlayerMovements() 
 	{
-		// TODO Auto-generated method stub	
+		/**
+		 * TODO: Add Body.
+		 */
 	}
 }
