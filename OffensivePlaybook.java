@@ -1,14 +1,23 @@
- 
-
-public class OffensivePlaybook {
+/**
+ * 
+ * @author 
+ *
+ */
+public class OffensivePlaybook 
+{
 	
 	/**
-	 * Gets a random offensive play
+	 * Gets a random offensive play.
 	 * 
 	 * @return
 	 */
-	public static OffensivePlay getRandomPlay() {
-		switch(OFFENSIVE_PLAY_TYPE.getRandomPlayType()) {
+	public static OffensivePlay getRandomPlay() 
+	{
+		/**
+		 * 
+		 */
+		switch(OFFENSIVE_PLAY_TYPE.getRandomPlayType()) 
+		{
 		case PASS:
 			break;
 		case QBSNEAK:
@@ -20,5 +29,4 @@ public class OffensivePlaybook {
 		}
 		return null;
 	}
-	
 }

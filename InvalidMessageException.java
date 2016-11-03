@@ -1,6 +1,5 @@
- 
 /**
- * InvalidMessageException
+ * InvalidMessageException.java
  * 
  * Throws this exception if there is an invalid message.
  */

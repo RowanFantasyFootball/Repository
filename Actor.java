@@ -1,4 +1,3 @@
-
 /**
  * The Actor Interface is used to allow the Controller Class to implement the act() methods for each 
  * individual Actor/Class.
@@ -9,7 +8,7 @@
 public interface Actor
 {
     /**
-     * Acts a player
+     * Act
      * 
      * @param play - the play to operate
      */

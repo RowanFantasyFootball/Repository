@@ -1,22 +1,20 @@
- 
-
 import java.util.ArrayList;
 
 /**
- * A class that determines movements for each position
+ * A class that determines movements for each position.
  * 
  */
-public class OffensivePlay extends Play {
+public class OffensivePlay extends Play 
+{
 
-	public OffensivePlay(ArrayList<Player> players) {
+	public OffensivePlay(ArrayList<Player> players) 
+	{
 		super(players);
 	}
 
 	@Override
-	public void assignPlayerMovements() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-		
+	public void assignPlayerMovements() 
+	{
+		// TODO Add Body.	
+	}		
 }
