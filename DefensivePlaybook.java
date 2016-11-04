@@ -10,7 +10,7 @@ public class DefensivePlaybook
 	 */
 	public static OffensivePlay getRandomPlay()
 	{
-		switch(OFFENSIVE_PLAY_TYPE.getRandomPlayType())
+		switch(DEFENSIVE_PLAY_TYPE.getRandomDefensivePlayType())
 		{
 		case PASS:
 			break;

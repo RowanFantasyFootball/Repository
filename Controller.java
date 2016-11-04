@@ -48,7 +48,7 @@ public class Controller {
 	/**
 	 * The field for the teams to play on
 	 */
-	private Field field;
+	//private Field field;
 
 	/**
 	 * The progress of the current drive
