@@ -277,33 +277,98 @@ public class Controller {
 		}
 	}
 
-	/**
-	 * Gets the defensive team based on who has the ball.
-	 * 
-	 * @return the team currently on defense (Team without the ball).
-	 */
-	private NFLTeam getDefensiveTeam()
-	{
-		if (away.hasBall())
-		{
-			return home;
-		}
-		return away;
-	}
+	//  /**
+//   * Gets     the defensive team based on who has the ball
+//   * 
+//   * @return the team currently on defense (Team without the ball)
+//   */
+//  private NFLTeam getDefensiveTeam() 
+//  {
+//      if (away.hasBall()) 
+//      {
+//          return home;
+//      }
+//      return away;
+//  }
+    /**
+     * Gets the defensive team based on who has the ball
+     * 
+     * revision by David Lackey 
+     * NFLTeam doesn't have a hasBall() method but Player does.
+     * 
+     * We need to check the entire away team to see if any of the away 
+     * players have the ball (hasBall() = true)
+     */
+    private NFLTeam getDefensiveTeam()
+    {
+         ArrayList<Player> awayDefense = away.getDefense();  //arrayList of away Defensive Players
+         ArrayList<Player> awayOffense = away.getOffense();  //arrayList of away Offensive Players
+         
+         ArrayList<Player> awayTeam = new ArrayList<>();
+         awayTeam.addAll(awayDefense);
+         awayTeam.addAll(awayOffense);                      //concatenated arrayList of entire away team
+         
+         Iterator<Player> it = awayTeam.iterator();
+         
+         /**
+          * if any away player has the ball, the team on defense is the home team.
+          * otherwise the team on defense is the away team
+          */
+         while (it.hasNext()){
+             Player awayPlayer = it.next();
+             if (awayPlayer.hasBall()){
+                 return home;
+                }
+             return away;
+            }
+    }
 
-	/**
-	 * Gets the offensive team based on who has the ball.
-	 * 
-	 * @return the team currently on offense (Team with the ball).
-	 */
-	private NFLTeam getOffensiveTeam()
-	{
-		if (away.hasBall())
-		{
-			return away;
-		}
-		return home;
-	}
+//     /**
+//      * Gets the offensive team based on who has the ball
+//      * 
+//      * @return the team currently on offense (Team with the ball)
+//      */
+//     private NFLTeam getOffensiveTeam() 
+//     {
+//         if (away.hasBall()) 
+//         {
+//             return away;
+//         }
+//         return home;
+//     }
+
+   /**
+     * Gets the offensive team based on who has the ball
+     * 
+     * revision by David Lackey 
+     * NFLTeam doesn't have a hasBall() method but Player does.
+     * 
+     * We need to check the entire away team to see if any of the away 
+     * players have the ball (hasBall() = true)
+     */
+    private NFLTeam getOffensiveTeam()
+    {
+         ArrayList<Player> awayDefense = away.getDefense();  //arrayList of away Defensive Players
+         ArrayList<Player> awayOffense = away.getOffense();  //arrayList of away Offensive Players
+         
+         ArrayList<Player> awayTeam = new ArrayList<>();
+         awayTeam.addAll(awayDefense);
+         awayTeam.addAll(awayOffense);                      //concatenated arrayList of entire away team
+         
+         Iterator<Player> it = awayTeam.iterator();
+         
+         /**
+          * if any away player has the ball, the team on offense is the away team.
+          * otherwise the team on offense is the home team
+          */
+         while (it.hasNext()){
+             Player awayPlayer = it.next();
+             if (awayPlayer.hasBall()){
+                 return away;
+                }
+             return home;
+            }
+    }
 
 	/**
 	 * Allow the user to comprehend program on screen by waiting and allotted
