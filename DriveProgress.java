@@ -57,7 +57,7 @@ public class DriveProgress
 	 */
 	public void setLineOfScrimage(int lineOfScrimage) 
 	{
-		this.lineOfScrimage = lineOfScrimage;
+		this.lineOfScrimmage = lineOfScrimmage;
 	}
 
 	/**

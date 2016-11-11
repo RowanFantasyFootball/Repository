@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=
+comment0.target=DriveProgress()
+comment0.text=\r\n\ Creates\ a\ new\ offensive\ progress\ object\ which\ keeps\ track\ of\ the\ current\r\n\ offenses'\ progress\ for\ the\ current\ drive.\r\n
+comment1.params=
+comment1.target=int\ getLineOfScrimage()
+comment1.text=\r\n\ Gets\ the\ current\ line\ of\ scrimmage.\r\n\ \r\n\ @return\ the\ current\ line\ of\ scrimmage.\r\n
+comment2.params=
+comment2.target=boolean\ isDriveOver()
+comment2.text=\r\n\ Tells\ you\ if\ the\ drive\ is\ over\ or\ not\ (down\ >\=\ 4).\r\n\ \r\n\ @return\ true\ if\ the\ drive\ is\ over\r\n
+comment3.params=lineOfScrimage
+comment3.target=void\ setLineOfScrimage(int)
+comment3.text=\r\n\ Sets\ the\ line\ of\ scrimmage\ to\ the\ specified\ line\ of\ scrimmage.\r\n\ \r\n\ @param\ lineOfScrimage\ the\ line\ of\ scrimmage\ to\ set\ the\ offenses\ line\ of\ scrimmage.\r\n
+comment4.params=
+comment4.target=void\ resetDowns()
+comment4.text=\r\n\ Resets\ the\ downs\ back\ to\ 1.\r\n
+comment5.params=
+comment5.target=void\ nextDown()
+comment5.text=\r\n\ Increments\ the\ current\ down.\r\n
+numComments=6

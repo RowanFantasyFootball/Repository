@@ -320,8 +320,8 @@ public class Controller {
              if (awayPlayer.hasBall()){
                  return home;
                 }
-             return away;
             }
+            return away;
     }
 
 //     /**
@@ -367,8 +367,8 @@ public class Controller {
              if (awayPlayer.hasBall()){
                  return away;
                 }
-             return home;
             }
+            return home;
     }
 
 	/**
