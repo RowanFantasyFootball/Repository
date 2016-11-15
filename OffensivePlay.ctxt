@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.params=players\ playType
+comment0.target=OffensivePlay(java.util.ArrayList,\ java.lang.String)
+comment1.params=
+comment1.target=void\ assignPlayerMovements()
+comment2.params=
+comment2.target=void\ assignRunMovements()
+comment2.text=\r\n\ Assign\ player\ movements\ for\ a\ Run\ play\r\n
+comment3.params=
+comment3.target=void\ assignPassMovements()
+comment3.text=\r\n\ Assign\ player\ movements\ for\ a\ Pass\ play\r\n
+comment4.params=
+comment4.target=void\ assignQBSneakMovements()
+comment4.text=\r\n\ Assign\ player\ movements\ for\ a\ QB-Sneak\ play\r\n
+numComments=5

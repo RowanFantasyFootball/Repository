@@ -9,7 +9,7 @@ public enum POSITION
 	/**
 	 * Offense
 	 */
-	QUATERBACK,
+	QUARTERBACK,
 	RUNNINGBACK,
 	WIDERECIEVER,
 	TIGHTEND,

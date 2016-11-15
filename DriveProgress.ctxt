@@ -3,13 +3,13 @@ comment0.params=
 comment0.target=DriveProgress()
 comment0.text=\r\n\ Creates\ a\ new\ offensive\ progress\ object\ which\ keeps\ track\ of\ the\ current\r\n\ offenses'\ progress\ for\ the\ current\ drive.\r\n
 comment1.params=
-comment1.target=int\ getLineOfScrimage()
+comment1.target=int\ getLineOfScrimmage()
 comment1.text=\r\n\ Gets\ the\ current\ line\ of\ scrimmage.\r\n\ \r\n\ @return\ the\ current\ line\ of\ scrimmage.\r\n
 comment2.params=
 comment2.target=boolean\ isDriveOver()
 comment2.text=\r\n\ Tells\ you\ if\ the\ drive\ is\ over\ or\ not\ (down\ >\=\ 4).\r\n\ \r\n\ @return\ true\ if\ the\ drive\ is\ over\r\n
-comment3.params=lineOfScrimage
-comment3.target=void\ setLineOfScrimage(int)
+comment3.params=lineOfScrimmage
+comment3.target=void\ setLineOfScrimmage(int)
 comment3.text=\r\n\ Sets\ the\ line\ of\ scrimmage\ to\ the\ specified\ line\ of\ scrimmage.\r\n\ \r\n\ @param\ lineOfScrimage\ the\ line\ of\ scrimmage\ to\ set\ the\ offenses\ line\ of\ scrimmage.\r\n
 comment4.params=
 comment4.target=void\ resetDowns()

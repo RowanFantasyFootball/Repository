@@ -26,7 +26,7 @@ public class DriveProgress
 	 */
 	public DriveProgress() 
 	{
-		setLineOfScrimage(STARTING_LINE_OF_SCRIMMAGE);
+		setLineOfScrimmage(STARTING_LINE_OF_SCRIMMAGE);
 		resetDowns();
 	}
 	
@@ -35,7 +35,7 @@ public class DriveProgress
 	 * 
 	 * @return the current line of scrimmage.
 	 */
-	public int getLineOfScrimage() 
+	public int getLineOfScrimmage() 
 	{
 		return lineOfScrimmage;
 	}
@@ -55,7 +55,7 @@ public class DriveProgress
 	 * 
 	 * @param lineOfScrimage the line of scrimmage to set the offenses line of scrimmage.
 	 */
-	public void setLineOfScrimage(int lineOfScrimage) 
+	public void setLineOfScrimmage(int lineOfScrimmage) 
 	{
 		this.lineOfScrimmage = lineOfScrimmage;
 	}
