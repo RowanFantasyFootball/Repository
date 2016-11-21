@@ -143,4 +143,9 @@ public class GUI {
     public void setYardMarker(int yardMarker) {
         scoreboard.setFieldYardage(yardMarker);
     }
+    
+    public void setPossession(String team) {
+        scoreboard.setPossession(team);
+    }
+    
 }    

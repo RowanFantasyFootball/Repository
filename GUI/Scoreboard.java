@@ -23,6 +23,7 @@ public class Scoreboard extends JPanel {
         home.setFont(new java.awt.Font("Impact", 0, 48));
         home.setForeground(new Color(0,59,72)); //EAGLES GREEN
         home.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        home.setOpaque(true);
         
         hScore.setFont(new java.awt.Font("Arial", Font.BOLD, 48));
         hScore.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -31,6 +32,7 @@ public class Scoreboard extends JPanel {
         away.setFont(new java.awt.Font("Impact", 0, 48));
         away.setForeground(new Color(13,37,76));    //COWBOYS NAVY
         away.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        away.setOpaque(true);
         
         aScore.setFont(new java.awt.Font("Arial", Font.BOLD, 48));
         aScore.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -104,6 +106,20 @@ public class Scoreboard extends JPanel {
     public void setQuarter(int quarter) {
         String current = this.quarter.getText().substring(0,5);
         this.quarter.setText(current + quarter);
+    }
+    
+    public void setPossession(String team) {
+        if (team.equalsIgnoreCase("home")) {
+            home.setOpaque(true);
+            home.setBackground(Color.YELLOW);
+            away.setOpaque(false);
+            away.setBackground(Color.GRAY);
+        } else {
+            away.setOpaque(true);
+            away.setBackground(Color.YELLOW);
+            home.setOpaque(false);
+            home.setBackground(Color.GRAY);
+        }
     }
     
 }
