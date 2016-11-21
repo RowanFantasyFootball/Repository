@@ -25,7 +25,7 @@
  * 
  * **** IF YOU HAVE ANY QUESTIONS PLEASE EMAIL ME: DUNNEJ1@STUDENTS.ROWAN.EDU ****
  */
-public abstract class Player implements Actor {
+public class Player implements Actor {
     /**
      * The speed of the player
      */
@@ -45,12 +45,12 @@ public abstract class Player implements Actor {
      * The first name
      */
     private String first;
-
+    
     /**
-     * True if the player has the ball
+     * 
      */
-    private Football football;
-
+    private boolean hasBall = false;
+    
     /**
      * Coordinates for where player will move to during play
      */
@@ -58,6 +58,8 @@ public abstract class Player implements Actor {
     private int startingYCoordinate = 0;
     private int endingXCoordinate = 0;
     private int endingYCoordinate = 0;
+    
+    private POSITION playerPosition;
 
     /**
      * Creates a new player instance to be put on the field
@@ -73,7 +75,9 @@ public abstract class Player implements Actor {
      * @param strength
      *            - the strength of the player
      */
-    public Player(String first, String last, int speed, int strength) {
+    public Player(String first, String last, int speed, int strength, POSITION playerPosition)
+    {
+        this.playerPosition = playerPosition;
         this.last       = last;
         this.first      = first;
         this.speed      = speed;
@@ -84,33 +88,28 @@ public abstract class Player implements Actor {
      * Get the position of the player
      * 
      * @return the position of the player
-     */
-    public abstract POSITION getPosition();
-
-    /**
-     * Gives or take a ball from the player
      * 
-     * @param football
-     *            - the football object being passed to this player
+     * FIX THIS!!!
      */
-    public void giveBallToPlayer(Football football) {
-        this.football = football;
+    public POSITION getPosition()
+    {
+        return playerPosition;
     }
 
     /**
-     * Removes the football from the player
+     * 
      */
-    public void removeBallFromPlayer() {
-        this.football = null;
+    public void setBall(boolean isTrue)
+    {
+        hasBall = isTrue;
     }
-
     /**
      * Tells if the player has the ball or not
      * 
      * @return true if player has ball
      */
     public boolean hasBall() {
-        return football != null;
+        return hasBall;
     }
 
     /**
@@ -178,7 +177,7 @@ public abstract class Player implements Actor {
         //Move the player to the (x,y) coordinate on the grid
         //NOTE: the (x,y) coordinate should be "x" more than the current spot and "y" more than the 
         //      current spot
-        
+
         //startingXCoordinate = getCurrentXCoordinate();        // Must use the field object!!!
         //startingYCoordinate = getCurrentYCoordinate();        // Must use the field object!!!
         endingXCoordinate = startingXCoordinate + xCoordinate;
@@ -194,5 +193,14 @@ public abstract class Player implements Actor {
         String info = toString() + " will move from (" + startingXCoordinate + ", " 
             + startingYCoordinate + ") to (" + endingXCoordinate + ", " + endingYCoordinate +  ")";
         return info;
+    }
+    
+    /**
+     * Act method override
+     */
+    public void act(Play play)
+    {
+        //System.out.println("Using act method.");
+        System.out.println(getMovementPattern());
     }
 }
