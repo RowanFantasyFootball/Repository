@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Scoreboard extends JPanel {
     
-    private JLabel home, away, hScore, aScore, down;
+    private JLabel home, away, hScore, aScore, down, yardMarker, quarter;
     public Scoreboard() {
         super();
         initComponents();
@@ -39,7 +39,18 @@ public class Scoreboard extends JPanel {
         down.setFont(new java.awt.Font("Dialog", 1, 40));
         down.setText("1 & 10");
         
+        yardMarker = new JLabel();
+        yardMarker.setFont(new java.awt.Font("Dialog", 1, 40));
+        yardMarker.setText("Ball on: ");
+        
+        quarter = new JLabel();
+        quarter.setFont(new java.awt.Font("Dialog", 0, 40));
+        quarter.setText("Qtr: 1");
+        quarter.setBorder(BorderFactory.createLineBorder(Color.black));
+        
         add(home); add(hScore); add(away); add(aScore); add(Box.createHorizontalStrut(20)); add(down);
+        add(Box.createHorizontalStrut(50)); add(yardMarker); add(Box.createHorizontalStrut(30)); 
+        add(quarter);
         
     }
     
@@ -77,6 +88,22 @@ public class Scoreboard extends JPanel {
     public void setYardageToFirst(int yardageToFirst) {
         String downMarker = down.getText().substring(0,4);
         down.setText(downMarker + yardageToFirst);
+    }
+    
+    public void setFieldYardage(int yardNum) {
+        String current = yardMarker.getText().substring(0,9);
+        if (yardNum == 50) {
+            yardMarker.setText(current + yardNum);
+        } else if (yardNum < 50) {
+            yardMarker.setText(current + home.getText().trim() + " " + yardNum);
+        } else {
+            yardMarker.setText(current + away.getText().trim() + " " + (100-yardNum));
+        }
+    }
+    
+    public void setQuarter(int quarter) {
+        String current = this.quarter.getText().substring(0,5);
+        this.quarter.setText(current + quarter);
     }
     
 }

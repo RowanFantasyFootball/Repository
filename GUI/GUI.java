@@ -131,4 +131,16 @@ public class GUI {
     public void setAwayTeamName(String name) {
         scoreboard.setAwayTeamName(name);
     }
-}
+    
+    public void setDown(int downNum) {
+        scoreboard.setDown(downNum);
+    }
+    
+    public void setYardageToFirst(int yardage) {
+        scoreboard.setYardageToFirst(yardage);
+    }
+    
+    public void setYardMarker(int yardMarker) {
+        scoreboard.setFieldYardage(yardMarker);
+    }
+}    
