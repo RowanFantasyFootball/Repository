@@ -10,7 +10,7 @@ import java.io.File;
 public class GUI {
 
     private JFrame main;
-    private JPanel scoreboard, field, feed, actions;
+    private Scoreboard scoreboard; private Field field; private Feed feed; private Actions actions;
     private JMenuBar menubar;
     
     /**
@@ -44,7 +44,7 @@ public class GUI {
         
         //Create a Scoreboard Panel
         scoreboard = new Scoreboard();
-        scoreboard.add(new JButton("This is where the scoreboard will go"));
+        
         pane.add(scoreboard);
         
         //Create a Field panel
@@ -54,7 +54,7 @@ public class GUI {
         
         //Create a Feed panel
         feed = new Feed();
-        feed.add(new JButton("This is where the message feed will go"));
+        //feed.add(new JButton("This is where the message feed will go"));
         pane.add(feed);
         
         //Create an Actions panel
@@ -62,10 +62,12 @@ public class GUI {
         actions.add(new JButton("This is where the action buttons will go"));
         pane.add(actions);
         
+       
         //Set the size of the JFrame
-        main.setSize(1920,1080);
+        main.setSize(1280,1080);
         //Don't allow resizing because it messes everything up
         main.setResizable(false);
+        main.pack();
         //Show it
         main.setVisible(true);
     }
@@ -112,5 +114,21 @@ public class GUI {
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, SHORTCUT_MASK));
         //item.addActionListener(e -> about());
         menu.add(item);
+    }
+    
+    public void setHomeScore(int score) {
+        scoreboard.setHomeScore(score);
+    }
+    
+    public void setAwayScore(int score) {
+        scoreboard.setAwayScore(score);
+    }
+    
+    public void setHomeTeamName(String name) {
+        scoreboard.setHomeTeamName(name);
+    }
+    
+    public void setAwayTeamName(String name) {
+        scoreboard.setAwayTeamName(name);
     }
 }
