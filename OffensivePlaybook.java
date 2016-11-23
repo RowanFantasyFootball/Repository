@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author 
- *
+ * 
+ * @author John (Jack) Donahue
  */
 public class OffensivePlaybook 
 {

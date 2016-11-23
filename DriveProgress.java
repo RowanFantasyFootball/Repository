@@ -6,7 +6,7 @@
 public class DriveProgress 
 {
 	/**
-	 * Starts on the 20 yard line.
+	 * Starts on the 30 yard line.
 	 */
 	public static final int STARTING_LINE_OF_SCRIMMAGE = 30;
 
@@ -41,13 +41,13 @@ public class DriveProgress
 	}
 	
 	/**
-	 * Tells you if the drive is over or not (down >= 4).
+	 * Tells you if the drive is over or not (down > 4).
 	 * 
 	 * @return true if the drive is over
 	 */
 	public boolean isDriveOver() 
 	{
-		return down >= 4;
+		return down > 4; // you can play during 4th down. therefore NOT down >= 4
 	}
 	
 	/**

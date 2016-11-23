@@ -11,9 +11,6 @@ public class Message
     private int yardage;
     private int ballPosition;
     private String position;
-    private int overall;
-    private int speed;
-    private int strength;
     private PlayerStat stat;
     
     /**

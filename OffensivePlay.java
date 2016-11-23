@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 /**
  * A class that determines movements for each position based on the current play
+ * 
+ * @author John (Jack) Donahue
  */
 public class OffensivePlay extends Play 
 {
@@ -40,15 +42,15 @@ public class OffensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case QUARTERBACK:
-                currentPlayer.setMovementPattern(-2,0); //move QB straight back 2 yards
+                currentPlayer.setEndingCoordinate(-2,0); //move QB straight back 2 yards
                 case RUNNINGBACK:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case WIDERECIEVER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case TIGHTEND:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case OFFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 default:
                 break;
             }
@@ -68,15 +70,15 @@ public class OffensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case QUARTERBACK:
-                currentPlayer.setMovementPattern(-2,0); //move QB straight back 2 yards
+                currentPlayer.setEndingCoordinate(-2,0); //move QB straight back 2 yards
                 case RUNNINGBACK:
-                currentPlayer.setMovementPattern(10,5);
+                currentPlayer.setEndingCoordinate(10,5);
                 case WIDERECIEVER:
-                currentPlayer.setMovementPattern(25,-3);
+                currentPlayer.setEndingCoordinate(25,-3);
                 case TIGHTEND:
-                currentPlayer.setMovementPattern(5,5);
+                currentPlayer.setEndingCoordinate(5,5);
                 case OFFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(0,0);
+                currentPlayer.setEndingCoordinate(0,0);
                 default:
                 break;
             }
@@ -94,15 +96,15 @@ public class OffensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case QUARTERBACK:
-                currentPlayer.setMovementPattern(-2,0); //move QB straight back 2 yards
+                currentPlayer.setEndingCoordinate(-2,0); //move QB straight back 2 yards
                 case RUNNINGBACK:
-                currentPlayer.setMovementPattern(-2,0); //move the 
+                currentPlayer.setEndingCoordinate(-2,0); //move the 
                 case WIDERECIEVER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case TIGHTEND:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case OFFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 default:
                 break;
             }

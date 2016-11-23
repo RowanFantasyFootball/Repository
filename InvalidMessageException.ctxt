@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.params=error
+comment0.target=InvalidMessageException(java.lang.String)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ InvalidMessageException\r\n
+numComments=1

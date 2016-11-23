@@ -1,6 +1,8 @@
 /**
- * A class that contains a method to simulate contact between classes.
+ * A class that contains a method to simulate contact between Players
+ * 
  * @author Joe Dunne
+ * @revision by: John (Jack) Donahue
  */
 public class ContactSimulator 
 {

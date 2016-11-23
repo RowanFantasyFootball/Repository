@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 
+/**
+ * A class that determines movements for each position based on the current play
+ * 
+ * @author John (Jack) Donahue
+ */
+
 public class DefensivePlay extends Play 
 {
     /**
@@ -46,15 +52,15 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case DEFENSIVE_BACK:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case LINEBACKER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case CORNER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case SAFETY:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 default:
                 break;
             }
@@ -74,15 +80,15 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case DEFENSIVE_BACK:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case LINEBACKER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case CORNER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case SAFETY:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 default:
                 break;
             }
@@ -102,15 +108,15 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case DEFENSIVE_BACK:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case LINEBACKER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case CORNER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case SAFETY:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 default:
                 break;
             }
@@ -130,15 +136,15 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case DEFENSIVE_BACK:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case LINEBACKER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case CORNER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 case SAFETY:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
                 default:
                 break;
             }

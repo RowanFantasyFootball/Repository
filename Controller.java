@@ -3,11 +3,12 @@ import java.util.LinkedList;
 import java.util.Iterator;
 
 /**
- * Write a description of class Controller here.
+ * The main controls for the Football game.
+ * The Controller class creates instances of Players, Teams, Play Types, etc.
+ * Loads each individual player into a given team, loops through actors to represent gameplay, and communicates between classes.
  * 
- * @John (Jack) Donahue
- * @Gerald Miego
- * @Kevin Santana
+ * @author John (Jack) Donahue
+ * @author Gerald Miego
  * @revision By: Joe Dunne & Tim McClintock
  */
 public class Controller {
@@ -65,18 +66,10 @@ public class Controller {
      * 
      */
     private Message msg;
-    
-    /**
-     * The offensive playbook
-     */
-    private OffensivePlaybook offensivePlaybook;
-    /**
-     * The defensive playbook
-     */
-    private DefensivePlaybook defensivePlaybook;
 
     /**
-     * TODO: Fix each individual Player object.
+     * TODO:
+     * Edit player positions to ACTUAL POSITIONS
      */
 
     /**
@@ -127,9 +120,27 @@ public class Controller {
      */
     private void placeDefense(int yardline)
     {
-        /**
-         * TODO: Add Body.
-         */
+        System.out.println("Defense placed at " + yardline + " yardline.");
+
+        for (int i = 0; i < getDefensiveTeam().getDefense().size(); i++) // go through list of players
+        {
+            Player currentPlayer = getDefensiveTeam().getDefense().get(i);
+            switch(currentPlayer.getPosition()) // find current player's position
+            {
+                case DEFENSIVE_LINEMAN:
+                currentPlayer.setStartCoordinate(-2,0);
+                case DEFENSIVE_BACK:
+                currentPlayer.setStartCoordinate(-2,0);
+                case LINEBACKER:
+                currentPlayer.setStartCoordinate(-2,0);
+                case CORNER:
+                currentPlayer.setStartCoordinate(-2,0);
+                case SAFETY:
+                currentPlayer.setStartCoordinate(-2,0);
+                default:
+                break;
+            }
+        }
     }
 
     /**
@@ -139,9 +150,28 @@ public class Controller {
      */
     private void placeOffense(int yardline)
     {
-        /**
-         * TODO: Add body.
-         */
+        System.out.println("Offense placed at " + yardline + " yardline.");
+        int los = driveProgress.getLineOfScrimmage();
+        
+        for (int i = 0; i < getOffensiveTeam().getOffense().size(); i++) // go through list of players
+        {
+            Player currentPlayer = getOffensiveTeam().getOffense().get(i);
+            switch(currentPlayer.getPosition()) // find current player's position
+            {
+                case QUARTERBACK:
+                currentPlayer.setStartCoordinate(los-1,0);
+                case RUNNINGBACK:
+                currentPlayer.setStartCoordinate(los-2,0);
+                case WIDERECIEVER:
+                currentPlayer.setStartCoordinate(los,5);
+                case TIGHTEND:
+                currentPlayer.setStartCoordinate(los,-3);
+                case OFFENSIVE_LINEMAN:
+                currentPlayer.setStartCoordinate(los,5);
+                default:
+                break;
+            }
+        }
     }
 
     private void flipCoin()
@@ -170,22 +200,18 @@ public class Controller {
         operateOffense();
         operateDefense();
         operateDriveProgress();
-        keepScore();
-
-        /**
-         * TODO: Add More Body.
-         * ex: What happens if a player catches the ball?
-         * ex: What happens if their is a tackle?
-         */
+        //keepScore(); Method removed. playerStat should keep score
+        //tackle???
+        
         runClock(); // This must always be last
     }
 
     /**
-     * 
+     * Check for next down. If the next down is greater than 4, swap offense and defense
      */
     private void operateDriveProgress()
     {
-        driveProgress.nextDown();
+        driveProgress.nextDown(); // add 1 to the downs (the next down)
 
         if (driveProgress.isDriveOver())
         {
@@ -194,15 +220,53 @@ public class Controller {
     }
 
     /**
-     * 
+     * Swap the posession of the ball
      */
     private void swapOffenseAndDefense()
     {
         NFLTeam offense = getOffensiveTeam();
-        NFLTeam defense = getDefensiveTeam();
-        NFLTeam tempTeam = offense;
-        offense = defense;
-        defense = tempTeam;
+        if (home == offense) // home team is currently offense
+        {
+            //take ball from offense
+            for (int i = 0; i < home.getOffense().size(); i++) // go through list of players
+            {
+                Player currentPlayer = home.getOffense().get(i);
+                currentPlayer.setBall(false);
+            }
+            
+            for (int i = 0; i < away.getOffense().size(); i++) // go through list of players
+            {
+                Player currentPlayer = away.getDefense().get(i);
+                switch(currentPlayer.getPosition()) // find current player's position
+                {
+                    case QUARTERBACK:
+                    currentPlayer.setBall(true);
+                    default:
+                    break;
+                }
+            }
+        }
+        else // home team is currently defense
+        {
+            //take ball from offense
+            for (int i = 0; i < away.getOffense().size(); i++) // go through list of players
+            {
+                Player currentPlayer = home.getOffense().get(i);
+                currentPlayer.setBall(false);
+            }
+            
+            for (int i = 0; i < home.getOffense().size(); i++) // go through list of players
+            {
+                Player currentPlayer = away.getDefense().get(i);
+                switch(currentPlayer.getPosition()) // find current player's position
+                {
+                    case QUARTERBACK:
+                    currentPlayer.setBall(true);
+                    default:
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -231,14 +295,6 @@ public class Controller {
     {
         clock.tick();
         wait(TICK_DELAY);
-    }
-
-    /**
-     * 
-     */
-    private void keepScore()
-    {
-        NFLTeam offense;
     }
 
     /**
