@@ -66,6 +66,11 @@ public class Controller {
      * 
      */
     private Message msg;
+    
+    /**
+     * Contact Simulator for determining play outcome
+     */
+    private ContactSimulator contactSimulator;
 
     /**
      * TODO:
@@ -79,6 +84,7 @@ public class Controller {
     public Controller() {
         stats = new PlayerStat();
         clock = new Clock(MAX_GAME_TICKS);
+        contactSimulator = new ContactSimulator();
         loadTeams();
         start();
     }
@@ -152,7 +158,7 @@ public class Controller {
     {
         System.out.println("Offense placed at " + yardline + " yardline.");
         int los = driveProgress.getLineOfScrimmage();
-        
+
         for (int i = 0; i < getOffensiveTeam().getOffense().size(); i++) // go through list of players
         {
             Player currentPlayer = getOffensiveTeam().getOffense().get(i);
@@ -199,10 +205,10 @@ public class Controller {
         movePlayersToLineOfScrimmage();
         operateOffense();
         operateDefense();
+        determinePlayOutcome();
         operateDriveProgress();
         //keepScore(); Method removed. playerStat should keep score
-        //tackle???
-        
+
         runClock(); // This must always be last
     }
 
@@ -233,7 +239,7 @@ public class Controller {
                 Player currentPlayer = home.getOffense().get(i);
                 currentPlayer.setBall(false);
             }
-            
+
             for (int i = 0; i < away.getOffense().size(); i++) // go through list of players
             {
                 Player currentPlayer = away.getDefense().get(i);
@@ -254,7 +260,7 @@ public class Controller {
                 Player currentPlayer = home.getOffense().get(i);
                 currentPlayer.setBall(false);
             }
-            
+
             for (int i = 0; i < home.getOffense().size(); i++) // go through list of players
             {
                 Player currentPlayer = away.getDefense().get(i);
@@ -270,21 +276,38 @@ public class Controller {
     }
 
     /**
+     * Determine the outcome of the current play.
+     * If the play outcome number is greater than or equal to the number of players,
+     *      move line of scrimmage forward
+     *      else, move line of scrimmage backwards or not at all
+     */
+    private void determinePlayOutcome()
+    {
+        NFLTeam offense = getOffensiveTeam();
+        NFLTeam defense = getDefensiveTeam();
+        int los = driveProgress.getLineOfScrimmage();
+        int outcome = contactSimulator.simulateContact(offense, defense);
+        if (outcome >= offense.getOffense().size())
+        {
+            //move line of scrimmage forward (between 1 and 20 yards)
+            int randomAdd = Randomizer.getRandomNumber(20);
+            driveProgress.setLineOfScrimmage(los+randomAdd);
+        }
+        else
+        {
+            //move line of scrimmage backwards (between zero and 5)
+            int randomSub = Randomizer.getRandomNumber(5);
+            driveProgress.setLineOfScrimmage(los-randomSub);
+        }
+    }
+    
+    /**
      * 
      */
     private void movePlayersToLineOfScrimmage()
     {
         placeOffense(driveProgress.getLineOfScrimmage());
         placeDefense(driveProgress.getLineOfScrimmage() - 1);
-    }
-
-    /**
-     * 
-     */
-    private void operateOffensiveProgess()
-    {
-        // TODO: Add body.
-
     }
 
     /**

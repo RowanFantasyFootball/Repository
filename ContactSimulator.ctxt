@@ -1,5 +1,8 @@
 #BlueJ class context
-comment0.params=offender\ defender
-comment0.target=Player\ simulateContact(Player,\ Player)
-comment0.text=\r\n\ Determines\ the\ victor\ of\ a\ collision\ between\ an\ offensive\ player\ and\ a\ defensive\ player\r\n\ \r\n\ TODO\:\ \r\n\ 1.\ )\ Needs\ more\ if\ statements\ to\ make\ a\ tackle\ more\ randomized.\ \r\n\ 2.\ )\ Right\ now,\ it\ is\ set\ to\ check\ a\ defenders\ overall\ against\ an\ offenders\ overall\r\n\ \ \ \ \ \ to\ determine\ the\ victor\ of\ the\ collision.\r\n\ \r\n\ @param\ offender\ the\ offender\ colliding\ with\ the\ defender.\r\n\ @param\ defender\ the\ defender\ colliding\ with\ the\ offender.\r\n\ \r\n\ @return\ the\ player\ who\ has\ overpowered\ the\ other\ player\r\n
-numComments=1
+comment0.params=
+comment0.target=ContactSimulator()
+comment0.text=\r\n\ Constructor\r\n
+comment1.params=offenseInput\ defenseInput
+comment1.target=int\ simulateContact(NFLTeam,\ NFLTeam)
+comment1.text=\r\n\ Simulate\ Contact\ between\ each\ player\ to\ determine\ play\ outcome\r\n
+numComments=2
