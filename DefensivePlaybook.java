@@ -42,18 +42,13 @@ public class DefensivePlaybook
         {
             case MAN:
             return manDefense;
-            break;
             case ZONE:
             return zoneDefense;
-            break;
             case COVER4:
             return cover4Defense;
-            break;
             case BLITZ:
             return blitzDefense;
-            break;
             default:
-            break;
         }
         return null;
     }

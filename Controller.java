@@ -71,6 +71,16 @@ public class Controller {
      * Contact Simulator for determining play outcome
      */
     private ContactSimulator contactSimulator;
+    
+    /**
+     * home score
+     */
+    private int homeScore=0;
+    
+    /**
+     * away score
+     */
+    private int awayScore=0;
 
     /**
      * TODO:
@@ -87,6 +97,7 @@ public class Controller {
         contactSimulator = new ContactSimulator();
         loadTeams();
         start();
+        home.getOffense().get(1).setBall(true);
     }
 
     /**
@@ -103,6 +114,7 @@ public class Controller {
         {
             step();
         }
+        System.out.println("Final score home team : " + homeScore + " away team :" + awayScore);
     }
 
     /**
@@ -127,6 +139,7 @@ public class Controller {
     private void placeDefense(int yardline)
     {
         System.out.println("Defense placed at " + yardline + " yardline.");
+        int los = driveProgress.getLineOfScrimmage();
 
         for (int i = 0; i < getDefensiveTeam().getDefense().size(); i++) // go through list of players
         {
@@ -134,19 +147,19 @@ public class Controller {
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setStartCoordinate(-2,0);
+                currentPlayer.setStartCoordinate(los+1,0);
                 break;
                 case DEFENSIVE_BACK:
-                currentPlayer.setStartCoordinate(-2,0);
+                currentPlayer.setStartCoordinate(los+1,0);
                 break;
                 case LINEBACKER:
-                currentPlayer.setStartCoordinate(-2,0);
+                currentPlayer.setStartCoordinate(los+1,0);
                 break;
                 case CORNER:
-                currentPlayer.setStartCoordinate(-2,0);
+                currentPlayer.setStartCoordinate(los+1,0);
                 break;
                 case SAFETY:
-                currentPlayer.setStartCoordinate(-2,0);
+                currentPlayer.setStartCoordinate(los+1,0);
                 break;
                 default:
                 break;
@@ -228,11 +241,31 @@ public class Controller {
     private void operateDriveProgress()
     {
         driveProgress.nextDown(); // add 1 to the downs (the next down)
-
+        
+        if(driveProgress.getLineOfScrimmage() > 99)
+        {
+            NFLTeam scoringTeam = getOffensiveTeam();
+            //touchdown home team
+            if(scoringTeam.equals(home))
+            {
+                homeScore = homeScore + 7; 
+                System.out.println("Yay the home team scored, the score is now " + homeScore + " - " + awayScore);
+            } 
+            else
+            {
+                awayScore = awayScore + 7;
+                System.out.println("Yay the home team scored, the score is now " + homeScore + " - " + awayScore);
+            }
+            swapOffenseAndDefense();
+            driveProgress.resetDowns();
+            driveProgress.setLineOfScrimmage(30);
+        }
         if (driveProgress.isDriveOver())
         {
             swapOffenseAndDefense();
+            driveProgress.resetDowns();
         }
+        System.out.println("It is now down " + (driveProgress.getDowns() + 1));
     }
 
     /**
@@ -241,7 +274,7 @@ public class Controller {
     private void swapOffenseAndDefense()
     {
         NFLTeam offense = getOffensiveTeam();
-        if (home == offense) // home team is currently offense
+        if (home.equals(offense)) // home team is currently offense
         {
             //take ball from offense
             for (int i = 0; i < home.getOffense().size(); i++) // go through list of players
@@ -252,38 +285,43 @@ public class Controller {
 
             for (int i = 0; i < away.getOffense().size(); i++) // go through list of players
             {
-                Player currentPlayer = away.getDefense().get(i);
+                Player currentPlayer = away.getOffense().get(i);
                 switch(currentPlayer.getPosition()) // find current player's position
                 {
                     case QUARTERBACK:
                     currentPlayer.setBall(true);
+                  
                     break;
                     default:
                     break;
                 }
             }
+            driveProgress.setLineOfScrimmage(100 - driveProgress.getLineOfScrimmage());
         }
-        else // home team is currently defense
+        else if(away.equals(offense))// home team is currently defense
         {
             //take ball from offense
+            
             for (int i = 0; i < away.getOffense().size(); i++) // go through list of players
             {
-                Player currentPlayer = home.getOffense().get(i);
+                Player currentPlayer = away.getOffense().get(i);
                 currentPlayer.setBall(false);
             }
 
             for (int i = 0; i < home.getOffense().size(); i++) // go through list of players
             {
-                Player currentPlayer = away.getDefense().get(i);
+                Player currentPlayer = home.getOffense().get(i);
                 switch(currentPlayer.getPosition()) // find current player's position
                 {
                     case QUARTERBACK:
                     currentPlayer.setBall(true);
+                    
                     break;
                     default:
                     break;
                 }
             }
+            driveProgress.setLineOfScrimmage(100 - driveProgress.getLineOfScrimmage());
         }
     }
 
@@ -299,17 +337,20 @@ public class Controller {
         NFLTeam defense = getDefensiveTeam();
         int los = driveProgress.getLineOfScrimmage();
         int outcome = contactSimulator.simulateContact(offense, defense);
-        if (outcome >= offense.getOffense().size())
+        if (outcome >= 0)
         {
             //move line of scrimmage forward (between 1 and 20 yards)
-            int randomAdd = Randomizer.getRandomNumber(20);
+            int randomAdd = Randomizer.getRandomNumber(10);
             driveProgress.setLineOfScrimmage(los+randomAdd);
+            driveProgress.addToYardCounter(randomAdd);
+            System.out.println("A " + randomAdd + " yard play.");
         }
         else
         {
             //move line of scrimmage backwards (between zero and 5)
             int randomSub = Randomizer.getRandomNumber(5);
             driveProgress.setLineOfScrimmage(los-randomSub);
+            driveProgress.addToYardCounter(randomSub);
         }
     }
     
@@ -496,17 +537,17 @@ public class Controller {
         //Defense
         //Player connorBarwin = new LINEBACKER("Connor", "Barwin", 81, 80);         //EXAMPLE DOESN'T WORK...?
         home = new NFLTeam("Eagles");
-        home.addPlayerToDefense(new Player("Connor", "Barwin", 81, 80, POSITION.OFFENSIVE_LINEMAN));            //LE
-        home.addPlayerToDefense(new Player("Bennie", "Logan", 68, 88, POSITION.OFFENSIVE_LINEMAN));             //DT           
-        home.addPlayerToDefense(new Player("Fletcher", "Cox", 79, 86, POSITION.OFFENSIVE_LINEMAN));             //DT           
-        home.addPlayerToDefense(new Player("Brandon", "Graham", 80, 78, POSITION.OFFENSIVE_LINEMAN));           //RE     
-        home.addPlayerToDefense(new Player("Jordan", "Hicks", 83, 76, POSITION.OFFENSIVE_LINEMAN));             //MLB 
-        home.addPlayerToDefense(new Player("Mychal", "Kendricks",88, 74, POSITION.OFFENSIVE_LINEMAN));          //LOLB
-        home.addPlayerToDefense(new Player("Nigel", "Bradham",85, 72, POSITION.OFFENSIVE_LINEMAN));             //ROLB
-        home.addPlayerToDefense(new Player("Nolan", "Carroll III",89, 52, POSITION.OFFENSIVE_LINEMAN));         //CB
-        home.addPlayerToDefense(new Player("Leodis", "McKelvin",88, 52, POSITION.OFFENSIVE_LINEMAN));           //CB
-        home.addPlayerToDefense(new Player("Rodney", "McLeod Jr.",86, 56, POSITION.OFFENSIVE_LINEMAN));         //SS
-        home.addPlayerToDefense(new Player("Malcolm", "Jenkins", 86, 64, POSITION.OFFENSIVE_LINEMAN));          //FS
+        home.addPlayerToDefense(new Player("Connor", "Barwin", 81, 80, POSITION.DEFENSIVE_LINEMAN));            //LE
+        home.addPlayerToDefense(new Player("Bennie", "Logan", 68, 88, POSITION.DEFENSIVE_LINEMAN));             //DT           
+        home.addPlayerToDefense(new Player("Fletcher", "Cox", 79, 86, POSITION.DEFENSIVE_LINEMAN));             //DT           
+        home.addPlayerToDefense(new Player("Brandon", "Graham", 80, 78, POSITION.DEFENSIVE_LINEMAN));           //RE     
+        home.addPlayerToDefense(new Player("Jordan", "Hicks", 83, 76, POSITION.DEFENSIVE_LINEMAN));             //MLB 
+        home.addPlayerToDefense(new Player("Mychal", "Kendricks",88, 74, POSITION.DEFENSIVE_LINEMAN));          //LOLB
+        home.addPlayerToDefense(new Player("Nigel", "Bradham",85, 72, POSITION.DEFENSIVE_LINEMAN));             //ROLB
+        home.addPlayerToDefense(new Player("Nolan", "Carroll III",89, 52, POSITION.DEFENSIVE_LINEMAN));         //CB
+        home.addPlayerToDefense(new Player("Leodis", "McKelvin",88, 52, POSITION.DEFENSIVE_LINEMAN));           //CB
+        home.addPlayerToDefense(new Player("Rodney", "McLeod Jr.",86, 56, POSITION.DEFENSIVE_LINEMAN));         //SS
+        home.addPlayerToDefense(new Player("Malcolm", "Jenkins", 86, 64, POSITION.DEFENSIVE_LINEMAN));          //FS
 
         //Offense
         //Quarter Back?
