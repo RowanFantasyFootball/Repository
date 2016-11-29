@@ -38,15 +38,12 @@ public class OffensivePlaybook
     {
         switch(OFFENSIVE_PLAY_TYPE.getRandomOffensivePlayType()) 
         {
-            //case PASS:
-            //return passOffense;
-            //break;
+            case PASS:
+            return passOffense;
             case QBSNEAK:
             return qbsneakOffense;
-            break;
             case RUN:
             return runOffense;
-            break;
             default:
             break;
         }

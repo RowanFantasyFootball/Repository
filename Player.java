@@ -193,8 +193,8 @@ public class Player implements Actor {
      */
     public String getMovementPattern()
     {
-        String info = toString() + " will move from (" + startingXCoordinate + ", " 
-            + startingYCoordinate + ") to (" + endingXCoordinate + ", " + endingYCoordinate +  ")";
+        String info = toString() + " has moved to (" + startingXCoordinate + ", " 
+            + startingYCoordinate + ")";
         return info;
     }
     
