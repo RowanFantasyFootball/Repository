@@ -28,12 +28,16 @@ public class DefensivePlay extends Play
         {
             case "man":
             assignManMovements();
+            break;
             case "zone":
             assignZoneMovements();
+            break;
             case "cover4":
             assignCover4Movements();
+            break;
             case "blitz":
             assignBlitzMovements();
+            break;
             default:
             assignManMovements();
         }
@@ -53,14 +57,19 @@ public class DefensivePlay extends Play
             {
                 case DEFENSIVE_LINEMAN:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case DEFENSIVE_BACK:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case LINEBACKER:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case CORNER:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case SAFETY:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 default:
                 break;
             }
@@ -81,14 +90,19 @@ public class DefensivePlay extends Play
             {
                 case DEFENSIVE_LINEMAN:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case DEFENSIVE_BACK:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case LINEBACKER:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case CORNER:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case SAFETY:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 default:
                 break;
             }
@@ -109,14 +123,19 @@ public class DefensivePlay extends Play
             {
                 case DEFENSIVE_LINEMAN:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case DEFENSIVE_BACK:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case LINEBACKER:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case CORNER:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case SAFETY:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 default:
                 break;
             }
@@ -137,14 +156,19 @@ public class DefensivePlay extends Play
             {
                 case DEFENSIVE_LINEMAN:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case DEFENSIVE_BACK:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case LINEBACKER:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case CORNER:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case SAFETY:
                 currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 default:
                 break;
             }

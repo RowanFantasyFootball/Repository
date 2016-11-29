@@ -135,14 +135,19 @@ public class Controller {
             {
                 case DEFENSIVE_LINEMAN:
                 currentPlayer.setStartCoordinate(-2,0);
+                break;
                 case DEFENSIVE_BACK:
                 currentPlayer.setStartCoordinate(-2,0);
+                break;
                 case LINEBACKER:
                 currentPlayer.setStartCoordinate(-2,0);
+                break;
                 case CORNER:
                 currentPlayer.setStartCoordinate(-2,0);
+                break;
                 case SAFETY:
                 currentPlayer.setStartCoordinate(-2,0);
+                break;
                 default:
                 break;
             }
@@ -166,14 +171,19 @@ public class Controller {
             {
                 case QUARTERBACK:
                 currentPlayer.setStartCoordinate(los-1,0);
+                break;
                 case RUNNINGBACK:
                 currentPlayer.setStartCoordinate(los-2,0);
+                break;
                 case WIDERECIEVER:
                 currentPlayer.setStartCoordinate(los,5);
+                break;
                 case TIGHTEND:
                 currentPlayer.setStartCoordinate(los,-3);
+                break;
                 case OFFENSIVE_LINEMAN:
                 currentPlayer.setStartCoordinate(los,5);
+                break;
                 default:
                 break;
             }
@@ -247,6 +257,7 @@ public class Controller {
                 {
                     case QUARTERBACK:
                     currentPlayer.setBall(true);
+                    break;
                     default:
                     break;
                 }
@@ -268,6 +279,7 @@ public class Controller {
                 {
                     case QUARTERBACK:
                     currentPlayer.setBall(true);
+                    break;
                     default:
                     break;
                 }
