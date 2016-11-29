@@ -54,17 +54,16 @@ public class GUI {
         
         //Create a Feed panel
         feed = new Feed();
+        
         //feed.add(new JButton("This is where the message feed will go"));
         pane.add(feed);
         
         //Create an Actions panel
-        actions = new Actions();
-        actions.add(new JButton("This is where the action buttons will go"));
+        actions = new Actions(this);
         pane.add(actions);
         
        
         //Set the size of the JFrame
-        main.setSize(1280,1080);
         //Don't allow resizing because it messes everything up
         main.setResizable(false);
         main.pack();

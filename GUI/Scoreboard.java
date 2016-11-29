@@ -16,8 +16,8 @@ public class Scoreboard extends JPanel {
         
         home = new JLabel();
         away = new JLabel();
-        hScore = new JLabel(" 0 ");
-        aScore = new JLabel(" 0 ");
+        hScore = new JLabel(" 99 ");
+        aScore = new JLabel(" 99 ");
         
         setHomeTeamName("PHILADELPHIA");
         home.setFont(new java.awt.Font("Impact", 0, 48));
@@ -43,7 +43,7 @@ public class Scoreboard extends JPanel {
         
         yardMarker = new JLabel();
         yardMarker.setFont(new java.awt.Font("Dialog", 1, 40));
-        yardMarker.setText("Ball on: ");
+        yardMarker.setText("Ball on: PHI 25");
         
         quarter = new JLabel();
         quarter.setFont(new java.awt.Font("Dialog", 0, 40));
@@ -51,7 +51,7 @@ public class Scoreboard extends JPanel {
         quarter.setBorder(BorderFactory.createLineBorder(Color.black));
         
         add(home); add(hScore); add(away); add(aScore); add(Box.createHorizontalStrut(20)); add(down);
-        add(Box.createHorizontalStrut(50)); add(yardMarker); add(Box.createHorizontalStrut(30)); 
+        add(Box.createHorizontalStrut(20)); add(yardMarker); add(Box.createHorizontalStrut(20)); 
         add(quarter);
         
     }

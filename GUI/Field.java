@@ -12,6 +12,11 @@ public class Field extends JPanel {
         this.setLayout(new FlowLayout());
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         
-        this.add(new JLabel(new ImageIcon("field.png")));
+        ImageIcon img = new ImageIcon("field.png");
+        
+        JLabel background = new JLabel();
+        background.setIcon(img);
+        background.setLayout(new BorderLayout());
+        this.add(background);
     }
 }
