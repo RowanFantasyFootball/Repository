@@ -19,6 +19,11 @@ public class DriveProgress
 	 * The current down of the drive.
 	 */
 	private int down;
+	
+	/**
+	 * yard on set of downs counter
+	 */
+	private int yardCounter = 0;
 
 	/**
 	 * Creates a new offensive progress object which keeps track of the current
@@ -47,7 +52,7 @@ public class DriveProgress
 	 */
 	public boolean isDriveOver() 
 	{
-		return down > 4; // you can play during 4th down. therefore NOT down >= 4
+		return down > 3; 
 	}
 	
 	/**
@@ -65,7 +70,8 @@ public class DriveProgress
 	 */
 	public void resetDowns() 
 	{
-		down = 1;
+		down = 0;
+		yardCounter = 0;
 	}
 
 	/**
@@ -74,5 +80,28 @@ public class DriveProgress
 	public void nextDown() 
 	{
 		down++;
+	}
+	
+	/**
+	 * returns downs
+	 */
+	public int getDowns()
+	{
+	    //with the sickness
+	    return down;
+	}
+	
+	/**
+	 * adds to yard counter and checks if first down
+	 */
+	public void addToYardCounter(int yardsOnPlay)
+	{
+	    yardCounter = yardCounter + yardsOnPlay;
+	    if(yardCounter > 9)
+	    {
+	        //first down
+	        System.out.println("First Down"); 
+	        resetDowns();
+	    }
 	}
 }
