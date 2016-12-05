@@ -94,3 +94,4 @@ public class MessageBoardGUI extends JPanel
 		
 	}	
 }
+

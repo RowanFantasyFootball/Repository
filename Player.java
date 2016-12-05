@@ -47,7 +47,7 @@ public class Player implements Actor {
     private String first;
     
     /**
-     * True if the player has posession of the ball
+     * 
      */
     private boolean hasBall = false;
     
@@ -88,6 +88,8 @@ public class Player implements Actor {
      * Get the position of the player
      * 
      * @return the position of the player
+     * 
+     * FIX THIS!!!
      */
     public POSITION getPosition()
     {
@@ -101,7 +103,6 @@ public class Player implements Actor {
     {
         hasBall = isTrue;
     }
-    
     /**
      * Tells if the player has the ball or not
      * 
@@ -169,20 +170,16 @@ public class Player implements Actor {
     }
 
     /**
-     * Set the starting coordinate of the player to the center of the
-     * Line of Scrimmage
-     */
-    public void setStartCoordinate(int xCoordinate, int yCoordinate) // based off of line of scrimmage
-    {
-        startingXCoordinate = xCoordinate;
-        startingYCoordinate = yCoordinate;
-    }
-    
-    /**
      * Set the movement pattern for the given player
      */
-    public void setEndingCoordinate(int xCoordinate, int yCoordinate)
+    public void setMovementPattern(int xCoordinate, int yCoordinate)
     {
+        //Move the player to the (x,y) coordinate on the grid
+        //NOTE: the (x,y) coordinate should be "x" more than the current spot and "y" more than the 
+        //      current spot
+
+        //startingXCoordinate = getCurrentXCoordinate();        // Must use the field object!!!
+        //startingYCoordinate = getCurrentYCoordinate();        // Must use the field object!!!
         endingXCoordinate = startingXCoordinate + xCoordinate;
         endingYCoordinate = startingYCoordinate + yCoordinate;
     }
@@ -193,18 +190,9 @@ public class Player implements Actor {
      */
     public String getMovementPattern()
     {
-        String info = toString() + " has moved to (" + startingXCoordinate + ", " 
-            + startingYCoordinate + ")";
+        String info = toString() + " will move from (" + startingXCoordinate + ", " 
+            + startingYCoordinate + ") to (" + endingXCoordinate + ", " + endingYCoordinate +  ")";
         return info;
-    }
-    
-    /**
-     * Return the starting x-coordinate for the player
-     * (used for matching offense and defense)
-     */
-    public int getXCoordinate()
-    {
-        return startingXCoordinate;
     }
     
     /**

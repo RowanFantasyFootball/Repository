@@ -2,8 +2,8 @@ import java.util.*;
 /**
  * Write a description of class Location here.
  * 
- * @author Clinton Conyer
- * @version 11/21/2016
+ * @author (your name) 
+ * @version (a version number or a date)
  */
 public class Location
 {

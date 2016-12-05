@@ -40,6 +40,6 @@ public class Message
 	
 	public String showMessage()
 	{
-		return playerName.getFirstName() + " at " + yardage +  " just " + PlayerStat.getOV().get(messageCode) + " at " + tick;
+		return playerName.toString() + " at " + yardage +  " just " + PlayerStat.getOV().get(messageCode) + " at " + tick;
 	}
 }
