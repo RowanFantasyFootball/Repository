@@ -12,8 +12,8 @@ import java.util.Map;
  * Colors for each type of species can be defined using the
  * setColor method.
  * 
- * @author Clinton Conyer
- * @version 11/21/2016
+ * @author David J. Barnes and Michael Kölling
+ * @version 2016.02.29
  */
 public class SimulatorView extends JFrame
 {
@@ -32,7 +32,6 @@ public class SimulatorView extends JFrame
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     //private FieldStats stats;
-    public int yard;
     public SimulatorView(int height, int width)
     {
         //stats = new FieldStats();
@@ -69,57 +68,31 @@ public class SimulatorView extends JFrame
      * @param step Which iteration step it is.
      * @param field The field whose status is to be displayed.
      */
-    public void showStatus(int yar)
+    public void showStatus(int step, Field field)
     {
-        
-        yard = 10+yar;
         if(!isVisible()) {
             setVisible(true);
         }
-        //stepLabel.setText(STEP_PREFIX + step);
+        stepLabel.setText(STEP_PREFIX + step);
         fieldView.preparePaint();
 
-        for(int row = 0; row < 50; row++) {
-            for(int col = 0; col < 120; col++) {
+        for(int row = 0; row < field.getDepth(); row++) {
+            for(int col = 0; col < field.getWidth(); col++) {
                 {
                     fieldView.drawMark(col, row, EMPTY_COLOR);
                 }
             }
         }
         //population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
-        for(int row = 0; row < 50; row++) {
+        for(int row = 0; row < field.getDepth(); row++) {
             fieldView.drawMark(9, row, Color.white);
         }
-        for(int row = 0; row < 50; row++) {
+        for(int row = 0; row < field.getDepth(); row++) {
             fieldView.drawMark(109, row, Color.white);
         }
-        for(int row = 0; row < 50; row++) {
+        for(int row = 0; row < field.getDepth(); row++) {
             fieldView.drawMark(59, row, Color.white);
         }
-        fieldView.drawMark(yard, 10, Color.red); //left wide reciever *yard
-        fieldView.drawMark(yard, 22, Color.red); //tight end *yard
-        fieldView.drawMark(yard, 23, Color.red); //left tackle *yard
-        fieldView.drawMark(yard, 24, Color.red); //left guard *yard
-        fieldView.drawMark(yard, 25, Color.red); //center *yard
-        fieldView.drawMark(yard, 26, Color.red); //right guard *yard
-        fieldView.drawMark(yard, 27, Color.red); //right tackle *yard
-        fieldView.drawMark(yard, 32, Color.red); //slot reciever *yard
-        fieldView.drawMark(yard, 40, Color.red); //right wide reciever *yard
-        fieldView.drawMark(yard-1, 25, Color.red); //quarterback *yard-1
-        fieldView.drawMark(yard-4, 25, Color.red); //runningback *yard-4
-        //defense
-        fieldView.drawMark(yard+5, 10, Color.blue); //left corner                   *yard+5         *left wide reciever
-        fieldView.drawMark(yard+1, 23, Color.blue); //left defensive end            *yard+1         *left tackle
-        fieldView.drawMark(yard+1, 24, Color.blue); //left defensive tackle         *yard+1         *left guard
-        fieldView.drawMark(yard+1, 26, Color.blue); //right defensive tackle        *yard+1         *right guard    
-        fieldView.drawMark(yard+1, 27, Color.blue); //right defensive end           *yard+1         *right tackle
-        fieldView.drawMark(yard+10, 25, Color.blue); //left saftey                   *yard+10        *center
-        fieldView.drawMark(yard+7, 32, Color.blue); //right saftey                  *yard+7         *slot reciever
-        fieldView.drawMark(yard+5, 40, Color.blue); //right corner                  *yard+5         *right wide reciever
-        fieldView.drawMark(yard+5, 22, Color.blue); //left linebacker               *yard+5         *tight end
-        fieldView.drawMark(yard+5, 25, Color.blue); //middle linebacker             *yard+5         *runningback
-        fieldView.drawMark(yard+5, 27, Color.blue); //right linebacker              *yard+5         *right tackle(spy qb)
-        
         fieldView.repaint();
     }
 
