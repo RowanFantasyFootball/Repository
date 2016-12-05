@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author John (Jack) Donahue
+ * @author 
  *
  */
 public class DefensivePlaybook 
@@ -49,6 +49,7 @@ public class DefensivePlaybook
             case BLITZ:
             return blitzDefense;
             default:
+            break;
         }
         return null;
     }

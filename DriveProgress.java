@@ -6,7 +6,7 @@
 public class DriveProgress 
 {
 	/**
-	 * Starts on the 30 yard line.
+	 * Starts on the 20 yard line.
 	 */
 	public static final int STARTING_LINE_OF_SCRIMMAGE = 30;
 
@@ -19,11 +19,6 @@ public class DriveProgress
 	 * The current down of the drive.
 	 */
 	private int down;
-	
-	/**
-	 * yard on set of downs counter
-	 */
-	private int yardCounter = 0;
 
 	/**
 	 * Creates a new offensive progress object which keeps track of the current
@@ -46,13 +41,13 @@ public class DriveProgress
 	}
 	
 	/**
-	 * Tells you if the drive is over or not (down > 4).
+	 * Tells you if the drive is over or not (down >= 4).
 	 * 
 	 * @return true if the drive is over
 	 */
 	public boolean isDriveOver() 
 	{
-		return down > 3; 
+		return down >= 4;
 	}
 	
 	/**
@@ -70,8 +65,7 @@ public class DriveProgress
 	 */
 	public void resetDowns() 
 	{
-		down = 0;
-		yardCounter = 0;
+		down = 1;
 	}
 
 	/**
@@ -80,28 +74,5 @@ public class DriveProgress
 	public void nextDown() 
 	{
 		down++;
-	}
-	
-	/**
-	 * returns downs
-	 */
-	public int getDowns()
-	{
-	    //with the sickness
-	    return down;
-	}
-	
-	/**
-	 * adds to yard counter and checks if first down
-	 */
-	public void addToYardCounter(int yardsOnPlay)
-	{
-	    yardCounter = yardCounter + yardsOnPlay;
-	    if(yardCounter > 9)
-	    {
-	        //first down
-	        System.out.println("First Down"); 
-	        resetDowns();
-	    }
 	}
 }
