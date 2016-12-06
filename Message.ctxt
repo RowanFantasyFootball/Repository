@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=messageCode\ playerName\ tick\ yardage\ ballPosition
+comment0.target=Message(int,\ Player,\ int,\ int,\ int)
+comment1.params=
+comment1.target=int\ getBallPosition()
+comment2.params=
+comment2.target=int\ getMessageCode()
+comment3.params=
+comment3.target=Player\ getPlayerName()
+comment4.params=
+comment4.target=int\ getTick()
+comment5.params=
+comment5.target=java.lang.String\ showMessage()
+numComments=6

@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=
+comment0.target=ContactSimulator()
+comment0.text=\r\n\ Constructor\r\n
+comment1.params=offenseInput\ defenseInput
+comment1.target=int\ simulateContact(NFLTeam,\ NFLTeam)
+comment1.text=\r\n\ Simulate\ Contact\ between\ each\ player\ to\ determine\ play\ outcome\r\n
+numComments=2

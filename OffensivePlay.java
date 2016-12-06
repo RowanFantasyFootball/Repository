@@ -45,19 +45,19 @@ public class OffensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case QUARTERBACK:
-                currentPlayer.setEndingCoordinate(-2,0); //move QB straight back 2 yards
+                currentPlayer.setEndingCoordinate(-2,0);
                 break;
                 case RUNNINGBACK:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(-1,0);
                 break;
                 case WIDERECIEVER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(10,-4);
                 break;
                 case TIGHTEND:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(2,2);
                 break;
                 case OFFENSIVE_LINEMAN:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(0,1);
                 break;
                 default:
                 break;
@@ -109,19 +109,19 @@ public class OffensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case QUARTERBACK:
-                currentPlayer.setEndingCoordinate(-2,0); //move QB straight back 2 yards
+                currentPlayer.setEndingCoordinate(4,5);
                 break;
                 case RUNNINGBACK:
-                currentPlayer.setEndingCoordinate(-2,0); //move the 
+                currentPlayer.setEndingCoordinate(-1,0);
                 break;
                 case WIDERECIEVER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(10,-4);
                 break;
                 case TIGHTEND:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(2,2);
                 break;
                 case OFFENSIVE_LINEMAN:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(0,1);
                 break;
                 default:
                 break;

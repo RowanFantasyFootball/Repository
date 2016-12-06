@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Scoreboard()
+comment1.params=
+comment1.target=void\ initComponents()
+comment10.params=team
+comment10.target=void\ setPossession(java.lang.String)
+comment11.params=
+comment11.target=void\ switchPossession()
+comment2.params=name
+comment2.target=void\ setHomeTeamName(java.lang.String)
+comment3.params=name
+comment3.target=void\ setAwayTeamName(java.lang.String)
+comment4.params=score
+comment4.target=void\ setHomeScore(int)
+comment5.params=score
+comment5.target=void\ setAwayScore(int)
+comment6.params=down
+comment6.target=void\ setDown(int)
+comment7.params=yardageToFirst
+comment7.target=void\ setYardageToFirst(int)
+comment8.params=yardNum
+comment8.target=void\ setFieldYardage(int)
+comment9.params=quarter
+comment9.target=void\ setQuarter(int)
+numComments=12

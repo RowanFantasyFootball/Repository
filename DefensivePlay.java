@@ -56,19 +56,19 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(-1,2);
                 break;
                 case DEFENSIVE_BACK:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(1,-3);
                 break;
                 case LINEBACKER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(3,4);
                 break;
                 case CORNER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(2,-5);
                 break;
                 case SAFETY:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(6,-2);
                 break;
                 default:
                 break;
@@ -89,19 +89,19 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(-1,2);
                 break;
                 case DEFENSIVE_BACK:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(1,-3);
                 break;
                 case LINEBACKER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(3,4);
                 break;
                 case CORNER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(2,-5);
                 break;
                 case SAFETY:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(6,-2);
                 break;
                 default:
                 break;
@@ -122,19 +122,19 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(-1,2);
                 break;
                 case DEFENSIVE_BACK:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(1,-3);
                 break;
                 case LINEBACKER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(3,4);
                 break;
                 case CORNER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(2,-5);
                 break;
                 case SAFETY:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(6,-2);
                 break;
                 default:
                 break;
@@ -155,19 +155,19 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(-1,2);
                 break;
                 case DEFENSIVE_BACK:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(-1,1);
                 break;
                 case LINEBACKER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(-1,-2);
                 break;
                 case CORNER:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(-1,3);
                 break;
                 case SAFETY:
-                currentPlayer.setEndingCoordinate(-2,0);
+                currentPlayer.setEndingCoordinate(-1,-4);
                 break;
                 default:
                 break;
