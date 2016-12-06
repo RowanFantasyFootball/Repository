@@ -16,8 +16,8 @@ public class Scoreboard extends JPanel {
         
         home = new JLabel();
         away = new JLabel();
-        hScore = new JLabel(" 0 ");
-        aScore = new JLabel(" 0 ");
+        hScore = new JLabel(" 99 ");
+        aScore = new JLabel(" 99 ");
         
         setHomeTeamName("PHILADELPHIA");
         home.setFont(new java.awt.Font("Impact", 0, 48));
@@ -43,15 +43,17 @@ public class Scoreboard extends JPanel {
         
         yardMarker = new JLabel();
         yardMarker.setFont(new java.awt.Font("Dialog", 1, 40));
-        yardMarker.setText("Ball on: ");
+        yardMarker.setText("Ball on: PHI 25");
         
         quarter = new JLabel();
         quarter.setFont(new java.awt.Font("Dialog", 0, 40));
-        quarter.setText("Qtr: 1");
+        quarter.setText("  Qtr: 1  ");
         quarter.setBorder(BorderFactory.createLineBorder(Color.black));
         
+        setPossession("home");
+        
         add(home); add(hScore); add(away); add(aScore); add(Box.createHorizontalStrut(20)); add(down);
-        add(Box.createHorizontalStrut(50)); add(yardMarker); add(Box.createHorizontalStrut(30)); 
+        add(Box.createHorizontalStrut(20)); add(yardMarker); add(Box.createHorizontalStrut(20)); 
         add(quarter);
         
     }
@@ -104,8 +106,8 @@ public class Scoreboard extends JPanel {
     }
     
     public void setQuarter(int quarter) {
-        String current = this.quarter.getText().substring(0,5);
-        this.quarter.setText(current + quarter);
+        String current = this.quarter.getText().substring(0,7);
+        this.quarter.setText(current + quarter + "  ");
     }
     
     public void setPossession(String team) {
@@ -119,6 +121,20 @@ public class Scoreboard extends JPanel {
             away.setBackground(Color.YELLOW);
             home.setOpaque(false);
             home.setBackground(Color.GRAY);
+        }
+    }
+    
+    public void switchPossession() {
+        if (home.getBackground().equals(Color.YELLOW) ){
+            away.setOpaque(true);
+            away.setBackground(Color.YELLOW);
+            home.setOpaque(false);
+            home.setBackground(Color.GRAY);
+        } else {
+            home.setOpaque(true);
+            home.setBackground(Color.YELLOW);
+            away.setOpaque(false);
+            away.setBackground(Color.GRAY);
         }
     }
     
