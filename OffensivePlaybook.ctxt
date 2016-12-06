@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.params=players
-comment0.target=OffensivePlaybook(java.util.ArrayList)
-comment0.text=\r\n\ Constructor\ for\ OffensivePlaybook\r\n
-comment1.params=
-comment1.target=OffensivePlay\ getRandomPlay()
-comment1.text=\r\n\ Gets\ a\ random\ offensive\ play.\r\n\ \r\n\ @return\r\n
-numComments=2
