@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 
+/**
+ * A class that determines movements for each position based on the current play
+ * 
+ * @author John (Jack) Donahue
+ */
+
 public class DefensivePlay extends Play 
 {
     /**
@@ -22,12 +28,16 @@ public class DefensivePlay extends Play
         {
             case "man":
             assignManMovements();
+            break;
             case "zone":
             assignZoneMovements();
+            break;
             case "cover4":
             assignCover4Movements();
+            break;
             case "blitz":
             assignBlitzMovements();
+            break;
             default:
             assignManMovements();
         }
@@ -46,15 +56,20 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case DEFENSIVE_BACK:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case LINEBACKER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case CORNER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case SAFETY:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 default:
                 break;
             }
@@ -74,15 +89,20 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case DEFENSIVE_BACK:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case LINEBACKER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case CORNER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case SAFETY:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 default:
                 break;
             }
@@ -102,15 +122,20 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case DEFENSIVE_BACK:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case LINEBACKER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case CORNER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case SAFETY:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 default:
                 break;
             }
@@ -130,15 +155,20 @@ public class DefensivePlay extends Play
             switch(currentPlayer.getPosition()) // find current player's position
             {
                 case DEFENSIVE_LINEMAN:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case DEFENSIVE_BACK:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case LINEBACKER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case CORNER:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 case SAFETY:
-                currentPlayer.setMovementPattern(-2,0);
+                currentPlayer.setEndingCoordinate(-2,0);
+                break;
                 default:
                 break;
             }

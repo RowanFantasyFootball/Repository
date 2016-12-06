@@ -10,10 +10,7 @@ import java.io.File;
 public class GUI {
 
     private JFrame main;
-    private Scoreboard scoreboard; 
-    private Field field; 
-    private Feed feed; 
-    private Actions actions;
+    private Scoreboard scoreboard; private Field field; private Feed feed; private Actions actions;
     private JMenuBar menubar;
     
     /**
@@ -57,17 +54,16 @@ public class GUI {
         
         //Create a Feed panel
         feed = new Feed();
+        
         //feed.add(new JButton("This is where the message feed will go"));
         pane.add(feed);
         
         //Create an Actions panel
-        actions = new Actions();
-        actions.add(new JButton("This is where the action buttons will go"));
+        actions = new Actions(this);
         pane.add(actions);
         
        
         //Set the size of the JFrame
-        main.setSize(1280,1080);
         //Don't allow resizing because it messes everything up
         main.setResizable(false);
         main.pack();
@@ -119,6 +115,10 @@ public class GUI {
         menu.add(item);
     }
     
+    public void newMessage(String message) {
+        feed.setMessage(message);
+    }
+    
     public void setHomeScore(int score) {
         scoreboard.setHomeScore(score);
     }
@@ -149,6 +149,26 @@ public class GUI {
     
     public void setPossession(String team) {
         scoreboard.setPossession(team);
+    }
+    
+    public void setQuarter(int quarter) {
+        scoreboard.setQuarter(quarter);
+    }
+    
+    public void move(int pix) {
+        field.move(pix);
+    }
+    
+    public void changePossession() {
+        scoreboard.switchPossession();
+    }
+    
+    public void glide() {
+        field.glide(0);
+    }
+    
+    public void animate (int start, int end, boolean goingRight) {
+        field.animate(start,end,goingRight);
     }
     
 }    
