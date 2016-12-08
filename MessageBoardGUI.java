@@ -1,3 +1,5 @@
+ 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -49,7 +51,7 @@ public class MessageBoardGUI extends JPanel
 							+ " is the number code for you to look up"
 							+ " in the search bar to search for the stat you"
 							+ "	would like to look know.\n" 
-							);
+							+	ps.overviewToString());
 			}
 		}
 		displayStat.addActionListener(new DisplayStatListener());
@@ -69,7 +71,7 @@ public class MessageBoardGUI extends JPanel
 				String s = jt1.getText();
 				int i = Integer.parseInt(s);
 				PlayerStat ps = new PlayerStat();
-				jt.setText("Message");
+				jt.setText(ps.getPlayOverview(i));
 			}
 		}
 		disStat.addActionListener(new UpdateStatListerner());
@@ -92,3 +94,4 @@ public class MessageBoardGUI extends JPanel
 		
 	}	
 }
+

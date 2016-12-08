@@ -12,6 +12,9 @@ public class Field extends JPanel {
     JLabel poss;
     JLabel firstD;
     
+    private final int rightEndzoneArea = 49 + (int)(90*7.4);
+    private final int leftEndzoneArea = 49 + (int)(10*7.4);
+    
     
     public Field() {
         super();
@@ -26,7 +29,7 @@ public class Field extends JPanel {
     }
     
     private void initComponents() {
-        this.setLayout(new FlowLayout());
+
         this.setBorder(BorderFactory.createLineBorder(Color.black));
 
         background.setIcon(img);
@@ -44,12 +47,13 @@ public class Field extends JPanel {
         
     }
     
-    public void move(int yardMarker) {
+    public void move(int yardMarker, int yardageToFirst) {
           //EVERY 74 PIXELS IS 10 YDS
           //Convert
           int pix = 49 + (int)(yardMarker*7.4);
           poss.setBounds(pix,poss.getY(),poss.getWidth(), poss.getHeight());
-          firstD.setBounds(148, firstD.getY(), firstD.getWidth(), firstD.getHeight());
+          int fdl = 74 + (int)(yardageToFirst*7.4);
+          firstD.setBounds(fdl, firstD.getY(), firstD.getWidth(), firstD.getHeight());
         
     }
     
@@ -61,16 +65,20 @@ public class Field extends JPanel {
         }
     }
     
-    public void animate(int startYard, int endYard, boolean goingRight) {
+    public void animate(int startYard, int endYard, int distanceToFDL, boolean goingRight) {
         if (goingRight) {
+            poss.setIcon(eagles);
             for (int i = startYard; i <= endYard; i++) {
                 int pix = 49 + (int)(i*7.4);
+                int currentFDL = firstD.getX();
+                
                 poss.setBounds(pix, poss.getY(), poss.getWidth(), poss.getHeight());
                 try {
                     Thread.sleep(50);
                 } catch (Exception e) {} 
             }
         } else {
+            poss.setIcon(cowboys);
             for (int i = startYard; i >= endYard; i--) {
                 int pix = 49 + (int)(i*7.4);
                 poss.setBounds(pix, poss.getY(), poss.getWidth(), poss.getHeight());
@@ -79,6 +87,9 @@ public class Field extends JPanel {
                 } catch (Exception e) {} 
             }
         }
+        int loc = 74 + (int)(distanceToFDL*7.4);
+        firstD.setBounds(loc, firstD.getY(), firstD.getWidth(), firstD.getHeight());
+
     }
     
     public void glide(int startLocation) {

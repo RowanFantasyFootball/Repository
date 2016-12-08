@@ -16,8 +16,8 @@ public class Scoreboard extends JPanel {
         
         home = new JLabel();
         away = new JLabel();
-        hScore = new JLabel(" 99 ");
-        aScore = new JLabel(" 99 ");
+        hScore = new JLabel(" 0 ");
+        aScore = new JLabel(" 0 ");
         
         setHomeTeamName("PHILADELPHIA");
         home.setFont(new java.awt.Font("Impact", 0, 48));

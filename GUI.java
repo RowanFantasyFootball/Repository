@@ -115,60 +115,118 @@ public class GUI {
         menu.add(item);
     }
     
+    /**
+     * Sends message to GUI to be displayed
+     * Sent as full string, will appear in Feed box.
+     * @param message - message to be sent in
+     */
     public void newMessage(String message) {
         feed.setMessage(message);
     }
     
+    /**
+     * Sets the score for the home team
+     * @param score - total score of home team
+     */
     public void setHomeScore(int score) {
         scoreboard.setHomeScore(score);
     }
     
+    /**
+     * Sets the score for the away team
+     * @param score - total score of away team
+     */
     public void setAwayScore(int score) {
         scoreboard.setAwayScore(score);
     }
     
+    /**
+     * Sets the name of the home team (by city)
+     * @param name - city of home team
+     */
     public void setHomeTeamName(String name) {
         scoreboard.setHomeTeamName(name);
     }
     
+    /**
+     * Sets the name of the away team (by city)
+     * @param name - city of away team
+     */
     public void setAwayTeamName(String name) {
         scoreboard.setAwayTeamName(name);
     }
     
+    /**
+     * Sets the down number (1-4)
+     * @param downNum - number of the current down
+     */
     public void setDown(int downNum) {
         scoreboard.setDown(downNum);
     }
     
+    /**
+     * Sets the distance to the first down marker
+     * @param yardage - distance to first down
+     */
     public void setYardageToFirst(int yardage) {
         scoreboard.setYardageToFirst(yardage);
     }
     
+    /**
+     * Sets the position of the ball on the field
+     * @param yardMarker - position of line of scrimmage
+     */
     public void setYardMarker(int yardMarker) {
         scoreboard.setFieldYardage(yardMarker);
     }
     
+    /**
+     * sets the possession for the scoreboard only
+     * @param team - TYPE "home" or "away" to flip it respectively
+     */
     public void setPossession(String team) {
         scoreboard.setPossession(team);
     }
     
+    /**
+     * Sets the quarter of the game
+     * @param quarter - Quarter (1-4) of the current game
+     */
     public void setQuarter(int quarter) {
         scoreboard.setQuarter(quarter);
     }
     
-    public void move(int pix) {
-        field.move(pix);
+    /**
+     * Moves the team to a certain yard marker and sets the distance to the first down line
+     * @param yardage - position on field on Line of Scrimmage
+     * @param yardToFirst - distance in yards to first down line
+     */
+    public void move(int yardage, int yardToFirst) {
+        field.move(yardage, yardToFirst);
     }
     
+    /**
+     * Flips the possession on the scoreboard (like flipping a light switch)
+     */
     public void changePossession() {
         scoreboard.switchPossession();
     }
     
+    /**
+     * Test method that glides the team back and forth, flipping when it gets to the endzone
+     */
     public void glide() {
         field.glide(0);
     }
     
-    public void animate (int start, int end, boolean goingRight) {
-        field.animate(start,end,goingRight);
+    /**
+     * Animates a movement from one location to the other
+     * @param start - start yard line
+     * @param end - end yard line
+     * @param goingRight - true for home team, false for away team.
+     */
+    public void animate (int start, int end, int distanceToFDL, boolean goingRight) {
+        field.animate(start,end,distanceToFDL,goingRight);
     }
     
 }    

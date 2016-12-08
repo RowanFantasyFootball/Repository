@@ -55,9 +55,9 @@ public class Actions extends JPanel {
         setQuarter.addActionListener(e -> main.setQuarter(
             Integer.parseInt(JOptionPane.showInputDialog(this, "Type in Quarter Number:"))));
             
-        test = new JButton("Draw Yardage");
-        test.addActionListener(e -> main.move(
-            Integer.parseInt(JOptionPane.showInputDialog(this, "Type in Yard Marker:"))));
+        //test = new JButton("Draw Yardage");
+        //test.addActionListener(e -> main.move(
+            //Integer.parseInt(JOptionPane.showInputDialog(this, "Type in Yard Marker:"))));
             
         changePos = new JButton("Change Possession");
         changePos.addActionListener(e -> main.changePossession());
@@ -65,7 +65,7 @@ public class Actions extends JPanel {
         first.add(setHomeTeamName); first.add(setAwayTeamName); 
         first.add(setHomeScore); first.add(setAwayScore); 
         second.add(setDown); second.add(setYardageToFirst); 
-        second.add(setYardMarker); second.add(test); 
+        second.add(setYardMarker); //second.add(test); 
         second.add(setQuarter); first.add(changePos);
         this.add(first); this.add(second);
     }
