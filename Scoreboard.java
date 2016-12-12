@@ -39,11 +39,11 @@ public class Scoreboard extends JPanel {
 		aScore.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		down = new JLabel();
-		down.setFont(new java.awt.Font("Dialog", 1, 40));
+		down.setFont(new java.awt.Font("Dialog", 1, 36));
 		down.setText("1 & 10");
 
 		yardMarker = new JLabel();
-		yardMarker.setFont(new java.awt.Font("Dialog", 1, 40));
+		yardMarker.setFont(new java.awt.Font("Dialog", 1, 36));
 		yardMarker.setText("Ball on: PHI 25");
 
 		quarter = new JLabel();

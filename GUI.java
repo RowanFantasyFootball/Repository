@@ -1,8 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
+import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
+import javax.swing.*;
+
 import java.io.File;
 
 public class GUI {
@@ -223,8 +226,8 @@ public class GUI {
 	 * @param yardToFirst
 	 *            - distance in yards to first down line
 	 */
-	public void move(int yardage, int yardToFirst) {
-		field.move(yardage, yardToFirst);
+	public void move(int yardage, int yardToFirst, boolean goingRight) {
+		field.move(yardage, yardToFirst, goingRight); 
 	}
 
 	/**

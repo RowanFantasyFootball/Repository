@@ -7,7 +7,7 @@ public class DriveProgress {
 	/**
 	 * Starts on the 20 yard line.
 	 */
-	public static final int STARTING_LINE_OF_SCRIMMAGE = 25;
+	public static final int STARTING_LINE_OF_SCRIMMAGE = 20;
 
 	/**
 	 * The current 'y-axis' location of the current line of scrimmage.
@@ -23,7 +23,7 @@ public class DriveProgress {
 	 * Creates a new offensive progress object which keeps track of the current
 	 * offenses' progress for the current drive.
 	 */
-	private int yardCounter = 0;
+	private int yardCounter;
 
 	/**
 	 * Creates a new offensive progress object which keeps track of the current
