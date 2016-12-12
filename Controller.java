@@ -1,595 +1,480 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
- * The main controls for the Football game.
- * The Controller class creates instances of Players, Teams, Play Types, etc.
- * Loads each individual player into a given team, loops through actors to represent gameplay, and communicates between classes.
+ * Write a description of class Controller here.
  * 
- * @author John (Jack) Donahue
- * @author Gerald Miego
+ * @John (Jack) Donahue
+ * @Gerald Miego
+ * @Kevin Santana
  * @revision By: Joe Dunne & Tim McClintock
  */
 public class Controller {
-    /**
-     * The randomizer object to randomize the game activity.
-     */
-    public static final Randomizer randomizer = new Randomizer();
+	/** Variable names are self explanatory */
+	private static final int TICK_DELAY = 100;
+	private static final int MAX_GAME_TICKS = 100;
+	private static final int QUARTER_CHANGE_DELAY = 5000;
 
-    /**
-     * The delay between each game tick in milliseconds
-     */
-    private static final int TICK_DELAY = 100;
+	/**
+	 * The field for the teams to play on private Field field;
+	 */
 
-    /**
-     * The max amount of game ticks
-     */
-    private static final int MAX_GAME_TICKS = 500;
+	/**
+	 * The home team (Dont change this, supposed to be final)
+	 */
+	private final NFLTeam home;
 
-    /**
-     * The delay between each quarter
-     */
-    private static final int QUARTER_CHANGE_DELAY = 5000;
+	/**
+	 * The away team (Dont change this, supposed to be final)
+	 */
+	private final NFLTeam away;
 
-    /**
-     * The time clock for the game
-     */
-    private Clock clock;
+	/**
+	 * The current team on offense
+	 */
+	private NFLTeam offense;
 
-    /**
-     * The home team
-     */
-    private NFLTeam home;
+	/**
+	 * The current team on defense
+	 */
+	private NFLTeam defense;
 
-    /**
-     * The away team
-     */
-    private NFLTeam away;
+	/**
+	 * The time clock for the game
+	 */
+	private Clock clock;
 
-    /**
-     * The field for the teams to play on
-     */
-    //private Field field;
+	/**
+	 * Individual player stats
+	 */
+	private PlayerStat stats;
 
-    /**
-     * The progress of the current drive
-     */
-    private DriveProgress driveProgress;
+	/**
+	 * The progress of the current drive
+	 */
+	private DriveProgress progress;
 
-    /**
-     * 
-     */
-    private PlayerStat stats;
+	/**
+	 * The gui
+	 */
+	private GUI gui;
 
-    /**
-     * 
-     */
-    private Message msg;
+	/**
+	 * Creates a controller instance which simulates a football game between two
+	 * different teams
+	 */
+	public Controller() {
+		home = new NFLTeam("Eagles");
+		away = new NFLTeam("Cowboys");
+		stats = new PlayerStat();
+		clock = new Clock(MAX_GAME_TICKS);
+		gui = new GUI();
+		initialize();
+	}
 
-    /**
-     * Contact Simulator for determining play outcome
-     */
-    private ContactSimulator contactSimulator;
+	/**
+	 * Sets the offensive team to the specified team
+	 * 
+	 * @param team
+	 *            - the team to set to the defense
+	 */
+	public final void setOffense(NFLTeam team) {
+		offense = team;
+	}
 
-    /**
-     * home score
-     */
-    private int homeScore=0;
+	/**
+	 * Sets the defensive team to the specified team
+	 * 
+	 * @param team
+	 *            - the team to set to the defense
+	 */
+	public final void setDefense(NFLTeam team) {
+		defense = team;
+	}
 
-    /**
-     * away score
-     */
-    private int awayScore=0;
+	/**
+	 * Gets the current team on defense
+	 * 
+	 * @return the team on defense
+	 */
+	public final NFLTeam getDefense() {
+		return defense;
+	}
 
-    //private GUI gui;
+	/**
+	 * Gets the current team on offense
+	 * 
+	 * @return the team on offense
+	 */
+	public final NFLTeam getOffense() {
+		return offense;
+	}
 
-    /**
-     * TODO:
-     * Edit player positions to ACTUAL POSITIONS
-     */
+	/**
+	 * Gets the current home team
+	 * 
+	 * @return the home team
+	 */
+	public final NFLTeam getHomeTeam() {
+		return home;
+	}
 
-    /**
-     * Creates a controller instance which simulates a football game between two
-     * different teams
-     */
-    public Controller() {
-        stats = new PlayerStat();
-        clock = new Clock(MAX_GAME_TICKS);
-        contactSimulator = new ContactSimulator();
-        loadTeams();
-        //gui = new GUI();
-        start();
-        home.getOffense().get(1).setBall(true);
-    }
+	/**
+	 * Gets the current away team
+	 * 
+	 * @return the away team
+	 */
+	public final NFLTeam getAwayTeam() {
+		return away;
+	}
 
-    /**
-     * Runs the game.
-     * 
-     * MAX_GAME_TICKS longer game length.
-     * TICK_DELAY field if you want to have a longer time between each game tick.
-     */
-    public void start()
-    {
-        initialize();
-        while (clock.isRunning())
-        {
-            step();
-        }
-        System.out.println("Final score home team : " + homeScore + " away team :" + awayScore);
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public final Clock getClock() {
+		return clock;
+	}
 
-    /**
-     * Initializes the game
-     * 1. Loads the teams
-     * 2. Flips the coin to determine who gets the ball first
-     * 3. Places the offense
-     * 4. Places the defense
-     */
-    private void initialize() 
-    {
-        driveProgress = new DriveProgress();
-        loadTeams();
-        flipCoin();
-    }
+	/**
+	 * Gets the drive progress object
+	 * 
+	 * @return the drive progress
+	 */
+	public final DriveProgress getDriveProgress() {
+		return progress;
+	}
 
-    /**
-     * Places the defense onto the specified yard line
-     * 
-     * @param yardline the 'y-axis' location (yardline) that the players will line up on.
-     */
-    private void placeDefense(int yardline)
-    {
-        System.out.println("Defense placed at " + yardline + " yardline.");
-        int los = driveProgress.getLineOfScrimmage();
+	/**
+	 * Gets the player with the ball
+	 * 
+	 * @return the player with the ball
+	 */
+	public final Player getPlayerWithBall() {
+		try {
+			return getOffense().getOffensivePlayers().stream().filter(p -> p.hasBall()).findFirst().get();
+		} catch (NoSuchElementException e) {
+			return null;
+		}
+	}
 
-        for (int i = 0; i < getDefensiveTeam().getDefense().size(); i++) // go through list of players
-        {
-            Player currentPlayer = getDefensiveTeam().getDefense().get(i);
-            switch(currentPlayer.getPosition()) // find current player's position
-            {
-                case DEFENSIVE_LINEMAN:
-                currentPlayer.setStartCoordinate(los+1,0);
-                break;
-                case DEFENSIVE_BACK:
-                currentPlayer.setStartCoordinate(los+1,4);
-                break;
-                case LINEBACKER:
-                currentPlayer.setStartCoordinate(los+1,-1);
-                break;
-                case CORNER:
-                currentPlayer.setStartCoordinate(los+1,-4);
-                break;
-                case SAFETY:
-                currentPlayer.setStartCoordinate(los+1,3);
-                break;
-                default:
-                break;
-            }
-        }
-    }
+	/**
+	 * Allow the user to comprehend program on screen by waiting and allotted
+	 * time.
+	 * 
+	 * @param millisec
+	 *            the amount of time to wait.
+	 */
+	public final void wait(int millisec) {
+		try {
+			Thread.sleep(millisec);
+		} catch (InterruptedException e) {
 
-    /**
-     * Places the offense onto the specified yard line
-     * 
-     * @param yardline the 'y-axis' location (yardline) that the players will line up on.
-     */
-    private void placeOffense(int yardline)
-    {
-        System.out.println("Offense placed at " + yardline + " yardline.");
-        int los = driveProgress.getLineOfScrimmage();
+		}
+	}
 
-        for (int i = 0; i < getOffensiveTeam().getOffense().size(); i++) // go through list of players
-        {
-            Player currentPlayer = getOffensiveTeam().getOffense().get(i);
-            switch(currentPlayer.getPosition()) // find current player's position
-            {
-                case QUARTERBACK:
-                currentPlayer.setStartCoordinate(los-1,0);
-                break;
-                case RUNNINGBACK:
-                currentPlayer.setStartCoordinate(los-2,0);
-                break;
-                case WIDERECIEVER:
-                currentPlayer.setStartCoordinate(los,5);
-                break;
-                case TIGHTEND:
-                currentPlayer.setStartCoordinate(los,-3);
-                break;
-                case OFFENSIVE_LINEMAN:
-                currentPlayer.setStartCoordinate(los,-5);
-                break;
-                default:
-                break;
-            }
-        }
-    }
+	/**
+	 * Initializes the game 1. Loads the teams 2. Flips the coin to determine
+	 * who gets the ball first 3. Places the offense 4. Places the defense
+	 */
+	private void initialize() {
+		progress = new DriveProgress();
+		loadPlayers();
+		flipCoin();
+		lineupOffense(20, getOffense().getOffensivePlayers());
+		lineupDefense(20, getDefense().getDefensivePlayers());
+		start();
+	}
 
-    private void flipCoin()
-    {
-        randomizer.getRandomNumber(2); // Not sure if this is supposed to be 1 or 2
-    }
+	public void start() {
+		while (getClock().isRunning()) {
+			step();
+			wait(TICK_DELAY);
+		}
+	}
 
-    /**
-     * Where the game operates....
-     * 
-     * TODO:
-     * 1. ) Make sure messages from player stat works.
-     * 2. ) Add collision recognition.
-     * 3. ) (offense.getX() == defense.getX() && offense.getY() == defense.getY())
-     * 4. ) Add counter for downs.
-     * 5. ) If player is open for pass.
-     * 6. ) Keep track of score.
-     * 7. ) Keep track of yardage
-     * 8. ) Add defensive offense recognition (Make defensive paths somewhat mirror offensive paths)
-     * 9. ) Read through the list of Actors and tell each Actor to act accordingly?
-     */
-    public void step()
-    {
-        operateClock();
-        movePlayersToLineOfScrimmage();
-        operateOffense();
-        operateDefense();
-        determinePlayOutcome();
-        operateDriveProgress();
+	/**
+	 * Simulates a coin flip 0 is heads 1 is tales
+	 * 
+	 * @param guess
+	 *            input 0 or 1
+	 * @return if the guess was correct
+	 */
+	public final boolean simulateCoinFlip(int guess) {
+		return Integer.valueOf(Randomizer.getRandomNumber(1)) == guess;
+	}
 
-        runClock(); // This must always be last
-    }
+	/**
+	 * Simulate a coin flip where the away team guesses and if they get it they
+	 * choose to be on the offense first
+	 */
+	public final void flipCoin() {
+		if (simulateCoinFlip(Randomizer.getRandomNumber(1))) {
+			setOffense(away);
+			setDefense(home);
+		} else {
+			setOffense(home);
+			setDefense(away);
+		}
+	}
 
-    /**
-     * Check for next down. If the next down is greater than 4, swap offense and defense
-     */
-    private void operateDriveProgress()
-    {
-        driveProgress.nextDown(); // add 1 to the downs (the next down)
+	/**
+	 * Steps and operates progress, determines if a successful play if the
+	 * offenses play potential success is greater than the defense's
+	 */
+	public final void step() {
+		int offense = operateOffense();
+		int defense = operateDefense();
+		int newLineOfScrimage = progress.getLineOfScrimmage() + (offense - defense);
+		operateProgress(newLineOfScrimage);
+		operateClock();
+		gui.setAwayScore(away.getScore());
+		gui.setHomeScore(home.getScore());
+		gui.setYardageToFirst(progress.getLineOfScrimmage() + 10);
+		gui.setDown(progress.getDown());
+		gui.setQuarter(clock.getQuarter());
+		gui.setPossession(getOffense().getTeamName());
+		gui.setYardMarker(progress.getLineOfScrimmage());
+	}
 
-        if(driveProgress.getLineOfScrimmage() > 99)
-        {
-            NFLTeam scoringTeam = getOffensiveTeam();
-            //touchdown home team
-            if(scoringTeam.equals(home))
-            {
-                homeScore = homeScore + 7; 
-                System.out.println("Yay the home team scored, the score is now " + homeScore + " - " + awayScore);
-                //create a new message for this
-                //stats.addMessage(new Message(3, *player object*, clock.getTicks(), *yardage*, *ball position*));
-            } 
-            else
-            {
-                awayScore = awayScore + 7;
-                System.out.println("Yay the home team scored, the score is now " + homeScore + " - " + awayScore);
-                //create a new message for this
-            }
-            swapOffenseAndDefense();
-            driveProgress.resetDowns();
-            driveProgress.setLineOfScrimmage(30);
-        }
-        if (driveProgress.isDriveOver())
-        {
-            swapOffenseAndDefense();
-            driveProgress.resetDowns();
-        }
-        System.out.println("It is now down " + (driveProgress.getDowns() + 1));
-    }
+	/**
+	 * Operates the offense (Calls act method on offensive players)
+	 * 
+	 * 1. Gets a random play object which provides each actor with movements 2.
+	 * Cycles through each offensive actor on the field and operates them
+	 * 
+	 * @return gets the potential that the play will be successful
+	 */
+	public final int operateOffense() {
+		PLAY_TYPE TYPE = PLAY_TYPE.getRandomOffensivePlayType();
+		OffensivePlay play = new OffensivePlay(TYPE);
+		for (Actor actor : getOffense().getOffensivePlayers()) {
+			actor.act(play);
+		}
+		return TYPE.getPotential();
+	}
 
-    /**
-     * Swap the posession of the ball
-     */
-    private void swapOffenseAndDefense()
-    {
-        NFLTeam offense = getOffensiveTeam();
-        if (home.equals(offense)) // home team is currently offense
-        {
-            //take ball from offense
-            for (int i = 0; i < home.getOffense().size(); i++) // go through list of players
-            {
-                Player currentPlayer = home.getOffense().get(i);
-                currentPlayer.setBall(false);
-            }
+	/**
+	 * Operates the defense (Calls act method on defensive players). 1. Gets a
+	 * random defensive play from the Playbook. 2. Cycles through each defensive
+	 * actor on the field and operates them.å
+	 */
+	public final int operateDefense() {
+		PLAY_TYPE TYPE = PLAY_TYPE.getRandomDefensivePlayType();
+		DefensivePlay play = new DefensivePlay(TYPE);
+		for (Actor actor : getDefense().getDefensivePlayers()) {
+			actor.act(play);
+		}
+		return TYPE.getPotential();
+	}
 
-            for (int i = 0; i < away.getOffense().size(); i++) // go through list of players
-            {
-                Player currentPlayer = away.getOffense().get(i);
-                switch(currentPlayer.getPosition()) // find current player's position
-                {
-                    case QUARTERBACK:
-                    currentPlayer.setBall(true);
+	/**
+	 * Operates the clock. Checks if the quarter is over, then changes it and
+	 * waits for the next quarter to start. Always ticks and waits per step
+	 */
+	public final void operateClock() {
+		if (clock.isQuarterOver()) {
+			clock.changeQuarter();
+			wait(QUARTER_CHANGE_DELAY);
+		}
+		clock.tick();
+		wait(TICK_DELAY);
+	}
 
-                    break;
-                    default:
-                    break;
-                }
-            }
-            driveProgress.setLineOfScrimmage(100 - driveProgress.getLineOfScrimmage());
-        }
-        else if(away.equals(offense))// home team is currently defense
-        {
-            //take ball from offense
+	/**
+	 * Swaps the current offense and defense
+	 */
+	public final void swapTeams() {
+		if (getOffense().equals(away)) {
+			setDefense(away);
+			setOffense(home);
+		} else {
+			setDefense(home);
+			setOffense(away);
+		}
+	}
 
-            for (int i = 0; i < away.getOffense().size(); i++) // go through list of players
-            {
-                Player currentPlayer = away.getOffense().get(i);
-                currentPlayer.setBall(false);
-            }
+	/**
+	 * Lines up a player random as hell
+	 * 
+	 * @param yardline
+	 *            the 'y-axis' location (yardline) that the players will line up
+	 *            on.
+	 */
+	public void lineupOffense(int yardline, ArrayList<Player> players) {
+		ArrayList<Location> used = new ArrayList<Location>();
+		Iterator<Player> it = players.iterator();
+		while (it.hasNext()) {
+			Player player = it.next();
+			Location lineup = null;
+			do {
+				boolean subtract = Randomizer.getRandomNumber(1) == 1;
+				int lineupY = yardline + (subtract ? -player.getPosition().getRandomYLocation()
+						: player.getPosition().getRandomYLocation());
+				int lineupX = (-player.getPosition().getRandomXLocation());
+				Location random = new Location(lineupX, lineupY);
+				if (used.stream().filter(l -> l.equals(random)).count() < 1) {
+					lineup = random;
+				}
+			} while (lineup == null);
+			System.out.println("Linedup: " + player.toString() + " @ " + lineup.toString());
+			player.lineup(lineup);
+		}
+	}
 
-            for (int i = 0; i < home.getOffense().size(); i++) // go through list of players
-            {
-                Player currentPlayer = home.getOffense().get(i);
-                switch(currentPlayer.getPosition()) // find current player's position
-                {
-                    case QUARTERBACK:
-                    currentPlayer.setBall(true);
+	/**
+	 * Lines up a player random as hell
+	 * 
+	 * @param yardline
+	 *            the 'y-axis' location (yardline) that the players will line up
+	 *            on.
+	 */
+	public void lineupDefense(int yardline, ArrayList<Player> players) {
+		ArrayList<Location> used = new ArrayList<Location>();
+		Iterator<Player> it = players.iterator();
+		while (it.hasNext()) {
+			Player player = it.next();
+			Location lineup = null;
+			do {
+				boolean subtract = Randomizer.getRandomNumber(1) == 1;
+				int lineupY = yardline + (subtract ? -player.getPosition().getRandomYLocation()
+						: player.getPosition().getRandomYLocation());
+				int lineupX = (-player.getPosition().getRandomXLocation());
+				Location random = new Location(lineupX, lineupY);
+				if (used.stream().filter(l -> l.equals(random)).count() < 1) {
+					lineup = random;
+				}
+			} while (lineup == null);
+			System.out.println("Linedup: " + player.toString() + " @ " + lineup.toString());
+			player.lineup(lineup);
+		}
+	}
 
-                    break;
-                    default:
-                    break;
-                }
-            }
-            driveProgress.setLineOfScrimmage(100 - driveProgress.getLineOfScrimmage());
-        }
-    }
+	/**
+	 * Operates the drive progress for both team. Keeps track of the score and
+	 * what happened in the play
+	 * 
+	 * @param previous
+	 *            - the previous yard line
+	 */
+	public void operateProgress(int newLineOfScrimage) {
+		System.out.println("Operating progress..");
+		/** Handles a play with gained yards */
+		if (newLineOfScrimage > progress.getLineOfScrimmage()) {
+			/** Handles a touchdown (Message code: 1) */
+			if (newLineOfScrimage >= 100) {
+				stats.updateMessage(new Message(getPlayerWithBall(), 1, clock.getTicks(), newLineOfScrimage,
+						progress.getLineOfScrimmage()), gui);
+				if (getOffense().getTeamName().equals(away.getTeamName())) {
+					away.touchdown();
+				} else {
+					home.touchdown();
+				}
+				swapTeams();
+				lineupOffense(20, getOffense().getOffensivePlayers());
+				lineupDefense(20, getDefense().getDefensivePlayers());
+				progress.resetDowns();
+				progress.setLineOfScrimmage(20);
+				return;
+			}
+			/** Handles first downs (Message code: 2) */
+			else if (newLineOfScrimage - progress.getLineOfScrimmage() >= 10) {
+				stats.updateMessage(new Message(getPlayerWithBall(), 2, clock.getTicks(), newLineOfScrimage,
+						progress.getLineOfScrimmage()), gui);
+				lineupOffense(newLineOfScrimage, getOffense().getOffensivePlayers());
+				lineupDefense(newLineOfScrimage, getDefense().getDefensivePlayers());
+				progress.resetDowns();
+				progress.setLineOfScrimmage(newLineOfScrimage);
+			}
+			/** Handles a successful play (Message code: 4) */
+			else {
+				stats.updateMessage(new Message(getPlayerWithBall(), 4, clock.getTicks(), newLineOfScrimage,
+						progress.getLineOfScrimmage()), gui);
+				lineupOffense(newLineOfScrimage, getOffense().getOffensivePlayers());
+				lineupDefense(newLineOfScrimage, getDefense().getDefensivePlayers());
+				progress.nextDown();
+				progress.setLineOfScrimmage(newLineOfScrimage);
+			}
+		}
+		/** Handles an unsuccessful play (Message code: 5) */
+		else {
+			stats.updateMessage(new Message(getPlayerWithBall(), 5, clock.getTicks(), newLineOfScrimage,
+					progress.getLineOfScrimmage()), gui);
+			progress.nextDown();
+			lineupOffense(progress.getLineOfScrimmage(), getOffense().getOffensivePlayers());
+			lineupDefense(progress.getLineOfScrimmage(), getDefense().getDefensivePlayers());
+		}
 
-    /**
-     * Determine the outcome of the current play.
-     * If the play outcome number is greater than or equal to the number of players,
-     *      move line of scrimmage forward
-     *      else, move line of scrimmage backwards or not at all
-     */
-    private void determinePlayOutcome()
-    {
-        NFLTeam offense = getOffensiveTeam();
-        NFLTeam defense = getDefensiveTeam();
-        int los = driveProgress.getLineOfScrimmage();
-        int outcome = contactSimulator.simulateContact(offense, defense);
-        if (outcome >= 5)
-        {
-            //move line of scrimmage forward (between 1 and 20 yards)
-            int randomAdd = Randomizer.getRandomNumber(10);
-            driveProgress.setLineOfScrimmage(los+randomAdd);
-            driveProgress.addToYardCounter(randomAdd);
-            System.out.println("A " + randomAdd + " yard play.");
-        }
-        else
-        {
-            //move line of scrimmage backwards (between zero and 5)
-            int randomSub = Randomizer.getRandomNumber(5);
-            driveProgress.setLineOfScrimmage(los-randomSub);
-            driveProgress.addToYardCounter(-randomSub);
-        }
-    }
+		/** Handles turnovers (Message code: 3) */
+		if (progress.isDriveOver()) {
+			stats.updateMessage(new Message(getPlayerWithBall(), 3, clock.getTicks(), newLineOfScrimage,
+					progress.getLineOfScrimmage()), gui);
+			swapTeams();
+			progress.setLineOfScrimmage(20);
+			progress.resetDowns();
+			lineupOffense(progress.getLineOfScrimmage(), getOffense().getOffensivePlayers());
+			lineupDefense(progress.getLineOfScrimmage(), getDefense().getDefensivePlayers());
+		}
+		stats.showAllOverviews();
+	}
 
-    /**
-     * 
-     */
-    private void movePlayersToLineOfScrimmage()
-    {
-        placeOffense(driveProgress.getLineOfScrimmage());
-        placeDefense(driveProgress.getLineOfScrimmage() - 1);
-    }
+	/**
+	 * Loads the home and away teams offensive and defensive players This method
+	 * is finished and finalized. Only modify the player of player stats
+	 */
+	private final void loadPlayers() {
+		home.addPlayerToDefense(new Player("Connor", "Barwin", 81, 80, POSITION.DEFENSIVE_LINEMAN)); // LE
+		home.addPlayerToDefense(new Player("Bennie", "Logan", 68, 88, POSITION.DEFENSIVE_LINEMAN)); // DT
+		home.addPlayerToDefense(new Player("Fletcher", "Cox", 79, 86, POSITION.DEFENSIVE_LINEMAN)); // DT
+		home.addPlayerToDefense(new Player("Brandon", "Graham", 80, 78, POSITION.DEFENSIVE_LINEMAN)); // RE
+		home.addPlayerToDefense(new Player("Jordan", "Hicks", 83, 76, POSITION.DEFENSIVE_LINEMAN)); // MLB
+		home.addPlayerToDefense(new Player("Mychal", "Kendricks", 88, 74, POSITION.DEFENSIVE_BACK)); // LOLB
+		home.addPlayerToDefense(new Player("Nigel", "Bradham", 85, 72, POSITION.DEFENSIVE_BACK)); // ROLB
+		home.addPlayerToDefense(new Player("Nolan", "Carroll III", 89, 52, POSITION.DEFENSIVE_BACK)); // CB
+		home.addPlayerToDefense(new Player("Leodis", "McKelvin", 88, 52, POSITION.LINEBACKER)); // CB
+		home.addPlayerToDefense(new Player("Rodney", "McLeod Jr.", 86, 56, POSITION.LINEBACKER)); // SS
+		home.addPlayerToDefense(new Player("Malcolm", "Jenkins", 86, 64, POSITION.DEFENSIVE_BACK)); // FS
 
-    /**
-     * Runs the clock by ticking the clock and waiting the tick delay in
-     * milliseconds
-     */
-    private void runClock()
-    {
-        clock.tick();
-        wait(TICK_DELAY);
-    }
+		// Offense
+		// Quarter Back?
+		home.addPlayerToOffense(new Player("Carson", "Wentz", 82, 72, POSITION.QUARTERBACK)); // QB
+		home.addPlayerToOffense(new Player("Ryan", "Mathews", 89, 73, POSITION.WIDE_RECIEVER)); // HB
+		home.addPlayerToOffense(new Player("Jordan", "Matthews", 90, 68, POSITION.WIDE_RECIEVER)); // WR
+		home.addPlayerToOffense(new Player("Nelson", "Agholor", 91, 64, POSITION.WIDE_RECIEVER)); // WR
+		home.addPlayerToOffense(new Player("Josh", "Huff", 90, 60, POSITION.RUNNINGBACK)); // WR
+		home.addPlayerToOffense(new Player("Zach", "Ertz", 80, 73, POSITION.RUNNINGBACK)); // TE
+		home.addPlayerToOffense(new Player("Jason", "Kelce", 73, 86, POSITION.OFFENSIVE_LINEMAN)); // C
+		home.addPlayerToOffense(new Player("Jason", "Peters", 67, 96, POSITION.OFFENSIVE_LINEMAN)); // LT
+		home.addPlayerToOffense(new Player("Barrett", "Jones", 56, 82, POSITION.OFFENSIVE_LINEMAN)); // LG
+		home.addPlayerToOffense(new Player("Lane", "Johnson", 80, 86, POSITION.OFFENSIVE_LINEMAN)); // RT
+		home.addPlayerToOffense(new Player("Brandon", "Brooks", 70, 95, POSITION.OFFENSIVE_LINEMAN)); // RG
 
-    /**
-     * Operates the clock
-     */
-    private void operateClock()
-    {
-        /**
-         * Checks if the quarter is over, then changes it and waits for the next
-         * quarter to start
-         */
-        if (clock.isQuarterOver())
-        {
-            clock.changeQuarter();
-            wait(QUARTER_CHANGE_DELAY);
-        }
-    }
+		// Defense
+		away.addPlayerToDefense(new Player("Demarcus", "Lawrence", 78, 76, POSITION.DEFENSIVE_LINEMAN)); // LE
+		away.addPlayerToDefense(new Player("Tyrone", "Crawford", 78, 81, POSITION.DEFENSIVE_LINEMAN)); // DT
+		away.addPlayerToDefense(new Player("Cedric", "Thornton", 61, 88, POSITION.DEFENSIVE_LINEMAN)); // DT
+		away.addPlayerToDefense(new Player("Randy", "Gregory", 84, 78, POSITION.DEFENSIVE_LINEMAN)); // RE
+		away.addPlayerToDefense(new Player("Rolando", "McClain", 80, 77, POSITION.DEFENSIVE_LINEMAN)); // MLB
+		away.addPlayerToDefense(new Player("Justin", "Durant", 83, 64, POSITION.DEFENSIVE_LINEMAN)); // LOLB
+		away.addPlayerToDefense(new Player("Sean", "Lee", 82, 75, POSITION.DEFENSIVE_BACK)); // ROLB
+		away.addPlayerToDefense(new Player("Orlando", "Scandrick", 90, 52, POSITION.DEFENSIVE_BACK)); // CB
+		away.addPlayerToDefense(new Player("Brandon", "Carr", 86, 51, POSITION.DEFENSIVE_BACK)); // CB
+		away.addPlayerToDefense(new Player("Barry", "Crunch", 86, 65, POSITION.LINEBACKER)); // SS
+		away.addPlayerToDefense(new Player("Byron", "Jones", 91, 70, POSITION.LINEBACKER)); // FS
 
-    /**
-     * Operates the offense (Calls act method on offensive players)
-     */
-    private void operateOffense()
-    {
-        /**
-         * Gets a random play object which provides each actor with movements
-         */
-        OffensivePlay offensivePlay = new OffensivePlaybook(getOffensiveTeam().getOffense()).getRandomPlay(); // can be run, pass, qbsneak
-        /**
-         * Cycles through each offensive actor on the field and operates them
-         */
-        for (Actor actor : getOffensiveTeam().getOffense())
-        {
-            actor.act(offensivePlay);
-        }
-    }
-
-    /**
-     * Operates the defense (Calls act method on defensive players).
-     */
-    private void operateDefense()
-    {
-        /**
-         * Gets a random defensive play from the Playbook.
-         */
-        DefensivePlay defensivePlay = new DefensivePlaybook(getDefensiveTeam().getDefense()).getRandomPlay();
-        /**
-         * Cycles through each defensive actor on the field and operates them.
-         */
-        for (Actor actor : getDefensiveTeam().getDefense())
-        {
-            actor.act(defensivePlay);
-        }
-    }
-
-    /**
-     * Gets the defensive team based on who has the ball
-     * 
-     * revision by David Lackey 
-     * NFLTeam doesn't have a hasBall() method but Player does.
-     * 
-     * We need to check the entire away team to see if any of the away 
-     * players have the ball (hasBall() = true)
-     */
-    private NFLTeam getDefensiveTeam()
-    {
-        ArrayList<Player> awayDefense = away.getDefense();  //arrayList of away Defensive Players
-        ArrayList<Player> awayOffense = away.getOffense();  //arrayList of away Offensive Players
-
-        ArrayList<Player> awayTeam = new ArrayList<>();
-        awayTeam.addAll(awayDefense);
-        awayTeam.addAll(awayOffense);                      //concatenated arrayList of entire away team
-
-        Iterator<Player> it = awayTeam.iterator();
-
-        /**
-         * if any away player has the ball, the team on defense is the home team.
-         * otherwise the team on defense is the away team
-         */
-        while (it.hasNext()){
-            Player awayPlayer = it.next();
-            if (awayPlayer.hasBall()){
-                return home;
-            }
-        }
-        return away;
-    }
-
-    /**
-     * Gets the offensive team based on who has the ball
-     * 
-     * revision by David Lackey 
-     * NFLTeam doesn't have a hasBall() method but Player does.
-     * 
-     * We need to check the entire away team to see if any of the away 
-     * players have the ball (hasBall() = true)
-     */
-    private NFLTeam getOffensiveTeam()
-    {
-        ArrayList<Player> awayDefense = away.getDefense();  //arrayList of away Defensive Players
-        ArrayList<Player> awayOffense = away.getOffense();  //arrayList of away Offensive Players
-
-        ArrayList<Player> awayTeam = new ArrayList<>();
-        awayTeam.addAll(awayDefense);
-        awayTeam.addAll(awayOffense);                      //concatenated arrayList of entire away team
-
-        Iterator<Player> it = awayTeam.iterator();
-
-        /**
-         * if any away player has the ball, the team on offense is the away team.
-         * otherwise the team on offense is the home team
-         */
-        while (it.hasNext()){
-            Player awayPlayer = it.next();
-            if (awayPlayer.hasBall()){
-                return away;
-            }
-        }
-        return home;
-    }
-
-    /**
-     * Allow the user to comprehend program on screen by waiting and allotted
-     * time.
-     * 
-     * @param millisec
-     *            the amount of time to wait.
-     */
-    private void wait(int millisec)
-    {
-        try
-        {
-            Thread.sleep(millisec);
-        }
-        catch (InterruptedException e)
-        {
-            // No statement needed
-        }
-    }
-
-    /**
-     * Simulates a coin flip 0 is heads 1 is tales
-     * 
-     * @param guess
-     *            input 0 or 1
-     * @return if the guess was correct
-     */
-    public boolean simulateCoinFlip(int guess)
-    {
-        return Integer.valueOf(Randomizer.getRandomNumber(1)) == guess;
-    }
-
-    /**
-     * Create all player objects for each NFLTeam. Adds each player to their
-     * respective team while also creating a player object.
-     */
-    public void loadTeams()
-    {
-        // home team
-
-        //Defense
-        home = new NFLTeam("Eagles");
-        home.addPlayerToDefense(new Player("Connor", "Barwin", 81, 80, POSITION.DEFENSIVE_LINEMAN));            //LE
-        home.addPlayerToDefense(new Player("Bennie", "Logan", 68, 88, POSITION.DEFENSIVE_BACK));             //DT           
-        home.addPlayerToDefense(new Player("Fletcher", "Cox", 79, 86, POSITION.DEFENSIVE_BACK));             //DT           
-        home.addPlayerToDefense(new Player("Brandon", "Graham", 80, 78, POSITION.DEFENSIVE_LINEMAN));           //RE     
-        home.addPlayerToDefense(new Player("Jordan", "Hicks", 83, 76, POSITION.DEFENSIVE_LINEMAN));             //MLB 
-        home.addPlayerToDefense(new Player("Mychal", "Kendricks",88, 74, POSITION.DEFENSIVE_LINEMAN));          //LOLB
-        home.addPlayerToDefense(new Player("Nigel", "Bradham",85, 72, POSITION.DEFENSIVE_LINEMAN));             //ROLB
-        home.addPlayerToDefense(new Player("Nolan", "Carroll III",89, 52, POSITION.CORNER));         //CB
-        home.addPlayerToDefense(new Player("Leodis", "McKelvin",88, 52, POSITION.CORNER));           //CB
-        home.addPlayerToDefense(new Player("Rodney", "McLeod Jr.",86, 56, POSITION.SAFETY));         //SS
-        home.addPlayerToDefense(new Player("Malcolm", "Jenkins", 86, 64, POSITION.SAFETY));          //FS
-
-        //Offense
-        //Quarter Back?
-        home.addPlayerToOffense(new Player("Carson", "Wentz", 82, 72, POSITION.QUARTERBACK));             //QB     
-        home.addPlayerToOffense(new Player("Ryan", "Mathews", 89, 73, POSITION.RUNNINGBACK));             //HB      
-        home.addPlayerToOffense(new Player("Jordan", "Matthews", 90, 68, POSITION.WIDERECIEVER));          //WR
-        home.addPlayerToOffense(new Player("Nelson", "Agholor", 91, 64, POSITION.WIDERECIEVER));           //WR    
-        home.addPlayerToOffense(new Player("Josh", "Huff", 90, 60, POSITION.WIDERECIEVER));                //WR         
-        home.addPlayerToOffense(new Player("Zach", "Ertz", 80, 73, POSITION.TIGHTEND));                //TE         
-        home.addPlayerToOffense(new Player("Jason", "Kelce", 73, 86, POSITION.TIGHTEND));               //C       
-        home.addPlayerToOffense(new Player("Jason", "Peters", 67, 96, POSITION.OFFENSIVE_LINEMAN));             //LT      
-        home.addPlayerToOffense(new Player("Barrett", "Jones", 56, 82, POSITION.OFFENSIVE_LINEMAN));            //LG     
-        home.addPlayerToOffense(new Player("Lane", "Johnson", 80, 86, POSITION.OFFENSIVE_LINEMAN));             //RT      
-        home.addPlayerToOffense(new Player("Brandon", "Brooks", 70, 95, POSITION.OFFENSIVE_LINEMAN));           //RG
-
-        // away team
-        away = new NFLTeam("Cowboys");
-
-        //Defense
-        away.addPlayerToDefense(new Player("Demarcus", "Lawrence",78, 76, POSITION.DEFENSIVE_LINEMAN));         //LE
-        away.addPlayerToDefense(new Player("Tyrone", "Crawford", 78, 81, POSITION.DEFENSIVE_BACK));          //DT  
-        away.addPlayerToDefense(new Player("Cedric", "Thornton", 61,  88, POSITION.DEFENSIVE_BACK));         //DT  
-        away.addPlayerToDefense(new Player("Randy", "Gregory", 84, 78, POSITION.DEFENSIVE_LINEMAN));            //RE    
-        away.addPlayerToDefense(new Player("Rolando", "McClain", 80,  77, POSITION.DEFENSIVE_LINEMAN));         //MLB  
-        away.addPlayerToDefense(new Player("Justin", "Durant", 83, 64, POSITION.DEFENSIVE_LINEMAN));            //LOLB    
-        away.addPlayerToDefense(new Player("Sean", "Lee", 82, 75, POSITION.DEFENSIVE_LINEMAN));                 //ROLB         
-        away.addPlayerToDefense(new Player("Orlando", "Scandrick", 90, 52, POSITION.CORNER));        //CB
-        away.addPlayerToDefense(new Player("Brandon", "Carr", 86, 51, POSITION.CORNER));             //CB     
-        away.addPlayerToDefense(new Player("Barry", "Crunch", 86, 65, POSITION.SAFETY));             //SS     
-        away.addPlayerToDefense(new Player("Byron", "Jones", 91, 70, POSITION.SAFETY));              //FS
-
-        //Offense
-        //Quarter Back?
-        away.addPlayerToOffense(new Player("Dak", "Prescott", 82, 74, POSITION.QUARTERBACK));             //QB     
-        away.addPlayerToOffense(new Player("Ezekiel", "Elliot", 92, 75, POSITION.RUNNINGBACK));           //HB   
-        away.addPlayerToOffense(new Player("Dez", "Bryant", 90, 74, POSITION.WIDERECIEVER));               //WR       
-        away.addPlayerToOffense(new Player("Terrance", "Williams", 92, 57, POSITION.WIDERECIEVER));        //WR
-        away.addPlayerToOffense(new Player("Cole", "Beasley", 87, 61, POSITION.WIDERECIEVER));             //WR     
-        away.addPlayerToOffense(new Player("Jason", "Witten", 77, 75, POSITION.TIGHTEND));             //TE     
-        away.addPlayerToOffense(new Player("Travis", "Frederick", 52, 90, POSITION.TIGHTEND));         //C 
-        away.addPlayerToOffense(new Player("Tyron", "Smith", 72, 88, POSITION.OFFENSIVE_LINEMAN));              //LT     
-        away.addPlayerToOffense(new Player("La'el", "Collins", 72,  88, POSITION.OFFENSIVE_LINEMAN));           //LG     
-        away.addPlayerToOffense(new Player("Doug", "Free", 60, 81, POSITION.OFFENSIVE_LINEMAN));                //RT        
-        away.addPlayerToOffense(new Player("Zach", "Martin", 69, 89, POSITION.OFFENSIVE_LINEMAN));              //RG
-    }
+		// Offense
+		// Quarter Back?
+		away.addPlayerToOffense(new Player("Dak", "Prescott", 82, 74, POSITION.QUARTERBACK)); // QB
+		away.addPlayerToOffense(new Player("Ezekiel", "Elliot", 92, 75, POSITION.RUNNINGBACK)); // HB
+		away.addPlayerToOffense(new Player("Dez", "Bryant", 90, 74, POSITION.WIDE_RECIEVER)); // WR
+		away.addPlayerToOffense(new Player("Terrance", "Williams", 92, 57, POSITION.WIDE_RECIEVER)); // WR
+		away.addPlayerToOffense(new Player("Cole", "Beasley", 87, 61, POSITION.OFFENSIVE_LINEMAN)); // WR
+		away.addPlayerToOffense(new Player("Jason", "Witten", 77, 75, POSITION.OFFENSIVE_LINEMAN)); // TE
+		away.addPlayerToOffense(new Player("Travis", "Frederick", 52, 90, POSITION.OFFENSIVE_LINEMAN)); // C
+		away.addPlayerToOffense(new Player("Tyron", "Smith", 72, 88, POSITION.OFFENSIVE_LINEMAN)); // LT
+		away.addPlayerToOffense(new Player("La'el", "Collins", 72, 88, POSITION.OFFENSIVE_LINEMAN)); // LG
+		away.addPlayerToOffense(new Player("Doug", "Free", 60, 81, POSITION.OFFENSIVE_LINEMAN)); // RT
+		away.addPlayerToOffense(new Player("Zach", "Martin", 69, 89, POSITION.WIDE_RECIEVER)); // RG
+	}
 }

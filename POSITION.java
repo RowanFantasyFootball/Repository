@@ -1,32 +1,53 @@
 /**
  * 
- * @author 
+ * @author
  *
  */
-public enum POSITION 
-{
+public enum POSITION {
 
 	/**
-	 * Offense
+	 * Offense, has its lineup positons inside if it
 	 */
-	QUARTERBACK,
-	RUNNINGBACK,
-	WIDERECIEVER,
-	TIGHTEND,
-	OFFENSIVE_LINEMAN,
-	
+	QUARTERBACK(1, 2, 1, 1), RUNNINGBACK(1, 3, 3, 3), WIDE_RECIEVER(1, 1, 1, 7), OFFENSIVE_LINEMAN(1, 1, 1, 2),
+
 	/**
-	 * Defense
+	 * Defense, has its lineup positons inside of it
 	 */
-	DEFENSIVE_LINEMAN,
-	DEFENSIVE_BACK,
-	LINEBACKER,
-	CORNER,
-	SAFETY,
-	
+	DEFENSIVE_LINEMAN(1, 2, 1, 6), DEFENSIVE_BACK(3, 8, 1, 5), LINEBACKER(2, 4, 1, 6);
+
 	/**
-	 * Special teams
+	 * The lineup values to randomize
 	 */
-	PUNTER,
-	KICKER
+	private int xmin, xmax, ymin, ymax;
+
+	/**
+	 * 
+	 * @param xmin
+	 * @param xmax
+	 * @param ymin
+	 * @param ymax
+	 */
+	POSITION(int xmin, int xmax, int ymin, int ymax) {
+		this.xmin = xmin;
+		this.xmax = xmax;
+		this.ymin = ymin;
+		this.ymax = ymax;
+	}
+
+	/**
+	 * Generate
+	 * 
+	 * @return
+	 */
+	public int getRandomXLocation() {
+		return Randomizer.getRandomNumber(xmin, xmax);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public int getRandomYLocation() {
+		return Randomizer.getRandomNumber(ymin, ymax);
+	}
 }

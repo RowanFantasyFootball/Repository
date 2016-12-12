@@ -3,12 +3,11 @@
  * 
  * @author Joe Dunne
  */
-public class DriveProgress 
-{
+public class DriveProgress {
 	/**
-	 * Starts on the 30 yard line.
+	 * Starts on the 20 yard line.
 	 */
-	public static final int STARTING_LINE_OF_SCRIMMAGE = 30;
+	public static final int STARTING_LINE_OF_SCRIMMAGE = 25;
 
 	/**
 	 * The current 'y-axis' location of the current line of scrimmage.
@@ -19,9 +18,10 @@ public class DriveProgress
 	 * The current down of the drive.
 	 */
 	private int down;
-	
+
 	/**
-	 * yard on set of downs counter
+	 * Creates a new offensive progress object which keeps track of the current
+	 * offenses' progress for the current drive.
 	 */
 	private int yardCounter = 0;
 
@@ -29,10 +29,18 @@ public class DriveProgress
 	 * Creates a new offensive progress object which keeps track of the current
 	 * offenses' progress for the current drive.
 	 */
-	public DriveProgress() 
-	{
+	public DriveProgress() {
 		setLineOfScrimmage(STARTING_LINE_OF_SCRIMMAGE);
 		resetDowns();
+	}
+
+	/**
+	 * Gets the total yardage counter for the game
+	 * 
+	 * @return the total yards
+	 */
+	public int getTotalYardage() {
+		return yardCounter;
 	}
 	
 	/**
@@ -40,68 +48,59 @@ public class DriveProgress
 	 * 
 	 * @return the current line of scrimmage.
 	 */
-	public int getLineOfScrimmage() 
-	{
+	public int getLineOfScrimmage() {
 		return lineOfScrimmage;
 	}
-	
+
 	/**
-	 * Tells you if the drive is over or not (down > 4).
+	 * Tells you if the drive is over or not (down >= 4).
 	 * 
 	 * @return true if the drive is over
 	 */
-	public boolean isDriveOver() 
-	{
-		return down > 3; 
+	public boolean isDriveOver() {
+		return down >= 4;
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 */
+	public int getDown() {
+		return down;
+	}
+
 	/**
 	 * Sets the line of scrimmage to the specified line of scrimmage.
 	 * 
-	 * @param lineOfScrimage the line of scrimmage to set the offenses line of scrimmage.
+	 * @param lineOfScrimage
+	 *            the line of scrimmage to set the offenses line of scrimmage.
 	 */
-	public void setLineOfScrimmage(int lineOfScrimmage) 
-	{
+	public void setLineOfScrimmage(int lineOfScrimmage) {
 		this.lineOfScrimmage = lineOfScrimmage;
 	}
 
 	/**
 	 * Resets the downs back to 1.
 	 */
-	public void resetDowns() 
-	{
-		down = 0;
-		yardCounter = 0;
+	public void resetDowns() {
+		down = 1;
 	}
 
 	/**
 	 * Increments the current down.
 	 */
-	public void nextDown() 
-	{
+	public void nextDown() {
 		down++;
 	}
-	
-	/**
-	 * returns downs
-	 */
-	public int getDowns()
-	{
-	    //with the sickness
-	    return down;
-	}
-	
+
 	/**
 	 * adds to yard counter and checks if first down
 	 */
-	public void addToYardCounter(int yardsOnPlay)
-	{
-	    yardCounter = yardCounter + yardsOnPlay;
-	    if(yardCounter > 9)
-	    {
-	        //first down
-	        System.out.println("First Down"); 
-	        resetDowns();
-	    }
+	public void addToYardCounter(int gains) {
+		yardCounter =+ gains;
+		if (gains > 9) {
+			System.out.println("First Down");
+			resetDowns();
+		}
 	}
 }

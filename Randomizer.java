@@ -20,6 +20,16 @@ public class Randomizer
 	public static int getRandomNumber(int upperBoundExclusive) {
 		return new Random().nextInt(upperBoundExclusive);
 	}
+	
+	/**
+	 * Returns a random number.
+	 * 
+	 * @param upperBoundExclusive the max value of the randomly returned value.
+	 * @return a random value based off of the given maximum.
+	 */
+	public static int getRandomNumber(int min, int upperBoundExclusive) {
+		return min + new Random().nextInt(upperBoundExclusive);
+	}
 
 	/**
 	 * Returns a random number.
@@ -28,8 +38,8 @@ public class Randomizer
 	 * @param upperBoundExclusive the max value of the randomly returned value.
 	 * @return a random value based off of the given maximum and seed.
 	 */
-	public static int getRandomNumber(int seed, int upperBoundExclusive)
-	{
-		return new Random(seed).nextInt(upperBoundExclusive);
-	}
+	//public static int getRandomNumber(int seed, int upperBoundExclusive)
+	//{
+	//	return new Random(seed).nextInt(upperBoundExclusive);
+	//}
 }

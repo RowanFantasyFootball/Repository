@@ -1,131 +1,78 @@
-import java.util.ArrayList;
 
 /**
  * A class that determines movements for each position based on the current play
- * 
- * @author John (Jack) Donahue
  */
-public class OffensivePlay extends Play 
-{
-    public String currentPlay;
-    public OffensivePlay(ArrayList<Player> players, String playType) 
-    {
-        super(players);
-        currentPlay = playType;
-    }
+public class OffensivePlay extends Play {
 
-    @Override
-    public void assignPlayerMovements() 
-    {
-        //determine current play
-        switch (currentPlay)
-        {
-            case "run":
-            assignRunMovements();
-            break;
-            case "pass":
-            assignPassMovements();
-            break;
-            case "qbsneak":
-            assignQBSneakMovements();
-            break;
-            default:
-            assignRunMovements();
-        }
-    }   
+	/**
+	 * The ball carrier on the play
+	 */
+	private Player ballCarrier;
 
-    /**
-     * Assign player movements for a Run play
-     */
-    private void assignRunMovements()
-    {
-        for (int i = 0; i < players.size(); i++) // go through list of players
-        {
-            Player currentPlayer = players.get(i);
-            switch(currentPlayer.getPosition()) // find current player's position
-            {
-                case QUARTERBACK:
-                currentPlayer.setEndingCoordinate(-2,0);
-                break;
-                case RUNNINGBACK:
-                currentPlayer.setEndingCoordinate(-1,0);
-                break;
-                case WIDERECIEVER:
-                currentPlayer.setEndingCoordinate(10,-4);
-                break;
-                case TIGHTEND:
-                currentPlayer.setEndingCoordinate(2,2);
-                break;
-                case OFFENSIVE_LINEMAN:
-                currentPlayer.setEndingCoordinate(0,1);
-                break;
-                default:
-                break;
-            }
-        }
-    }
-    
-    /**
-     * Assign player movements for a Pass play
-     */
-    private void assignPassMovements()
-    {
-        // ALL MOVEMENT PATTERNS ARE JUST TEMPORARY VARIABLES!
-        // MUST DISCUSS ACTUAL MOVEMENTS (this is just to get the code running
-        for (int i = 0; i < players.size(); i++) // go through list of players
-        {
-            Player currentPlayer = players.get(i);
-            switch(currentPlayer.getPosition()) // find current player's position
-            {
-                case QUARTERBACK:
-                currentPlayer.setEndingCoordinate(-2,0); //move QB straight back 2 yards
-                break;
-                case RUNNINGBACK:
-                currentPlayer.setEndingCoordinate(10,5);
-                break;
-                case WIDERECIEVER:
-                currentPlayer.setEndingCoordinate(25,-3);
-                break;
-                case TIGHTEND:
-                currentPlayer.setEndingCoordinate(5,5);
-                break;
-                case OFFENSIVE_LINEMAN:
-                currentPlayer.setEndingCoordinate(0,0);
-                break;
-                default:
-                break;
-            }
-        }
-    }
-    
-    /**
-     * Assign player movements for a QB-Sneak play
-     */
-    private void assignQBSneakMovements()
-    {
-        for (int i = 0; i < players.size(); i++) // go through list of players
-        {
-            Player currentPlayer = players.get(i);
-            switch(currentPlayer.getPosition()) // find current player's position
-            {
-                case QUARTERBACK:
-                currentPlayer.setEndingCoordinate(4,5);
-                break;
-                case RUNNINGBACK:
-                currentPlayer.setEndingCoordinate(-1,0);
-                break;
-                case WIDERECIEVER:
-                currentPlayer.setEndingCoordinate(10,-4);
-                break;
-                case TIGHTEND:
-                currentPlayer.setEndingCoordinate(2,2);
-                break;
-                case OFFENSIVE_LINEMAN:
-                currentPlayer.setEndingCoordinate(0,1);
-                break;
-                default:
-                break;
-            }
-        }
-    }
+	/**
+	 * Creates a new offensive play
+	 * 
+	 * @param players
+	 *            - the list of players to update their position
+	 */
+	public OffensivePlay(PLAY_TYPE TYPE) {
+		super(TYPE);
+	}
+
+	@Override
+	public Location getMovement(Player player) {
+		setBallCarrier(player);
+		switch (player.getPosition()) {
+		case OFFENSIVE_LINEMAN:
+			return new Location(player.getLineupLocation().getX() + Randomizer.getRandomNumber(10),
+					player.getLineupLocation().getY() + Randomizer.getRandomNumber(15));
+		case RUNNINGBACK:
+			return new Location(player.getLineupLocation().getX() + Randomizer.getRandomNumber(10),
+					player.getLineupLocation().getY() + Randomizer.getRandomNumber(15));
+		case WIDE_RECIEVER:
+			return new Location(player.getLineupLocation().getX() + Randomizer.getRandomNumber(10),
+					player.getLineupLocation().getY() + Randomizer.getRandomNumber(15));
+		case QUARTERBACK:
+			return new Location(player.getLineupLocation().getX() + Randomizer.getRandomNumber(5),
+					player.getLineupLocation().getY() + Randomizer.getRandomNumber(10));
+		}
+		return null;
+	}
+
+	/**
+	 * Sets the ball carrier on the play
+	 * 
+	 * @param player
+	 *            - the player to potentially give the ball to
+	 */
+	private void setBallCarrier(Player player) {
+		if (getBallCarrier() == null) {
+			switch (getType()) {
+			case PASS:
+				if (player.getPosition().equals(POSITION.WIDE_RECIEVER)) {
+					ballCarrier = player;
+				}
+			case QBSNEAK:
+				if (player.getPosition().equals(POSITION.QUARTERBACK)) {
+					ballCarrier = player;
+				}
+			case RUN:
+				if (player.getPosition().equals(POSITION.RUNNINGBACK)) {
+					ballCarrier = player;
+				}
+			default:
+				break;
+			}
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see Play#getBallCarrier()
+	 */
+	@Override
+	public Player getBallCarrier() {
+		return ballCarrier;
+	}
 }

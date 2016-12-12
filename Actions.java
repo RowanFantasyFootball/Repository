@@ -8,6 +8,7 @@ public class Actions extends JPanel {
     JButton setYardMarker, setQuarter, test, changePos;
     
     GUI main;
+    
     public Actions(GUI manager) {
         super();
         main = manager;

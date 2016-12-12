@@ -2,8 +2,8 @@ import java.util.*;
 /**
  * Write a description of class Location here.
  * 
- * @author Clinton Conyer
- * @version 11/21/2016
+ * @author (your name) 
+ * @version (a version number or a date)
  */
 public class Location
 {
@@ -29,7 +29,7 @@ public class Location
     {
         if(obj instanceof Location) {
             Location other = (Location) obj;
-            return row == other.getRow() && col == other.getCol();
+            return row == other.getY() && col == other.getX();
         }
         else {
             return false;
@@ -59,7 +59,7 @@ public class Location
     /**
      * @return The row.
      */
-    public int getRow()
+    public int getY()
     {
         return row;
     }
@@ -67,7 +67,7 @@ public class Location
     /**
      * @return The column.
      */
-    public int getCol()
+    public int getX()
     {
         return col;
     }

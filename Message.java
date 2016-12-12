@@ -1,45 +1,93 @@
- 
 
-public class Message 
-{
+public class Message {
 
-	private int messageCode;
-	private Player playerName;
+	/**
+	 * The message code
+	 */
+	private int code;
+
+	/**
+	 * The current tick for the message
+	 */
 	private int tick;
-	private int yardage;
-	private int ballPosition;
-	
-	public Message(int messageCode, Player playerName, int tick, int yardage, int ballPosition) 
-	{
-		this.messageCode = messageCode;
-		this.ballPosition = ballPosition;
-		this.playerName = playerName;
-		this.yardage = yardage;
+
+	/**
+	 * The current yardage for the message
+	 */
+	private int newLine;
+
+	/**
+	 * The line of scrimage before the play was executed
+	 */
+	private int oldLine;
+
+	/**
+	 * The player in the message
+	 */
+	private Player player;
+
+	/**
+	 * Creates a new message for the controller
+	 * 
+	 * @param player
+	 *            - the player in the message
+	 * @param code
+	 *            - the message code
+	 * @param tick
+	 *            - the tick from the controllers clock
+	 * @param newLine
+	 *            - the new yardLine we ended up on
+	 * @param oldLine
+	 *            - the old yardline we were on before the play
+	 */
+	public Message(Player player, int code, int tick, int newLine, int oldLine) {
 		this.tick = tick;
+		this.code = code;
+		this.player = player;
+		this.newLine = newLine;
+		this.oldLine = oldLine;
 	}
-	
-	public int getBallPosition()
-	{
-		return ballPosition;
+
+	/**
+	 * Doesn't account for touchdowns yet
+	 * 
+	 * @return the yardaged gained based off the difference of the lines of
+	 *         scrimages
+	 */
+	public int getYardageGained() {
+		return newLine - oldLine;
 	}
-	
-	public int getMessageCode()
-	{
-		return messageCode;
+
+	/**
+	 * 
+	 * @return
+	 */
+	public int getMessageCode() {
+		return code;
 	}
-	
-	public Player getPlayerName()
-	{
-		return playerName;
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Player getPlayer() {
+		return player;
 	}
-	
-	public int getTick()
-	{
+
+	/**
+	 * 
+	 * @return
+	 */
+	public int getTick() {
 		return tick;
 	}
-	
-	public String showMessage()
-	{
-		return playerName.getFirstName() + " at " + yardage +  " just " + PlayerStat.getOV().get(messageCode) + " at " + tick;
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String showMessage() {
+		return "Gain of: " + getYardageGained() + " yards and just " + PlayerStat.getOV().get(getMessageCode())
+				+ " at tick: " + tick;
 	}
 }

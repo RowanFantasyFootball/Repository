@@ -1,32 +1,49 @@
- 
 
-import java.util.ArrayList;
 
 /**
- * This is an abstract class (Not to be instantiated on its own) which 
- * creates a new Play object that assigns movements to each player on the team
+ * This is an abstract class (Not to be instantiated on its own) which creates a
+ * new Play object that assigns movements to each player on the team
  * 
  * @author Joe D
  */
 public abstract class Play {
-
 	/**
-	 * The list of players being assigned movements
+	 * The maximum potential for a successful play
 	 */
-	protected ArrayList<Player> players;
+	public static final int MAX_SUCCESS_POTENTIAL = 100;
 
 	/**
-	 * Creates a new play object with the players to assign movements to
+	 * The type of play were running
+	 */
+	private PLAY_TYPE TYPE;
+	
+	/**
 	 * 
-	 * @param players
-	 *            - the list of players we want to assign movements to
+	 * @param center
 	 */
-	public Play(ArrayList<Player> players) {
-		this.players = players;
+	public Play(PLAY_TYPE TYPE) {
+		this.TYPE = TYPE;
 	}
-
+		
 	/**
 	 * An abstract method to assign player movements to each player on the field
+	 * 
+	 * @param PLAYER - the player to get the movement pattern for
 	 */
-	public abstract void assignPlayerMovements();
+	public abstract Location getMovement(Player player);
+		
+	/**
+	 * 
+	 * @return
+	 */
+	public abstract Player getBallCarrier();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public PLAY_TYPE getType() {
+		return TYPE;
+	}
+	
 }
