@@ -1,18 +1,11 @@
 #BlueJ class context
-comment0.params=players\ playType
-comment0.target=DefensivePlay(java.util.ArrayList,\ java.lang.String)
-comment1.params=
-comment1.target=void\ assignPlayerMovements()
+comment0.params=TYPE
+comment0.target=DefensivePlay(PLAY_TYPE)
+comment0.text=\r\n\ Creates\ a\ new\ offensive\ play\r\n\ \r\n\ @param\ players\r\n\ \ \ \ \ \ \ \ \ \ \ \ -\ the\ list\ of\ players\ to\ update\ their\ position\r\n
+comment1.params=player
+comment1.target=Location\ getMovement(Player)
+comment1.text=\r\n\ (non-Javadoc)\r\n\ \r\n\ @see\ Play\#getMovement(Player)\r\n
 comment2.params=
-comment2.target=void\ assignManMovements()
-comment2.text=\r\n\ Assign\ player\ movements\ for\ Man\ Defense\r\n\ NOTE\:\ This\ is\ temporary\!\r\n\ \ \ \ \ \ Thinking\ of\ a\ way\ to\ have\ the\ defensive\ players\ follow\ their\ offenders\r\n
-comment3.params=
-comment3.target=void\ assignZoneMovements()
-comment3.text=\r\n\ Assign\ player\ movements\ for\ Zone\ Defense\r\n\ NOTE\:\ This\ is\ temporary\!\r\n\ \ \ \ \ \ Thinking\ of\ a\ way\ to\ have\ the\ defensive\ players\ follow\ their\ offenders\r\n
-comment4.params=
-comment4.target=void\ assignCover4Movements()
-comment4.text=\r\n\ Assign\ player\ movements\ for\ Cover4\ Defense\r\n\ NOTE\:\ This\ is\ temporary\!\r\n\ \ \ \ \ \ Thinking\ of\ a\ way\ to\ have\ the\ defensive\ players\ follow\ their\ offenders\r\n
-comment5.params=
-comment5.target=void\ assignBlitzMovements()
-comment5.text=\r\n\ Assign\ player\ movements\ for\ Man\ Defense\r\n\ NOTE\:\ This\ is\ temporary\!\r\n\ \ \ \ \ \ Thinking\ of\ a\ way\ to\ have\ the\ defensive\ players\ follow\ their\ offenders\r\n
-numComments=6
+comment2.target=Player\ getBallCarrier()
+comment2.text=\r\n\ (non-Javadoc)\r\n\ \r\n\ @see\ Play\#getBallCarrier()\r\n
+numComments=3

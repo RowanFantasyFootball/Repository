@@ -1,15 +1,13 @@
 #BlueJ class context
-comment0.params=players\ playType
-comment0.target=OffensivePlay(java.util.ArrayList,\ java.lang.String)
-comment1.params=
-comment1.target=void\ assignPlayerMovements()
-comment2.params=
-comment2.target=void\ assignRunMovements()
-comment2.text=\r\n\ Assign\ player\ movements\ for\ a\ Run\ play\r\n
+comment0.params=TYPE
+comment0.target=OffensivePlay(PLAY_TYPE)
+comment0.text=\r\n\ Creates\ a\ new\ offensive\ play\r\n\ \r\n\ @param\ players\r\n\ \ \ \ \ \ \ \ \ \ \ \ -\ the\ list\ of\ players\ to\ update\ their\ position\r\n
+comment1.params=player
+comment1.target=Location\ getMovement(Player)
+comment2.params=player
+comment2.target=void\ setBallCarrier(Player)
+comment2.text=\r\n\ Sets\ the\ ball\ carrier\ on\ the\ play\r\n\ \r\n\ @param\ player\r\n\ \ \ \ \ \ \ \ \ \ \ \ -\ the\ player\ to\ potentially\ give\ the\ ball\ to\r\n
 comment3.params=
-comment3.target=void\ assignPassMovements()
-comment3.text=\r\n\ Assign\ player\ movements\ for\ a\ Pass\ play\r\n
-comment4.params=
-comment4.target=void\ assignQBSneakMovements()
-comment4.text=\r\n\ Assign\ player\ movements\ for\ a\ QB-Sneak\ play\r\n
-numComments=5
+comment3.target=Player\ getBallCarrier()
+comment3.text=\r\n\ (non-Javadoc)\r\n\ \r\n\ @see\ Play\#getBallCarrier()\r\n
+numComments=4

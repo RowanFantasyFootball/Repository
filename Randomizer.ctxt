@@ -2,7 +2,7 @@
 comment0.params=upperBoundExclusive
 comment0.target=int\ getRandomNumber(int)
 comment0.text=\r\n\ Returns\ a\ random\ number.\r\n\ \r\n\ @param\ upperBoundExclusive\ the\ max\ value\ of\ the\ randomly\ returned\ value.\r\n\ @return\ a\ random\ value\ based\ off\ of\ the\ given\ maximum.\r\n
-comment1.params=seed\ upperBoundExclusive
+comment1.params=min\ upperBoundExclusive
 comment1.target=int\ getRandomNumber(int,\ int)
-comment1.text=\r\n\ Returns\ a\ random\ number.\r\n\ \r\n\ @param\ seed\ a\ random\ seed\ to\ randomize\ it\ even\ more.\r\n\ @param\ upperBoundExclusive\ the\ max\ value\ of\ the\ randomly\ returned\ value.\r\n\ @return\ a\ random\ value\ based\ off\ of\ the\ given\ maximum\ and\ seed.\r\n
+comment1.text=\r\n\ Returns\ a\ random\ number.\r\n\ \r\n\ @param\ upperBoundExclusive\ the\ max\ value\ of\ the\ randomly\ returned\ value.\r\n\ @return\ a\ random\ value\ based\ off\ of\ the\ given\ maximum.\r\n
 numComments=2

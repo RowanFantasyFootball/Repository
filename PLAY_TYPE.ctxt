@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=PLAY_TYPE()
+comment0.text=\r\n\ \r\n
+comment1.params=
+comment1.target=int\ getPotential()
+comment1.text=\r\n\ Gets\ the\ potential\ that\ the\ defense\ will\ stop\ a\ play\r\n\ \r\n\ @return\ the\ potential\ that\ the\ defense\ will\ stop\ a\ play\r\n
+comment2.params=
+comment2.target=PLAY_TYPE\ getRandomOffensivePlayType()
+comment2.text=\r\n\ Gets\ a\ random\ defensive\ play\ type\r\n\ \r\n\ @return\ a\ random\ play\ type\ for\ the\ defense\ to\ use\r\n
+comment3.params=
+comment3.target=PLAY_TYPE\ getRandomDefensivePlayType()
+comment3.text=\r\n\ Gets\ a\ random\ defensive\ play\ type\r\n\ \r\n\ @return\ a\ random\ play\ type\ for\ the\ defense\ to\ use\r\n
+numComments=4

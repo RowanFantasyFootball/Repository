@@ -1,8 +1,14 @@
 #BlueJ class context
-comment0.params=players
-comment0.target=Play(java.util.ArrayList)
-comment0.text=\r\n\ Creates\ a\ new\ play\ object\ with\ the\ players\ to\ assign\ movements\ to\r\n\ \r\n\ @param\ players\r\n\ \ \ \ \ \ \ \ \ \ \ \ -\ the\ list\ of\ players\ we\ want\ to\ assign\ movements\ to\r\n
-comment1.params=
-comment1.target=void\ assignPlayerMovements()
-comment1.text=\r\n\ An\ abstract\ method\ to\ assign\ player\ movements\ to\ each\ player\ on\ the\ field\r\n
-numComments=2
+comment0.params=TYPE
+comment0.target=Play(PLAY_TYPE)
+comment0.text=\r\n\ \r\n\ @param\ center\r\n
+comment1.params=player
+comment1.target=Location\ getMovement(Player)
+comment1.text=\r\n\ An\ abstract\ method\ to\ assign\ player\ movements\ to\ each\ player\ on\ the\ field\r\n\ \r\n\ @param\ PLAYER\ -\ the\ player\ to\ get\ the\ movement\ pattern\ for\r\n
+comment2.params=
+comment2.target=Player\ getBallCarrier()
+comment2.text=\r\n\ \r\n\ @return\r\n
+comment3.params=
+comment3.target=PLAY_TYPE\ getType()
+comment3.text=\r\n\ \r\n\ @return\r\n
+numComments=4

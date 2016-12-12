@@ -1,14 +1,20 @@
 #BlueJ class context
-comment0.params=messageCode\ playerName\ tick\ yardage\ ballPosition
-comment0.target=Message(int,\ Player,\ int,\ int,\ int)
+comment0.params=player\ code\ tick\ newLine\ oldLine
+comment0.target=Message(Player,\ int,\ int,\ int,\ int)
+comment0.text=\r\n\ Creates\ a\ new\ message\ for\ the\ controller\r\n\ \r\n\ @param\ player\r\n\ \ \ \ \ \ \ \ \ \ \ \ -\ the\ player\ in\ the\ message\r\n\ @param\ code\r\n\ \ \ \ \ \ \ \ \ \ \ \ -\ the\ message\ code\r\n\ @param\ tick\r\n\ \ \ \ \ \ \ \ \ \ \ \ -\ the\ tick\ from\ the\ controllers\ clock\r\n\ @param\ newLine\r\n\ \ \ \ \ \ \ \ \ \ \ \ -\ the\ new\ yardLine\ we\ ended\ up\ on\r\n\ @param\ oldLine\r\n\ \ \ \ \ \ \ \ \ \ \ \ -\ the\ old\ yardline\ we\ were\ on\ before\ the\ play\r\n
 comment1.params=
-comment1.target=int\ getBallPosition()
+comment1.target=int\ getYardageGained()
+comment1.text=\r\n\ Doesn't\ account\ for\ touchdowns\ yet\r\n\ \r\n\ @return\ the\ yardaged\ gained\ based\ off\ the\ difference\ of\ the\ lines\ of\r\n\ \ \ \ \ \ \ \ \ scrimages\r\n
 comment2.params=
 comment2.target=int\ getMessageCode()
+comment2.text=\r\n\ \r\n\ @return\r\n
 comment3.params=
-comment3.target=Player\ getPlayerName()
+comment3.target=Player\ getPlayer()
+comment3.text=\r\n\ \r\n\ @return\r\n
 comment4.params=
 comment4.target=int\ getTick()
+comment4.text=\r\n\ \r\n\ @return\r\n
 comment5.params=
 comment5.target=java.lang.String\ showMessage()
+comment5.text=\r\n\ \r\n\ @return\r\n
 numComments=6

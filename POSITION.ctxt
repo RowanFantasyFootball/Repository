@@ -1,2 +1,11 @@
 #BlueJ class context
-numComments=0
+comment0.params=xmin\ xmax\ ymin\ ymax
+comment0.target=POSITION(int,\ int,\ int,\ int)
+comment0.text=\r\n\ \r\n\ @param\ xmin\r\n\ @param\ xmax\r\n\ @param\ ymin\r\n\ @param\ ymax\r\n
+comment1.params=
+comment1.target=int\ getRandomXLocation()
+comment1.text=\r\n\ Generate\r\n\ \r\n\ @return\r\n
+comment2.params=
+comment2.target=int\ getRandomYLocation()
+comment2.text=\r\n\ \r\n\ @return\r\n
+numComments=3
